@@ -21,7 +21,7 @@ public class Tile_Interact : MonoBehaviour
     public GameObject fallingTile;
 
     // The color of the tile, as well as that color's position in the sprite arrays of other objects
-    public string color;
+    public Color color;
     public int colorPos;
 
     // The position of the tile on the 8x8 game board
@@ -213,11 +213,11 @@ public class Tile_Interact : MonoBehaviour
         posY = y;
     }
 
-    public string GetColor()
+    public Color GetColor()
     {
         return color;
     }
-    public void SetColor(string inp)
+    public void SetColor(Color inp)
     {
         color = inp;
     }

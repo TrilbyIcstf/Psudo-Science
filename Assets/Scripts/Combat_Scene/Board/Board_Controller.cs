@@ -61,23 +61,11 @@ public class Board_Controller : MonoBehaviour
     // Which tile is currently being clicked [column, row]
     private int[] activeTile = new int[2];
 
-    // The points towards each color's next move
-    private float bluePoints = 0;
-    private float orangePoints = 0;
-    private float pinkPoints = 0;
-    private float purplePoints = 0;
-
     // The health total of each color
     private float blueHealth = 100;
     private float orangeHealth = 100;
     private float pinkHealth = 100;
     private float purpleHealth = 100;
-
-    // The power multiplier for each color's next move
-    private float bluePower = 1;
-    private float orangePower = 1;
-    private float pinkPower = 1;
-    private float purplePower = 1;
 
     // Start is called before the first frame update
     void Start()
@@ -606,7 +594,7 @@ public class Board_Controller : MonoBehaviour
     }
 
     // Checks if a specific tile on the board exists and matches the passed in color
-    private bool CheckMatch(int x, int y, string color)
+    private bool CheckMatch(int x, int y, Color color)
     {
         if (x >= 0 && x <= 7 && y >= 0 && y <= 7 && board[x, y] != null &&
             board[x, y].GetComponent<Tile_Interact>().GetColor() == color)
@@ -623,39 +611,39 @@ public class Board_Controller : MonoBehaviour
     }
 
     // Assigns points based on both the effects of the passed in color, and the length of the chain giving the points
-    private void GainPointsChain(string color, int chain)
+    private void GainPointsChain(Color _color, int chain)
     {
-        switch (color)
+        switch (_color)
         {
-            case "Blue":
-                bluePoints += chain;
+            case Color.BLUE:
+                GameManager.instance.combat.energy.GainEnergy(chain, _color);
                 break;
-            case "Orange":
-                orangePoints += chain;
+            case Color.ORANGE:
+                GameManager.instance.combat.energy.GainEnergy(chain, _color);
                 break;
-            case "Pink":
-                pinkPoints += chain;
+            case Color.PINK:
+                GameManager.instance.combat.energy.GainEnergy(chain, _color);
                 break;
-            case "Purple":
-                purplePoints += chain;
+            case Color.PURPLE:
+                GameManager.instance.combat.energy.GainEnergy(chain, _color);
                 break;
-            case "Green":
+            case Color.GREEN:
                 blueHealth += chain;
                 orangeHealth += chain;
                 pinkHealth += chain;
                 purpleHealth += chain;
                 break;
-            case "Grey":
-                bluePower += chain / 100;
-                orangePower += chain / 100;
-                pinkPower += chain / 100;
-                purplePower += chain / 100;
+            case Color.GREY:
+                GameManager.instance.combat.energy.ExpoPowerUp((chain / 100) + 1, Color.BLUE);
+                GameManager.instance.combat.energy.ExpoPowerUp((chain / 100) + 1, Color.ORANGE);
+                GameManager.instance.combat.energy.ExpoPowerUp((chain / 100) + 1, Color.PINK);
+                GameManager.instance.combat.energy.ExpoPowerUp((chain / 100) + 1, Color.PURPLE);
                 break;
-            case "Black":
-                bluePoints += chain / 5;
-                orangePoints += chain / 5;
-                pinkPoints += chain / 5;
-                purplePoints += chain / 5;
+            case Color.BLACK:
+                GameManager.instance.combat.energy.GainEnergy(chain / 5, Color.BLUE);
+                GameManager.instance.combat.energy.GainEnergy(chain / 5, Color.ORANGE);
+                GameManager.instance.combat.energy.GainEnergy(chain / 5, Color.PINK);
+                GameManager.instance.combat.energy.GainEnergy(chain / 5, Color.PURPLE);
                 break;
             default:
                 break;
@@ -692,24 +680,5 @@ public class Board_Controller : MonoBehaviour
     public float GetYGap()
     {
         return yGap;
-    }
-
-    // DEBUG FUNCTIONS
-    private void DebugColorPointMessage()
-    {
-        Debug.Log("Blue points: " + bluePoints);
-        Debug.Log("Orange points: " + orangePoints);
-        Debug.Log("Pink points: " + pinkPoints);
-        Debug.Log("Purple points: " + purplePoints);
-        Debug.Log("");
-        Debug.Log("Blue power: " + bluePower);
-        Debug.Log("Orange power: " + orangePower);
-        Debug.Log("Pink power: " + pinkPower);
-        Debug.Log("Purple power: " + purplePower);
-        Debug.Log("");
-        Debug.Log("Blue health: " + blueHealth);
-        Debug.Log("Orange health: " + orangeHealth);
-        Debug.Log("Pink health: " + pinkHealth);
-        Debug.Log("Purple health: " + purpleHealth);
     }
 }
