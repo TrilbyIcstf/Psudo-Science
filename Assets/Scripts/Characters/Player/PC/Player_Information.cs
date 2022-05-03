@@ -24,6 +24,9 @@ public class Player_Information : ScriptableObject
     [SerializeField] private int MagicStat = 10;
     [SerializeField] private int MagDefenseStat = 10;
 
+    [Header("Equipment")]
+    [SerializeField] private bool Placeholder;
+
     // Public getters
     public string GetFirstName()
     {
