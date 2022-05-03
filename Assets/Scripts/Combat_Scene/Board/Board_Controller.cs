@@ -17,18 +17,28 @@ public class Board_Controller : MonoBehaviour
     private static float topMost = 0.5f;
     private static float bottomMost = -3.7f;
 
-    // An array of each tile on the board. X = Column, Y = Row (Public for debuging purposes)
-    private GameObject[,] board = new GameObject[8, 8];
+    // Size of the board
+    public int boardWidth = 8;
+    public int boardHeight = 8;
+
+    // An array of each tile on the board. X = Column, Y = Row
+    private GameObject[,] board;
+
+    // The center spot of the board
+    public Transform centerPos;
 
     // The position of the top-left most tile, used for positioning objects on the board
     private Vector3 startingPos = new Vector3(leftMost, topMost, 0.0f);
 
-    // The distances between each tile
-    private float xGap = 0.7f;
-    private float yGap = 0.6f;
+    // Parent object for the tiles
+    public GameObject tileDad;
 
-    // [0         , 1           ]
-    // [Blue piece, Orange piece]
+    // The distances between each tile
+    private float xGap = 0.72f;
+    private float yGap = 0.68f;
+
+    // [0         , 1           , 2           , 3         , 4          , 5         , 6          ]
+    // [Blue piece, Orange piece, Purple piece, Pink piece, Green piece, Grey piece, Black piece]
     // Prefabs of each of the tile types
     public GameObject[] pieces = new GameObject[7];
 
@@ -72,7 +82,11 @@ public class Board_Controller : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        GameManager.instance.combat.board = this;
         mainCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+
+        board = new GameObject[boardWidth, boardHeight];
+        startingPos = new Vector3(centerPos.position.x - (((boardWidth / 2) - 0.5f) * xGap), centerPos.position.y + (((boardHeight / 2) - 0.5f) * yGap), 0.0f);
 
         // Loops through each spot in the board array
         for (int i = 0; i < 8; i++)
@@ -84,7 +98,8 @@ public class Board_Controller : MonoBehaviour
 
                 // Creates a new instance of the chosen piece
                 GameObject newPiece = Instantiate(pieces[randomPiece], new Vector3(startingPos.x + (xGap * i), startingPos.y - (yGap * j), startingPos.z), Quaternion.identity);
-                
+                newPiece.transform.parent = tileDad.transform;
+
                 // Assigns that piece it's position on the board
                 Tile_Interact tileScript = newPiece.GetComponent(typeof(Tile_Interact)) as Tile_Interact;
                 tileScript.SetPlacement(i, j);
@@ -120,6 +135,7 @@ public class Board_Controller : MonoBehaviour
 
                         // Creates a new instance of the chosen piece
                         GameObject newPiece = Instantiate(pieces[randomPiece], new Vector3(startingPos.x + (xGap * i), startingPos.y - (yGap * j), startingPos.z), Quaternion.identity);
+                        newPiece.transform.parent = tileDad.transform;
 
                         // Assigns that piece it's position on the board
                         Tile_Interact tileScript = newPiece.GetComponent(typeof(Tile_Interact)) as Tile_Interact;
@@ -538,11 +554,12 @@ public class Board_Controller : MonoBehaviour
                 Vector3 spawnPos = new Vector3(startingPos.x + (xGap * i), startingPos.y + (yGap * j), startingPos.z);
 
                 GameObject tempFallingTile = Instantiate(fallingTile, spawnPos, Quaternion.identity);
+                tempFallingTile.transform.parent = tileDad.transform;
                 Falling_Tile fallingScript = tempFallingTile.GetComponent<Falling_Tile>();
 
                 int randomPiece = Random.Range(0, 7);
 
-                fallingScript.Generate(randomPiece, i, blankSpots - j, startingPos.y - (yGap * (blankSpots - j)));
+                fallingScript.Generate(randomPiece, i, blankSpots - j, startingPos.y - (yGap * (blankSpots - j)), startingPos.y + 0.5f);
 
                 fallingTileLock++;
             }
@@ -553,6 +570,7 @@ public class Board_Controller : MonoBehaviour
     {
         // Creates a new instance of the chosen piece
         GameObject newPiece = Instantiate(pieces[colorPos], new Vector3(startingPos.x + (xGap * posX), startingPos.y - (yGap * posY), startingPos.z), Quaternion.identity);
+        newPiece.transform.parent = tileDad.transform;
 
         // Assigns that piece it's position on the board
         Tile_Interact tileScript = newPiece.GetComponent(typeof(Tile_Interact)) as Tile_Interact;
@@ -647,22 +665,22 @@ public class Board_Controller : MonoBehaviour
     // Getters for the on screen position of the edges of the board
     public float GetLeftBound()
     {
-        return leftMost;
+        return centerPos.position.x - (((boardWidth / 2) - 0.5f) * xGap);
     }
 
     public float GetRightBound()
     {
-        return rightMost;
+        return centerPos.position.x + (((boardWidth / 2) - 0.5f) * xGap);
     }
 
     public float GetTopBound()
     {
-        return topMost;
+        return centerPos.position.y + (((boardHeight / 2) - 0.5f) * yGap);
     }
 
     public float GetBottomBound()
     {
-        return bottomMost;
+        return centerPos.position.y - (((boardHeight / 2) - 0.5f) * yGap);
     }
 
     // Getters for the amount of space between each tile

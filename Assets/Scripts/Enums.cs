@@ -1,3 +1,11 @@
+public enum GameState
+{
+    DUNGEON,
+    MENU,
+    DIALOGUE,
+    COMBAT
+}
+
 public enum Color
 {
     GHOST,

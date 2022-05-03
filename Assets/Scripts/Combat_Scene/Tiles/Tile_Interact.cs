@@ -46,7 +46,7 @@ public class Tile_Interact : MonoBehaviour
     void Start()
     {
         posit = transform.position;
-        boardController = GameObject.FindGameObjectWithTag("BoardController").GetComponent<Board_Controller>();
+        boardController = GameManager.instance.combat.board;
     }
 
     // Update is called once per frame
@@ -70,6 +70,7 @@ public class Tile_Interact : MonoBehaviour
             }
 
             ghostTileHolder = Instantiate(ghostTile, new Vector3(posit.x + dist + xWrap, posit.y, posit.z), Quaternion.identity);
+            ghostTileHolder.transform.parent = transform.parent;
             ghostTileScript = ghostTileHolder.GetComponent<Ghost_Tile>();
             ghostTileScript.Generate(dist, colorPos);
 
@@ -83,6 +84,7 @@ public class Tile_Interact : MonoBehaviour
             }
 
             ghostTileHolder = Instantiate(ghostTile, new Vector3(posit.x + dist + xWrap, posit.y, posit.z), Quaternion.identity);
+            ghostTileHolder.transform.parent = transform.parent;
             ghostTileScript = ghostTileHolder.GetComponent<Ghost_Tile>();
             ghostTileScript.Generate(dist, colorPos);
 
@@ -117,6 +119,7 @@ public class Tile_Interact : MonoBehaviour
             }
 
             ghostTileHolder = Instantiate(ghostTile, new Vector3(posit.x, posit.y + dist + yWrap, posit.z), Quaternion.identity);
+            ghostTileHolder.transform.parent = transform.parent;
             ghostTileScript = ghostTileHolder.GetComponent<Ghost_Tile>();
             ghostTileScript.Generate(dist, colorPos);
 
@@ -130,6 +133,7 @@ public class Tile_Interact : MonoBehaviour
             }
 
             ghostTileHolder = Instantiate(ghostTile, new Vector3(posit.x, posit.y + dist + yWrap, posit.z), Quaternion.identity);
+            ghostTileHolder.transform.parent = transform.parent;
             ghostTileScript = ghostTileHolder.GetComponent<Ghost_Tile>();
             ghostTileScript.Generate(dist, colorPos);
 
@@ -159,9 +163,10 @@ public class Tile_Interact : MonoBehaviour
         float travelDist = yMoved * yGap;
 
         GameObject tempFallingTile = Instantiate(fallingTile, transform.position, Quaternion.identity);
+        tempFallingTile.transform.parent = transform.parent;
         Falling_Tile fallingScript = tempFallingTile.GetComponent<Falling_Tile>();
 
-        fallingScript.Generate(colorPos, posX, posY + yMoved, transform.position.y - travelDist);
+        fallingScript.Generate(colorPos, posX, posY + yMoved, transform.position.y - travelDist, float.MaxValue);
 
         Destroy(gameObject);
     }
