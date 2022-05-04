@@ -19,8 +19,13 @@ public class Falling_Tile : MonoBehaviour
 
     private float fallSpeed = 0;
     private float fauxTimer = 1;
+    private float speedMultiplier = 1;
+
+    private float reboundSpeed = 0.005f;
 
     private bool generated = false;
+
+    private bool startRebound = false; // Tile will slightly rebound upon hitting it intended position
 
     public void Generate(int spriteNum, int x, int y, float goal, float _visable)
     {
@@ -32,12 +37,19 @@ public class Falling_Tile : MonoBehaviour
         endY = y;
         goalPos = goal;
 
-        fallSpeed = 0.002f * endY;
+        speedMultiplier = GameManager.instance.combat.board.GetRowSpeedBonus(x);
+
+        fallSpeed = -0.0175f * Mathf.Pow(endY, 1/2) * (speedMultiplier+1)/2;
 
         posit = transform.position;
         generated = true;
 
         visablePos = _visable;
+
+        if (posit.y > visablePos)
+        {
+            sr.enabled = false;
+        }
     }
 
     // Update is called once per frame
@@ -45,13 +57,18 @@ public class Falling_Tile : MonoBehaviour
     {
         if (generated)
         {
-            float accel = (0.0017f - (0.000003f * fauxTimer));
-            accel += 0.0003f * endY;
-            accel = Mathf.Max(accel, 0);
+            float accel = -0.0015f;
+
+            if (posit.y > goalPos)
+            {
+                accel = (0.0017f - (0.000003f * fauxTimer));
+                accel += 0.0003f * endY * speedMultiplier;
+                accel = Mathf.Max(accel, 0);
+            }
 
             fallSpeed += accel;
 
-            if (posit.y - fallSpeed > goalPos)
+            if (posit.y - fallSpeed > goalPos - (0.06f) && !startRebound)
             {
                 transform.position = new Vector3(posit.x, posit.y - fallSpeed, posit.z);
                 posit = transform.position;
@@ -62,9 +79,24 @@ public class Falling_Tile : MonoBehaviour
             }
             else
             {
-                Board_Controller bc = GameManager.instance.combat.board;
-                bc.FallenTileCheck(endX, endY, colorPos);
-                Destroy(gameObject);
+                if (posit.y + reboundSpeed > goalPos)
+                {
+                    Board_Controller bc = GameManager.instance.combat.board;
+                    bc.FallenTileCheck(endX, endY, colorPos);
+                    Destroy(gameObject);
+                }
+                else if (!startRebound)
+                {
+                    startRebound = true;
+                    transform.position = new Vector3(posit.x, goalPos - (0.06f), posit.z);
+                    posit = transform.position;
+                }
+                else
+                {
+                    transform.position = new Vector3(posit.x, posit.y + reboundSpeed, posit.z);
+                    posit = transform.position;
+                    reboundSpeed += 0.005f - (0.0002f * endY);
+                }
             }
         }
     }

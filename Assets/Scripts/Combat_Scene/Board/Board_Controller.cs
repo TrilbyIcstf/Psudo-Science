@@ -61,6 +61,9 @@ public class Board_Controller : MonoBehaviour
     // Which tile is currently being clicked [column, row]
     private int[] activeTile = new int[2];
 
+    // Random numbers used to determine the fall speed rng of each row
+    private float[] rowSpeedBonus;
+
     // The health total of each color
     private float blueHealth = 100;
     private float orangeHealth = 100;
@@ -141,6 +144,12 @@ public class Board_Controller : MonoBehaviour
                 }
             }
         } while (checkMatch);
+
+        rowSpeedBonus = new float[boardWidth];
+        for (int i = 0; i < boardWidth; i++)
+        {
+            rowSpeedBonus[i] = Random.Range(0.9f, 1.4f);
+        }
     }
 
     // Update is called once per frame
@@ -253,11 +262,11 @@ public class Board_Controller : MonoBehaviour
         {
             // These check if the mouse has left the "dead zone" after initially clicking on a tile to determine if
             // the tile should be moved horizontaly or verticaly
-            if (!movingHorizontal && Mathf.Abs(mousePos.x - Input.mousePosition.x) / Screen.width >= 0.015f && !movingVertical)
+            if (!movingHorizontal && Mathf.Abs(mousePos.x - Input.mousePosition.x) / Screen.width >= 0.01f && !movingVertical)
             {
                 movingHorizontal = true;
             }
-            else if (!movingVertical && Mathf.Abs(mousePos.y - Input.mousePosition.y) / Screen.height >= 0.015f && !movingHorizontal)
+            else if (!movingVertical && Mathf.Abs(mousePos.y - Input.mousePosition.y) / Screen.height >= 0.01f && !movingHorizontal)
             {
                 movingVertical = true;
             }
@@ -680,5 +689,10 @@ public class Board_Controller : MonoBehaviour
     public float GetYGap()
     {
         return yGap;
+    }
+
+    public float GetRowSpeedBonus(int _rowNum)
+    {
+        return rowSpeedBonus[_rowNum];
     }
 }
