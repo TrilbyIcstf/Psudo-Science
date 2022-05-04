@@ -10,7 +10,8 @@ public class GameManager : MonoBehaviour
     }
 
     [Header("Managers")]
-    public CombatManager combat;
+    public CombatManager combat; // Handles the combat board, enemies, attack queue, etc.
+    public PartyManager party; // Handles party members, equipment, inventory, etc.
 
     [Header("SceneManagement")]
     [SerializeField] private GameState currentState = GameState.DUNGEON;

@@ -8,14 +8,14 @@ public enum GameState
 
 public enum Color
 {
-    GHOST,
-    BLACK,
-    BLUE,
-    GREEN,
-    GREY,
-    ORANGE,
-    PINK,
-    PURPLE
+    GHOST = 99,
+    BLACK = 6,
+    BLUE = 0,
+    GREEN = 4,
+    GREY = 5,
+    ORANGE = 1,
+    PINK = 3,
+    PURPLE = 2
 }
 
 public enum Element

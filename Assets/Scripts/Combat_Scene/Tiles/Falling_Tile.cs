@@ -68,7 +68,7 @@ public class Falling_Tile : MonoBehaviour
 
             fallSpeed += accel;
 
-            if (posit.y - fallSpeed > goalPos - (0.06f) && !startRebound)
+            if (posit.y - fallSpeed > goalPos - (0.07f) && !startRebound)
             {
                 transform.position = new Vector3(posit.x, posit.y - fallSpeed, posit.z);
                 posit = transform.position;
@@ -88,14 +88,14 @@ public class Falling_Tile : MonoBehaviour
                 else if (!startRebound)
                 {
                     startRebound = true;
-                    transform.position = new Vector3(posit.x, goalPos - (0.06f), posit.z);
+                    transform.position = new Vector3(posit.x, goalPos - (0.07f), posit.z);
                     posit = transform.position;
                 }
                 else
                 {
                     transform.position = new Vector3(posit.x, posit.y + reboundSpeed, posit.z);
                     posit = transform.position;
-                    reboundSpeed += 0.005f - (0.0002f * endY);
+                    reboundSpeed += 0.005f;
                 }
             }
         }

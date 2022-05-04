@@ -115,7 +115,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ghostTile: {fileID: 5244019956931882674, guid: 2b5ceb1b967cc5b40b8359a1e044e78f, type: 3}
   fallingTile: {fileID: 5244758746631787670, guid: adb88da36dd183643860d85d6fcef209, type: 3}
-  color: 1
+  color: 6
   colorPos: 6
   chain: 1
 --- !u!61 &1478827844797045460

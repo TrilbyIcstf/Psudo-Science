@@ -41,6 +41,10 @@ public class Board_Controller : MonoBehaviour
     // [Blue piece, Orange piece, Purple piece, Pink piece, Green piece, Grey piece, Black piece]
     // Prefabs of each of the tile types
     public GameObject[] pieces = new GameObject[7];
+    private Color[] pieceColors = new Color[] { Color.BLUE, Color.ORANGE, Color.PURPLE, Color.PINK, Color.GREEN, Color.GREY, Color.BLACK };
+
+    // The amount of each color collected in a match
+    private float[] matchCounter = new float[7];
 
     public GameObject fallingTile;
 
@@ -50,6 +54,9 @@ public class Board_Controller : MonoBehaviour
     // Locks to prevent to player from interacting with the board
     private bool mouseLock = false;
     private int fallingTileLock = 0;
+
+    // Number of matches made in a row
+    private int matchCombo = 0;
 
     // Position of the mouse when it clicked on the tile
     private Vector3 mousePos;
@@ -63,12 +70,6 @@ public class Board_Controller : MonoBehaviour
 
     // Random numbers used to determine the fall speed rng of each row
     private float[] rowSpeedBonus;
-
-    // The health total of each color
-    private float blueHealth = 100;
-    private float orangeHealth = 100;
-    private float pinkHealth = 100;
-    private float purpleHealth = 100;
 
     // Start is called before the first frame update
     void Start()
@@ -508,20 +509,36 @@ public class Board_Controller : MonoBehaviour
                     mouseLock = true;
                     matched = true;
 
-                    GainPointsChain(board[i, j].GetComponent<Tile_Interact>().GetColor(), board[i, j].GetComponent<Tile_Interact>().GetChain());
+                    //GainPointsChain(board[i, j].GetComponent<Tile_Interact>().GetColor(), board[i, j].GetComponent<Tile_Interact>().GetChain());
+                    // Determines number of points added to color, based on length of match chain
+                    matchCounter[(int)board[i, j].GetComponent<Tile_Interact>().GetColor()] += board[i, j].GetComponent<Tile_Interact>().GetChain() * (1.0f + (0.5f * matchCombo));
                     Destroy(board[i, j]);
                     board[i, j] = null;
                 }
             }
         }
 
-        // Calls a function which will populate the board with new tiles
+        // Assigns points, then calls a function which will populate the board with new tiles
         if (matched)
         {
+            foreach (Color c in pieceColors)
+            {
+                if (matchCounter[(int)c] > 0)
+                {
+                    GainPoints(c, matchCounter[(int)c]);
+                }
+            }
+
+            matchCounter = new float[7];
+
+            matchCombo++;
             TileFall();
         }
         else
         {
+            // EXECUTE THE QUEUE
+
+            matchCombo = 0;
             mouseLock = false;
         }
     }
@@ -613,14 +630,8 @@ public class Board_Controller : MonoBehaviour
         return false;
     }
 
-    // Assigns a flat number of points based on the effects of the passed in color
-    private void GainPoints(string color, float amount)
-    {
-
-    }
-
-    // Assigns points based on both the effects of the passed in color, and the length of the chain giving the points
-    private void GainPointsChain(Color _color, int chain)
+    // Assigns points based on both the effects of the passed in color, and the amount of that color matched
+    private void GainPoints(Color _color, float chain)
     {
         switch (_color)
         {
@@ -637,10 +648,7 @@ public class Board_Controller : MonoBehaviour
                 GameManager.instance.combat.energy.GainEnergy(chain, _color);
                 break;
             case Color.GREEN:
-                blueHealth += chain;
-                orangeHealth += chain;
-                pinkHealth += chain;
-                purpleHealth += chain;
+                GameManager.instance.party.PartyHeal((int)chain, (int)chain, (int)chain, (int)chain);
                 break;
             case Color.GREY:
                 GameManager.instance.combat.energy.ExpoPowerUp((chain / 100) + 1, Color.BLUE);

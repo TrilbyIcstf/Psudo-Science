@@ -32,6 +32,9 @@ public class Player_Information : ScriptableObject
     [SerializeField] private Equip_Information eqAcc1;
     [SerializeField] private Equip_Information eqAcc2;
 
+    [Header("Status")]
+    [SerializeField] private Player_Status status;
+
     public void LevelUp(int _LVL, int _MHP, int _ATK, int _DEF, int _MAT, int _MDF)
     {
         levelStat += _LVL;
@@ -64,4 +67,5 @@ public class Player_Information : ScriptableObject
     public Equip_Information Pant { get => eqPant; set => eqPant = value; }
     public Equip_Information Acc1 { get => eqAcc1; set => eqAcc1 = value; }
     public Equip_Information Acc2 { get => eqAcc2; set => eqAcc2 = value; }
+    public Player_Status Status { get => status; set => status = value; }
 }
