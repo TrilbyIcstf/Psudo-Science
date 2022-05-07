@@ -6,7 +6,7 @@ public enum GameState
     COMBAT
 }
 
-public enum Color
+public enum TColor
 {
     GHOST = 99,
     BLACK = 6,

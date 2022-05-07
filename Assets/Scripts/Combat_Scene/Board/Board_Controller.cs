@@ -33,6 +33,9 @@ public class Board_Controller : MonoBehaviour
     // Parent object for the tiles
     public GameObject tileDad;
 
+    // Prefab for tile burst particle effects
+    public GameObject tileBurst;
+
     // The distances between each tile
     private float xGap = 0.72f;
     private float yGap = 0.68f;
@@ -41,7 +44,7 @@ public class Board_Controller : MonoBehaviour
     // [Blue piece, Orange piece, Purple piece, Pink piece, Green piece, Grey piece, Black piece]
     // Prefabs of each of the tile types
     public GameObject[] pieces = new GameObject[7];
-    private Color[] pieceColors = new Color[] { Color.BLUE, Color.ORANGE, Color.PURPLE, Color.PINK, Color.GREEN, Color.GREY, Color.BLACK };
+    private TColor[] pieceColors = new TColor[] { TColor.BLUE, TColor.ORANGE, TColor.PURPLE, TColor.PINK, TColor.GREEN, TColor.GREY, TColor.BLACK };
 
     // The amount of each color collected in a match
     private float[] matchCounter = new float[7];
@@ -509,7 +512,9 @@ public class Board_Controller : MonoBehaviour
                     mouseLock = true;
                     matched = true;
 
-                    //GainPointsChain(board[i, j].GetComponent<Tile_Interact>().GetColor(), board[i, j].GetComponent<Tile_Interact>().GetChain());
+                    // Spawning particles for the destroyed tile
+                    GameObject TempParticles = Instantiate(tileBurst, board[i, j].transform.position, Quaternion.identity);
+
                     // Determines number of points added to color, based on length of match chain
                     matchCounter[(int)board[i, j].GetComponent<Tile_Interact>().GetColor()] += board[i, j].GetComponent<Tile_Interact>().GetChain() * (1.0f + (0.5f * matchCombo));
                     Destroy(board[i, j]);
@@ -521,7 +526,7 @@ public class Board_Controller : MonoBehaviour
         // Assigns points, then calls a function which will populate the board with new tiles
         if (matched)
         {
-            foreach (Color c in pieceColors)
+            foreach (TColor c in pieceColors)
             {
                 if (matchCounter[(int)c] > 0)
                 {
@@ -620,7 +625,7 @@ public class Board_Controller : MonoBehaviour
     }
 
     // Checks if a specific tile on the board exists and matches the passed in color
-    private bool CheckMatch(int x, int y, Color color)
+    private bool CheckMatch(int x, int y, TColor color)
     {
         if (x >= 0 && x <= 7 && y >= 0 && y <= 7 && board[x, y] != null &&
             board[x, y].GetComponent<Tile_Interact>().GetColor() == color)
@@ -631,36 +636,36 @@ public class Board_Controller : MonoBehaviour
     }
 
     // Assigns points based on both the effects of the passed in color, and the amount of that color matched
-    private void GainPoints(Color _color, float chain)
+    private void GainPoints(TColor _color, float chain)
     {
         switch (_color)
         {
-            case Color.BLUE:
+            case TColor.BLUE:
                 GameManager.instance.combat.energy.GainEnergy(chain, _color);
                 break;
-            case Color.ORANGE:
+            case TColor.ORANGE:
                 GameManager.instance.combat.energy.GainEnergy(chain, _color);
                 break;
-            case Color.PINK:
+            case TColor.PINK:
                 GameManager.instance.combat.energy.GainEnergy(chain, _color);
                 break;
-            case Color.PURPLE:
+            case TColor.PURPLE:
                 GameManager.instance.combat.energy.GainEnergy(chain, _color);
                 break;
-            case Color.GREEN:
+            case TColor.GREEN:
                 GameManager.instance.party.PartyHeal((int)chain, (int)chain, (int)chain, (int)chain);
                 break;
-            case Color.GREY:
-                GameManager.instance.combat.energy.ExpoPowerUp((chain / 100) + 1, Color.BLUE);
-                GameManager.instance.combat.energy.ExpoPowerUp((chain / 100) + 1, Color.ORANGE);
-                GameManager.instance.combat.energy.ExpoPowerUp((chain / 100) + 1, Color.PINK);
-                GameManager.instance.combat.energy.ExpoPowerUp((chain / 100) + 1, Color.PURPLE);
+            case TColor.GREY:
+                GameManager.instance.combat.energy.ExpoPowerUp((chain / 100) + 1, TColor.BLUE);
+                GameManager.instance.combat.energy.ExpoPowerUp((chain / 100) + 1, TColor.ORANGE);
+                GameManager.instance.combat.energy.ExpoPowerUp((chain / 100) + 1, TColor.PINK);
+                GameManager.instance.combat.energy.ExpoPowerUp((chain / 100) + 1, TColor.PURPLE);
                 break;
-            case Color.BLACK:
-                GameManager.instance.combat.energy.GainEnergy(chain / 5, Color.BLUE);
-                GameManager.instance.combat.energy.GainEnergy(chain / 5, Color.ORANGE);
-                GameManager.instance.combat.energy.GainEnergy(chain / 5, Color.PINK);
-                GameManager.instance.combat.energy.GainEnergy(chain / 5, Color.PURPLE);
+            case TColor.BLACK:
+                GameManager.instance.combat.energy.GainEnergy(chain / 5, TColor.BLUE);
+                GameManager.instance.combat.energy.GainEnergy(chain / 5, TColor.ORANGE);
+                GameManager.instance.combat.energy.GainEnergy(chain / 5, TColor.PINK);
+                GameManager.instance.combat.energy.GainEnergy(chain / 5, TColor.PURPLE);
                 break;
             default:
                 break;
@@ -703,4 +708,6 @@ public class Board_Controller : MonoBehaviour
     {
         return rowSpeedBonus[_rowNum];
     }
+
+    public int MatchCombo { get => matchCombo; set => matchCombo = value; }
 }

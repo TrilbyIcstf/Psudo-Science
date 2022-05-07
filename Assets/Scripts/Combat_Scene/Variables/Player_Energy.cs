@@ -34,7 +34,7 @@ public class Player_Energy
     /// <returns>
     /// Whether the attack was executed or not.
     /// </returns>
-    public bool GainEnergy(float _val, Color _eColor)
+    public bool GainEnergy(float _val, TColor _eColor)
     {
         AddColor(_val, _eColor);
 
@@ -63,20 +63,20 @@ public class Player_Energy
     /// <returns>
     /// Amount after addition.
     /// </returns>
-    public float AddColor(float _val, Color _eColor)
+    public float AddColor(float _val, TColor _eColor)
     {
         switch (_eColor)
         {
-            case Color.BLUE:
+            case TColor.BLUE:
                 bluePoints += _val;
                 return bluePoints;
-            case Color.ORANGE:
+            case TColor.ORANGE:
                 orangePoints += _val;
                 return orangePoints;
-            case Color.PINK:
+            case TColor.PINK:
                 pinkPoints += _val;
                 return pinkPoints;
-            case Color.PURPLE:
+            case TColor.PURPLE:
                 purplePoints += _val;
                 return purplePoints;
             default:
@@ -93,21 +93,21 @@ public class Player_Energy
     /// <returns>
     /// The amount remaining.
     /// </returns>
-    public float ColorCapExpend(Color _eColor)
+    public float ColorCapExpend(TColor _eColor)
     {
         switch (_eColor)
         {
-            case Color.BLUE:
-                bluePoints -= blueCap;
+            case TColor.BLUE:
+                bluePoints -= BlueCap;
                 return bluePoints;
-            case Color.ORANGE:
-                orangePoints -= orangeCap;
+            case TColor.ORANGE:
+                orangePoints -= OrangeCap;
                 return orangePoints;
-            case Color.PINK:
-                pinkPoints -= pinkCap;
+            case TColor.PINK:
+                pinkPoints -= PinkCap;
                 return pinkPoints;
-            case Color.PURPLE:
-                purplePoints -= purpleCap;
+            case TColor.PURPLE:
+                purplePoints -= PurpleCap;
                 return purplePoints;
             default:
                 return -8675309;
@@ -123,37 +123,37 @@ public class Player_Energy
     /// <returns>
     /// Whether the cap has been reached.
     /// </returns>
-    public bool CheckCap(Color _eColor)
+    public bool CheckCap(TColor _eColor)
     {
         switch (_eColor)
         {
-            case Color.BLUE:
-                return bluePoints >= blueCap;
-            case Color.ORANGE:
-                return orangePoints >= orangeCap;
-            case Color.PINK:
-                return pinkPoints >= pinkCap;
-            case Color.PURPLE:
-                return purplePoints >= purpleCap;
+            case TColor.BLUE:
+                return bluePoints >= BlueCap;
+            case TColor.ORANGE:
+                return orangePoints >= OrangeCap;
+            case TColor.PINK:
+                return pinkPoints >= PinkCap;
+            case TColor.PURPLE:
+                return purplePoints >= PurpleCap;
             default:
                 return false;
         }
     }
 
-    public float ExpoPowerUp(float _val, Color _pColor)
+    public float ExpoPowerUp(float _val, TColor _pColor)
     {
         switch (_pColor)
         {
-            case Color.BLUE:
+            case TColor.BLUE:
                 bluePower *= _val;
                 return bluePower;
-            case Color.ORANGE:
+            case TColor.ORANGE:
                 orangePower *= _val;
                 return orangePower;
-            case Color.PINK:
+            case TColor.PINK:
                 pinkPower *= _val;
                 return pinkPower;
-            case Color.PURPLE:
+            case TColor.PURPLE:
                 purplePower *= _val;
                 return purplePower;
             default:
@@ -170,6 +170,62 @@ public class Player_Energy
     public float OrangePower { get => orangePower; set => orangePower = value; }
     public float PinkPower { get => pinkPower; set => pinkPower = value; }
     public float PurplePower { get => purplePower; set => purplePower = value; }
+    public float BlueCap { get => blueCap; set => blueCap = value; }
+    public float OrangeCap { get => orangeCap; set => orangeCap = value; }
+    public float PinkCap { get => pinkCap; set => pinkCap = value; }
+    public float PurpleCap { get => purpleCap; set => purpleCap = value; }
+
+    /// <summary>
+    /// Returns the specified color's cap.
+    /// </summary>
+    /// <param name="_eColor">
+    /// The color to check.
+    /// </param>
+    /// <returns>
+    /// The passed in color's cap.
+    /// </returns>
+    public float GetCap(TColor _eColor)
+    {
+        switch (_eColor)
+        {
+            case TColor.BLUE:
+                return BlueCap;
+            case TColor.ORANGE:
+                return OrangeCap;
+            case TColor.PINK:
+                return PinkCap;
+            case TColor.PURPLE:
+                return PurpleCap;
+            default:
+                return -1;
+        }
+    }
+
+    /// <summary>
+    /// Returns the specified color's point value.
+    /// </summary>
+    /// <param name="_eColor">
+    /// The color to get.
+    /// </param>
+    /// <returns>
+    /// The current point value of the passed in color.
+    /// </returns>
+    public float GetColor(TColor _eColor)
+    {
+        switch (_eColor)
+        {
+            case TColor.BLUE:
+                return BluePoints;
+            case TColor.ORANGE:
+                return OrangePoints;
+            case TColor.PINK:
+                return PinkPoints;
+            case TColor.PURPLE:
+                return PurplePoints;
+            default:
+                return -1;
+        }
+    }
 
     // DEBUG FUNCTIONS
     private void DebugColorPointMessage()

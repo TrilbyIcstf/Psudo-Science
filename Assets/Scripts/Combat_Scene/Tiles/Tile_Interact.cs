@@ -21,7 +21,7 @@ public class Tile_Interact : MonoBehaviour
     public GameObject fallingTile;
 
     // The color of the tile, as well as that color's position in the sprite arrays of other objects
-    public Color color;
+    public TColor color;
     public int colorPos;
 
     // The position of the tile on the 8x8 game board
@@ -166,7 +166,7 @@ public class Tile_Interact : MonoBehaviour
         tempFallingTile.transform.parent = transform.parent;
         Falling_Tile fallingScript = tempFallingTile.GetComponent<Falling_Tile>();
 
-        fallingScript.Generate(colorPos, posX, posY + yMoved, transform.position.y - travelDist, float.MaxValue);
+        fallingScript.Generate(colorPos, posX, posY + yMoved, transform.position.y - travelDist, GameManager.instance.combat.board.GetTopBound() + GameManager.instance.combat.board.GetYGap());
 
         Destroy(gameObject);
     }
@@ -213,11 +213,11 @@ public class Tile_Interact : MonoBehaviour
         posY = y;
     }
 
-    public Color GetColor()
+    public TColor GetColor()
     {
         return color;
     }
-    public void SetColor(Color inp)
+    public void SetColor(TColor inp)
     {
         color = inp;
     }

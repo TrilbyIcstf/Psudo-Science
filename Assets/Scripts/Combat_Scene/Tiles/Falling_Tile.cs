@@ -38,8 +38,9 @@ public class Falling_Tile : MonoBehaviour
         goalPos = goal;
 
         speedMultiplier = GameManager.instance.combat.board.GetRowSpeedBonus(x);
+        speedMultiplier += 0.5f * (GameManager.instance.combat.board.MatchCombo - 1);
 
-        fallSpeed = -0.0175f * Mathf.Pow(endY, 1/2) * (speedMultiplier+1)/2;
+        fallSpeed = -0.0275f * Mathf.Pow(endY, 1/2) * (speedMultiplier) - (0.025f * (GameManager.instance.combat.board.MatchCombo - 1));
 
         posit = transform.position;
         generated = true;
@@ -57,12 +58,13 @@ public class Falling_Tile : MonoBehaviour
     {
         if (generated)
         {
-            float accel = -0.0015f;
+            float accel = -0.003f;
 
             if (posit.y > goalPos)
             {
-                accel = (0.0017f - (0.000003f * fauxTimer));
+                accel = (0.0017f);
                 accel += 0.0003f * endY * speedMultiplier;
+                accel += 0.0009f * (GameManager.instance.combat.board.MatchCombo - 1);
                 accel = Mathf.Max(accel, 0);
             }
 
@@ -72,9 +74,15 @@ public class Falling_Tile : MonoBehaviour
             {
                 transform.position = new Vector3(posit.x, posit.y - fallSpeed, posit.z);
                 posit = transform.position;
-                if (sr.enabled == false && posit.y <= visablePos)
+                if (posit.y <= visablePos)
                 {
-                    sr.enabled = true;
+                    if (sr.enabled == false)
+                    {
+                        sr.enabled = true;
+                    }
+                } else
+                {
+                    sr.enabled = false;
                 }
             }
             else
