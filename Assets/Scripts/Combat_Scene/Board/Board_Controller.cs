@@ -512,11 +512,14 @@ public class Board_Controller : MonoBehaviour
                     mouseLock = true;
                     matched = true;
 
+                    TColor tempColor = board[i, j].GetComponent<Tile_Interact>().GetColor();
+
                     // Spawning particles for the destroyed tile
                     GameObject TempParticles = Instantiate(tileBurst, board[i, j].transform.position, Quaternion.identity);
+                    TempParticles.GetComponent<Tile_Burst>().Activate(ColorVals.GetColorVal(tempColor));
 
                     // Determines number of points added to color, based on length of match chain
-                    matchCounter[(int)board[i, j].GetComponent<Tile_Interact>().GetColor()] += board[i, j].GetComponent<Tile_Interact>().GetChain() * (1.0f + (0.5f * matchCombo));
+                    matchCounter[(int)tempColor] += board[i, j].GetComponent<Tile_Interact>().GetChain() * (1.0f + (0.5f * matchCombo));
                     Destroy(board[i, j]);
                     board[i, j] = null;
                 }

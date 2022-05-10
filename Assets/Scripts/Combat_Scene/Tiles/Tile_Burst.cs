@@ -6,10 +6,12 @@ public class Tile_Burst : MonoBehaviour
 {
     private ParticleSystem PS;
 
-    // Start is called before the first frame update
-    void Start()
+    public void Activate(Color _tint)
     {
         PS = GetComponent<ParticleSystem>();
+        ParticleSystem.MainModule tempMain = PS.main;
+        tempMain.startColor = _tint;
+        PS.Play();
 
         StartCoroutine(Countdown());
     }
