@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b91e7d9f255213d45ac7fbff278dcfd7, type: 3}
+  m_Name: Caroline
+  m_EditorClassIdentifier: 
+  characterFirstName: Caroline
+  characterLastName: Fritz
+  playerClass: 2
+  levelStat: 1
+  maxHealthStat: 100
+  attackStat: 10
+  defenseStat: 10
+  magicStat: 10
+  magDefenseStat: 10
+  eqWeapon: {fileID: 11400000, guid: cc2319c2a89e2dc4c905a17e75b78c96, type: 2}
+  eqHelmet: {fileID: 11400000, guid: cc2319c2a89e2dc4c905a17e75b78c96, type: 2}
+  eqArmor: {fileID: 11400000, guid: cc2319c2a89e2dc4c905a17e75b78c96, type: 2}
+  eqPant: {fileID: 11400000, guid: cc2319c2a89e2dc4c905a17e75b78c96, type: 2}
+  eqAcc1: {fileID: 11400000, guid: cc2319c2a89e2dc4c905a17e75b78c96, type: 2}
+  eqAcc2: {fileID: 11400000, guid: cc2319c2a89e2dc4c905a17e75b78c96, type: 2}

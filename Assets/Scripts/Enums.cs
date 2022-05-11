@@ -14,8 +14,8 @@ public enum TColor
     GREEN = 4,
     GREY = 5,
     ORANGE = 1,
-    PINK = 3,
-    PURPLE = 2
+    PINK = 2,
+    PURPLE = 3
 }
 
 public enum Element

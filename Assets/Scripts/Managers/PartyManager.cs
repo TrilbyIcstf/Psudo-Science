@@ -14,6 +14,11 @@ public class PartyManager : MonoBehaviour
     private Player_Status playerStatus3;
     private Player_Status playerStatus4;
 
+    void Awake()
+    {
+        ResetStatus();
+    }
+
     /// <summary>
     /// Resets all status variables to their defaults.
     /// </summary>
@@ -21,19 +26,19 @@ public class PartyManager : MonoBehaviour
     {
         if (player1 != null)
         {
-            playerStatus1 = new Player_Status(player1.MaxHealth);
+            playerStatus1 = new Player_Status(player1.MaxHealth/2);
         }
         if (player2 != null)
         {
-            playerStatus2 = new Player_Status(player2.MaxHealth);
+            playerStatus2 = new Player_Status(player2.MaxHealth/3);
         }
         if (player3 != null)
         {
-            playerStatus3 = new Player_Status(player3.MaxHealth);
+            playerStatus3 = new Player_Status(player3.MaxHealth/4);
         }
         if (player4 != null)
         {
-            playerStatus4 = new Player_Status(player4.MaxHealth);
+            playerStatus4 = new Player_Status(player4.MaxHealth/5);
         }
     }
 
@@ -62,4 +67,38 @@ public class PartyManager : MonoBehaviour
     public Player_Status PlayerStatus2 { get => playerStatus2; set => playerStatus2 = value; }
     public Player_Status PlayerStatus3 { get => playerStatus3; set => playerStatus3 = value; }
     public Player_Status PlayerStatus4 { get => playerStatus4; set => playerStatus4 = value; }
+
+    public Player_Status GetPlayer(TColor _tint)
+    {
+        switch (_tint)
+        {
+            case TColor.BLUE:
+                return playerStatus1;
+            case TColor.ORANGE:
+                return playerStatus2;
+            case TColor.PINK:
+                return playerStatus3;
+            case TColor.PURPLE:
+                return playerStatus4;
+            default:
+                return null;
+        }
+    }
+
+    public Player_Information GetPlayerInfo(TColor _tint)
+    {
+        switch (_tint)
+        {
+            case TColor.BLUE:
+                return player1;
+            case TColor.ORANGE:
+                return player2;
+            case TColor.PINK:
+                return player3;
+            case TColor.PURPLE:
+                return player4;
+            default:
+                return null;
+        }
+    }
 }

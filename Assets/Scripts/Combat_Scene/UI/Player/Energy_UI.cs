@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 /// <summary>
-/// Controls the UI slider for the player's energy bar.
+/// Controls the UI slider for the player's energy bar
 /// </summary>
 public class Energy_UI : MonoBehaviour
 {
@@ -23,6 +23,9 @@ public class Energy_UI : MonoBehaviour
     // Tracks the amount of energy being displayed. Tries to simulate the actual energy of that color, but may not be accurate.
     private float energyCounter = 0;
 
+    // Timer used to set bar value to actual value once blips are finished
+    private IEnumerator blipCounter;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -37,14 +40,43 @@ public class Energy_UI : MonoBehaviour
 
         slider.value = Mathf.Clamp((energyCounter % colorCap) / colorCap, 0, 0.95f);
         energyBar.color = energyColor.Evaluate(Mathf.Clamp((energyCounter % colorCap) / colorCap, 0, 1));
+
+        // Refreshes a timer which will update the bar to the correct value once all the blips are gone
+        if (blipCounter != null)
+        {
+            StopCoroutine(blipCounter);
+        }
+        blipCounter = CheckRemainingBlips();
+        StartCoroutine(blipCounter);
     }
 
-    private void Update()
+    public void SetEnergy(float amount)
     {
-        energyCounter = GameManager.instance.combat.energy.GetColor(playerColor);
+        energyCounter = amount;
         float colorCap = GameManager.instance.combat.energy.GetCap(playerColor);
 
         slider.value = Mathf.Clamp((energyCounter % colorCap) / colorCap, 0, 0.95f);
         energyBar.color = energyColor.Evaluate(Mathf.Clamp((energyCounter % colorCap) / colorCap, 0, 1));
+    }
+
+    private IEnumerator CheckRemainingBlips()
+    {
+        yield return new WaitForSeconds(0.15f);
+
+        GameObject[] blips = GameObject.FindGameObjectsWithTag("Blip");
+        bool blipsRemain = false;
+
+        foreach (GameObject b in blips)
+        {
+            if (b.GetComponent<Energy_Blip>().PlayerNum == (int)playerColor + 1)
+            {
+                blipsRemain = true;
+            }
+        }
+
+        if (!blipsRemain)
+        {
+            SetEnergy(GameManager.instance.combat.energy.GetColor(playerColor));
+        }
     }
 }

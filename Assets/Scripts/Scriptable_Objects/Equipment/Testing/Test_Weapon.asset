@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78f80cdb98e499444b411c501cf80144, type: 3}
   m_Name: Test_Weapon
   m_EditorClassIdentifier: 
-  Type: 0
-  EquipName: Broken Straight Sword
-  EquipDiscription: Half of the blade of this straight sword is broken off.
-  EquipSprite: {fileID: 0}
-  EHealth: 0
-  EAttack: 0
-  EDefense: 0
-  EMagic: 0
-  EMagDefense: 0
+  eqType: 0
+  equipName: Broken Straight Sword
+  equipDiscription: Half of the blade of this straight sword is broken off.
+  equipSprite: {fileID: 0}
+  eqHealth: 0
+  eqAttack: 1
+  eqDefense: 1
+  eqMagic: 0
+  eqMagDefense: 0

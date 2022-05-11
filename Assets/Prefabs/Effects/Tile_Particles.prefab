@@ -4817,3 +4817,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28109fea1cd96a842afd4a047091a2a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  normalBlip: {fileID: 5244019956931882674, guid: 7e2b74377810c5540b5133e0ea309c74, type: 3}

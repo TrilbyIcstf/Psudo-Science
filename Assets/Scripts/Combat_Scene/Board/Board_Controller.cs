@@ -77,7 +77,7 @@ public class Board_Controller : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GameManager.instance.combat.board = this;
+        GameManager.instance.combat.SetBoard(this);
         mainCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
 
         board = new GameObject[boardWidth, boardHeight];
@@ -514,12 +514,14 @@ public class Board_Controller : MonoBehaviour
 
                     TColor tempColor = board[i, j].GetComponent<Tile_Interact>().GetColor();
 
+                    float pointVal = board[i, j].GetComponent<Tile_Interact>().GetChain() * (1.0f + (0.5f * matchCombo));
+
                     // Spawning particles for the destroyed tile
                     GameObject TempParticles = Instantiate(tileBurst, board[i, j].transform.position, Quaternion.identity);
-                    TempParticles.GetComponent<Tile_Burst>().Activate(ColorVals.GetColorVal(tempColor));
+                    TempParticles.GetComponent<Tile_Burst>().Activate(tempColor, 3, pointVal);
 
                     // Determines number of points added to color, based on length of match chain
-                    matchCounter[(int)tempColor] += board[i, j].GetComponent<Tile_Interact>().GetChain() * (1.0f + (0.5f * matchCombo));
+                    matchCounter[(int)tempColor] += pointVal;
                     Destroy(board[i, j]);
                     board[i, j] = null;
                 }
@@ -554,7 +556,7 @@ public class Board_Controller : MonoBehaviour
     // Checks for null tiles, and will drop tiles down to fill those spots, as well as spawn new ones in
     private void TileFall()
     {
-        Debug.Log("Start of fall");
+        //Debug.Log("Start of fall");
         for (int i = 0; i < 8; i++)
         {
             int blankSpots = 0;
@@ -607,7 +609,7 @@ public class Board_Controller : MonoBehaviour
         {
             ResolveChains();
 
-            Debug.Log("All done.");
+            //Debug.Log("All done.");
         }
     }
 

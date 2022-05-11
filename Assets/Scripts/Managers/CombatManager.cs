@@ -5,6 +5,7 @@ using UnityEngine;
 public class CombatManager : MonoBehaviour
 {
     public Board_Controller board;
+    public Combat_UI combatUI;
     public Player_Energy energy;
 
     public void CombatSetup()
@@ -12,9 +13,20 @@ public class CombatManager : MonoBehaviour
         energy = new Player_Energy();
     }
 
-    public void CombatSetup(Board_Controller _board)
+    public void CombatCleanup()
     {
-        board = _board;
-        CombatSetup();
+        energy = null;
+        combatUI = null;
+        board = null;
+    }
+
+    public void SetBoard(Board_Controller _val)
+    {
+        board = _val;
+    }
+
+    public void SetCombatUI(Combat_UI _val)
+    {
+        combatUI = _val;
     }
 }
