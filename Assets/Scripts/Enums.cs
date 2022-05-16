@@ -63,3 +63,10 @@ public enum CombatTiming
     PLAYERHIT,
     PLAYERENERGY
 }
+
+public enum Bestiary
+{
+    BookRat,
+    KnickedSkeleton,
+    StainedKnight
+}

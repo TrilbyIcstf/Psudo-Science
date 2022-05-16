@@ -38,7 +38,7 @@ public class Energy_UI : MonoBehaviour
         energyCounter += amount;
         float colorCap = GameManager.instance.combat.energy.GetCap(playerColor);
 
-        slider.value = Mathf.Clamp((energyCounter % colorCap) / colorCap, 0, 0.95f);
+        slider.value = Mathf.Clamp((energyCounter % colorCap) / colorCap, 0, 0.97f);
         energyBar.color = energyColor.Evaluate(Mathf.Clamp((energyCounter % colorCap) / colorCap, 0, 1));
 
         // Refreshes a timer which will update the bar to the correct value once all the blips are gone

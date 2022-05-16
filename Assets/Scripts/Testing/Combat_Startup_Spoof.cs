@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class Combat_Startup_Spoof : MonoBehaviour
 {
+    public Encounter testEnemies;
+
     private void Start()
     {
-        GameManager.instance.combat.CombatSetup();
+        GameManager.instance.combat.CombatSetup(testEnemies);
     }
 }

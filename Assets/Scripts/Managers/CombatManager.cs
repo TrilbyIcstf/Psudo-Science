@@ -8,9 +8,17 @@ public class CombatManager : MonoBehaviour
     public Combat_UI combatUI;
     public Player_Energy energy;
 
-    public void CombatSetup()
+    [SerializeField] private List<GameObject> activeEnemies;
+
+    public void CombatSetup(Encounter _enc)
     {
         energy = new Player_Energy();
+        Transform enemyHolderPos = GameObject.FindGameObjectWithTag("EnemyHolder").transform;
+
+        for (int i = 0; i < _enc.EncounterContents.Count; i++)
+        {
+            activeEnemies.Add(Instantiate(_enc.EncounterContents[i], enemyHolderPos));
+        }
     }
 
     public void CombatCleanup()

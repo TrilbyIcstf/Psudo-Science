@@ -6,6 +6,7 @@ TagManager:
   tags:
   - BoardController
   - Blip
+  - EnemyHolder
   layers:
   - Default
   - TransparentFX
