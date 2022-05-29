@@ -21,3 +21,5 @@ MonoBehaviour:
   magicStat: 10
   magDefenseStat: 10
   actSpeedStat: 4
+  enemySprite: {fileID: 21300000, guid: 5572c4dd663d395469ee2315f7330140, type: 3}
+  spriteSize: {x: 125, y: 201}

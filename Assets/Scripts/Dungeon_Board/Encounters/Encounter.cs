@@ -13,8 +13,8 @@ public class Encounter : ScriptableObject
     [SerializeField] private List<GameObject> encounterContents;
 
     // A list of where each enemy's portrait will be displayed
-    [SerializeField] private List<Vector2> enemyPositions;
+    [SerializeField] private List<Vector3> enemyPositions;
 
     public List<GameObject> EncounterContents { get => encounterContents; set => encounterContents = value; }
-    public List<Vector2> EnemyPositions { get => enemyPositions; set => enemyPositions = value; }
+    public List<Vector3> EnemyPositions { get => enemyPositions; set => enemyPositions = value; }
 }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 /// <summary>
 /// Scriptable object to hold information on enemies in combat
@@ -24,6 +25,11 @@ public class Enemy_Information : ScriptableObject
     [SerializeField] private int magDefenseStat = 10;
     [SerializeField] private int actSpeedStat = 4;
 
+    // The image of the enemy
+    [Header("Image")]
+    [SerializeField] private Sprite enemySprite;
+    [SerializeField] private Vector2 spriteSize;
+
     public int Level{ get => levelStat; set => levelStat = value; }
     public int MaxHealth { get => maxHealthStat; set => maxHealthStat = value; }
     public int Attack { get => attackStat; set => attackStat = value; }
@@ -33,4 +39,6 @@ public class Enemy_Information : ScriptableObject
     public int ActSpeed { get => actSpeedStat; set => actSpeedStat = value; }
     public string EnemyName { get => enemyName; set => enemyName = value; }
     public Bestiary EnemyType { get => enemyType; set => enemyType = value; }
+    public Sprite EnemySprite { get => enemySprite; set => enemySprite = value; }
+    public Vector2 SpriteSize { get => spriteSize; set => spriteSize = value; }
 }

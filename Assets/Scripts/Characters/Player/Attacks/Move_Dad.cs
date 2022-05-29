@@ -4,15 +4,13 @@ using UnityEngine;
 
 public class Move_Dad : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public virtual void StartAttack()
     {
-        
+
     }
 
-    // Update is called once per frame
-    void Update()
+    public virtual bool AttackFinished()
     {
-        
+        return true;
     }
 }

@@ -18,6 +18,7 @@ public class CombatManager : MonoBehaviour
         for (int i = 0; i < _enc.EncounterContents.Count; i++)
         {
             activeEnemies.Add(Instantiate(_enc.EncounterContents[i], enemyHolderPos));
+            activeEnemies[i].transform.position += _enc.EnemyPositions[i];
         }
     }
 
