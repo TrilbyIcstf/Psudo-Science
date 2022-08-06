@@ -149,3 +149,58 @@ public static class Combat_UI_Commands
         }
     }
 }
+
+public static class Particle_Math
+{
+    /// <summary>
+    /// Checks if a particle's approach velocity will allow it to reach its goal this step, and if not calculates its new approach velocity
+    /// and goal distance.
+    /// </summary>
+    /// <param name="goal">
+    /// The target position of the particle.
+    /// </param>
+    /// <param name="pos">
+    /// The current position of the particle.
+    /// <param name="targetDistance">
+    /// The distance to the target which will count as "close enough."
+    /// </param>
+    /// </param>
+    /// <param name="approachVel">
+    /// The distance towards the goal the particle moved in the previous update.
+    /// </param>
+    /// <param name="goalDist">
+    /// The distance between goal and pos at the previous update.
+    /// </param>
+    /// <returns>
+    /// Returns true if the old approach velocity will put the particle at or behind the goal.
+    /// </returns>
+    public static bool CheckApproach(Vector2 goal, Vector2 pos, float targetDistance, ref float approachVel, ref float goalDist)
+    {
+        if (approachVel >= goalDist || goalDist <= targetDistance) { return true; }
+
+        float newDist = (goal - pos).magnitude;
+        approachVel = goalDist - newDist;
+        goalDist = newDist;
+        
+        return false;
+    }
+
+    public static Vector2 LerpTowardsPoint(Vector2 goal, Vector2 pos, Vector2 direction, float strength)
+    {
+        Vector2 toPoint = (goal - pos).normalized;
+        direction = direction.normalized;
+        float toAngle = Vector2.SignedAngle(direction, toPoint);
+        float dirAngle = Mathf.Atan(direction.y / direction.x);
+        dirAngle += (Mathf.Deg2Rad * toAngle) * strength;
+        toAngle = Mathf.Deg2Rad * toAngle * strength;
+        float dirX = direction.x * Mathf.Cos(toAngle) - direction.y * Mathf.Sin(toAngle);
+        float dirY = direction.x * Mathf.Sin(toAngle) + direction.y * Mathf.Cos(toAngle);
+        direction = new Vector2(dirX, dirY);
+        toAngle = Vector2.Angle(direction, toPoint);
+        if (Mathf.Abs(toAngle) <= 5)
+        {
+            return toPoint;
+        }
+        return direction;
+    }
+}

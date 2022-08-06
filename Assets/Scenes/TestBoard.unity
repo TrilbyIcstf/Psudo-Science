@@ -1681,6 +1681,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   testEnemies: {fileID: 11400000, guid: 7a6ce94ebfe6cb3469ff69bed9b073c7, type: 2}
+  testParticle: {fileID: 1764702927482841226, guid: 16bf4e60d53e40a4cb74a50d00246ab3, type: 3}
 --- !u!4 &1813739739
 Transform:
   m_ObjectHideFlags: 0
