@@ -17,10 +17,6 @@ public abstract class Particle_Dad : MonoBehaviour
     // Variables to track the particle's turning speed
     protected float turnSpeed = 0;
 
-    // Holds how quickly the particle is approaching its goal
-    protected float approachVelocity = 0;
-    protected float goalDistance = 0;
-
     // Allows for the particle's movement and logic to be paused
     protected bool inMotion = false;
 
@@ -37,7 +33,6 @@ public abstract class Particle_Dad : MonoBehaviour
     {
         spawnPosition = transform.position;
         goalPosition = goal;
-        goalDistance = Vector2.Distance(spawnPosition,goalPosition);
         moveSpeed = startSpeed;
         inMotion = true;
     }

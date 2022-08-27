@@ -174,14 +174,34 @@ public static class Particle_Math
     /// <returns>
     /// Returns true if the old approach velocity will put the particle at or behind the goal.
     /// </returns>
-    public static bool CheckApproach(Vector2 goal, Vector2 pos, float targetDistance, ref float approachVel, ref float goalDist)
+    public static bool CheckApproach(Vector2 goal, Vector2 pos, float targetDistance, float moveSpeed, Vector2 direction)
     {
+        /* Holding on to this makeshift solution in case my maths turn out wrong
         if (approachVel >= goalDist || goalDist <= targetDistance) { return true; }
 
         float newDist = (goal - pos).magnitude;
         approachVel = goalDist - newDist;
         goalDist = newDist;
         
+        return false;
+        */
+
+        Vector2 endPoint = pos + (direction * moveSpeed);
+        if (Vector2.Distance(pos, goal) <= targetDistance || Vector2.Distance(endPoint, goal) <= targetDistance) { return true; }
+
+        float posSlope = direction.y / direction.x;
+        float goalSlope = -direction.x / direction.y;
+
+        float closestX = ((posSlope * pos.x) - pos.y + ((-goalSlope) * goal.x) + goal.y)/(posSlope - goalSlope);
+        float closestY = posSlope * closestX + pos.y - (posSlope * pos.x);
+        Vector2 closestPoint = new Vector2(closestX, closestY);
+
+        if (Vector2.Distance(closestPoint, goal) > targetDistance) { return false; }
+
+        Vector2 posToClose = closestPoint - pos;
+        Vector2 endToClose = closestPoint - endPoint;
+        if (posToClose.x != 0 && Mathf.Sign(posToClose.x) != Mathf.Sign(endToClose.x)) { return true; }
+        if (posToClose.y != 0 && Mathf.Sign(posToClose.y) != Mathf.Sign(endToClose.y)) { return true; }
         return false;
     }
 

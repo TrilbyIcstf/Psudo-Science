@@ -18,7 +18,13 @@ public class Combat_Startup_Spoof : MonoBehaviour
         {
             Debug.Log("A down");
             GameObject tempParticle = Instantiate(testParticle, new Vector3(-3, -3, 0), Quaternion.identity);
-            tempParticle.GetComponent<Particle_Lesser_Spark>().ParticleInitialize(new Vector2(3, 3), 0.15f, 0, new Vector2(-1, 1));
+            tempParticle.GetComponent<Particle_Lesser_Spark>().ParticleInitialize(new Vector2(3, 3), 0.15f, 0, new Vector2(Random.Range(-1,1), Random.Range(-1,1)));
         }
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(new Vector2(3, 3), 0.5f);
     }
 }
