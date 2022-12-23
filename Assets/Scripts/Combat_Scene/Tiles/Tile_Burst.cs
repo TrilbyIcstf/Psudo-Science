@@ -14,7 +14,7 @@ public class Tile_Burst : MonoBehaviour
     {
         PS = GetComponent<ParticleSystem>();
         ParticleSystem.MainModule tempMain = PS.main;
-        tempMain.startColor = ColorVals.GetColorVal(_tint);
+        tempMain.startColor = Color_Vals.GetColorVal(_tint);
         PS.Play();
 
         if (Combat_UI_Commands.IsBlipColor(_tint))

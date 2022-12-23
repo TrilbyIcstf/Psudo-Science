@@ -123,27 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &9379879 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4688678761440397242, guid: dcdcb9fa99ad22f42b24e15844db1ddb, type: 3}
-  m_PrefabInstance: {fileID: 1656285531}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &9379880
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9379879}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e9335f6d743e954a8a75f44da0c5638, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player1: {fileID: 11400000, guid: 5291837e02064954c87dff8998fa47e5, type: 2}
-  player2: {fileID: 11400000, guid: 849027add24f9ac4d97872910955c1ae, type: 2}
-  player3: {fileID: 11400000, guid: cfcf73110b444ac469313565bd2eb0c2, type: 2}
-  player4: {fileID: 11400000, guid: eb6f9ca0193c9e247b622243000a3e93, type: 2}
 --- !u!224 &36465901 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6023766720938304022, guid: f0963e863c3eb15468392ed8b9be611a, type: 3}
@@ -655,17 +634,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &480648505 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5640420561896677349, guid: dcdcb9fa99ad22f42b24e15844db1ddb, type: 3}
-  m_PrefabInstance: {fileID: 1656285531}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9379879}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5e2babd9103382f49b5a538c7125b653, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &484633611 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2550054360628370106, guid: f0963e863c3eb15468392ed8b9be611a, type: 3}
@@ -1346,14 +1314,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: -4281742319440733727, guid: dcdcb9fa99ad22f42b24e15844db1ddb, type: 3}
-      propertyPath: party
-      value: 
-      objectReference: {fileID: 9379880}
-    - target: {fileID: -4281742319440733727, guid: dcdcb9fa99ad22f42b24e15844db1ddb, type: 3}
-      propertyPath: combat
-      value: 
-      objectReference: {fileID: 480648505}
     - target: {fileID: 2685144069103173904, guid: dcdcb9fa99ad22f42b24e15844db1ddb, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -1681,7 +1641,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   testEnemies: {fileID: 11400000, guid: 7a6ce94ebfe6cb3469ff69bed9b073c7, type: 2}
-  testParticle: {fileID: 1764702927482841226, guid: 16bf4e60d53e40a4cb74a50d00246ab3, type: 3}
+  testParticleController: {fileID: 1758204172408961474, guid: 32818ce1b5fd99c43a5ba780fbd75233, type: 3}
 --- !u!4 &1813739739
 Transform:
   m_ObjectHideFlags: 0

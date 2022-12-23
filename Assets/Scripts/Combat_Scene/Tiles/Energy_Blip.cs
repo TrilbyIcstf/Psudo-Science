@@ -34,7 +34,7 @@ public class Energy_Blip : MonoBehaviour
     public void Activate(TColor _tileColor, int _player, Transform _goal, float _points)
     {
         blipColor = _tileColor;
-        GetComponent<SpriteRenderer>().color = ColorVals.GetColorVal(blipColor);
+        GetComponent<SpriteRenderer>().color = Color_Vals.GetColorVal(blipColor);
 
         playerNum = _player;
 

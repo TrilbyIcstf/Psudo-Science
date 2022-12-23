@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7739992113682845902}
   m_Layer: 0
   m_Name: Small_Spark_Particle
-  m_TagString: Untagged
+  m_TagString: ParticleEffect
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -95,3 +95,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06432afc32548fa4cb4950424003ac35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moveDirection: {x: 0, y: 0}

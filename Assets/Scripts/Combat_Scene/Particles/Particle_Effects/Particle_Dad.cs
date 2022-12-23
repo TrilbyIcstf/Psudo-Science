@@ -8,6 +8,9 @@ public abstract class Particle_Dad : MonoBehaviour
     // The position the particle will move towards
     protected Vector2 goalPosition;
 
+    // The distance from the target the particle will be destroyed at
+    protected float targetDistance = 1;
+
     // Variables tracking the particle's movement
     [SerializeField]
     protected Vector2 moveDirection;
@@ -19,6 +22,12 @@ public abstract class Particle_Dad : MonoBehaviour
 
     // Allows for the particle's movement and logic to be paused
     protected bool inMotion = false;
+
+    // Marks the time in seconds the particle has been active
+    protected double age = 0;
+
+    // Marks how long (in seconds) the particle can live for before despawning
+    protected float lifeSpan = 0;
 
     /// <summary>
     /// Called to initialize the particle and start its movement
@@ -52,11 +61,19 @@ public abstract class Particle_Dad : MonoBehaviour
     /// <param name="startDirection">
     /// The direction the particle should begin moving in
     /// </param>
-    public virtual void ParticleInitialize(Vector2 goal, float startSpeed, float startAccel, Vector2 startDirection)
+    /// <param name="startTurnSpeed">
+    /// The strength of turning the particle begins with
+    /// </param>
+    /// <param name="targetDist">
+    /// The distance from the target the particle reaches EOL at
+    /// </param>
+    public virtual void ParticleInitialize(Vector2 goal, float startSpeed, float startAccel, Vector2 startDirection, float startTurnSpeed, float targetDist)
     {
         ParticleInitialize(goal, startSpeed);
         moveAccel = startAccel;
         moveDirection = startDirection;
+        turnSpeed = startTurnSpeed;
+        targetDistance = targetDist;
     }
 
     // Update is called once per frame
