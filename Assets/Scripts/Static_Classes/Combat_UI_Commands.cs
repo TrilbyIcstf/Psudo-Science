@@ -22,6 +22,23 @@ public static class Combat_UI_Commands
         return false;
     }
 
+    public static Transform GetPlayerPosition(PC _player)
+    {
+        switch(_player)
+        {
+            case PC.VANESSA:
+                return GameManager.instance.combat.combatUI.player1.transform;
+            case PC.CAROLINE:
+                return GameManager.instance.combat.combatUI.player2.transform;
+            case PC.GABRIELLE:
+                return GameManager.instance.combat.combatUI.player3.transform;
+            case PC.VALLERY:
+                return GameManager.instance.combat.combatUI.player4.transform;
+            default:
+                return null;
+        }
+    }
+
     public static Transform GetEnergyBarPos(TColor _tint)
     {
         switch (_tint)
@@ -37,6 +54,11 @@ public static class Combat_UI_Commands
             default:
                 return null;
         }
+    }
+
+    public static Transform GetEnergyBarPos(PC _player)
+    {
+        return GetEnergyBarPos((TColor)_player);
     }
 
     public static Transform GetEnergyBarPos(int _player)
@@ -71,6 +93,11 @@ public static class Combat_UI_Commands
             default:
                 return null;
         }
+    }
+
+    public static Transform GetHealthBarPos(PC _player)
+    {
+        return GetHealthBarPos((int)_player);
     }
 
     public static void SendEnergy(float _val, int _player)

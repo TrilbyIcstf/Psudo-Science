@@ -2,6 +2,9 @@ using UnityEngine;
 
 public abstract class Particle_Dad : MonoBehaviour
 {
+    // The script of the particle controller that spawned this
+    protected Particle_Controller_Dad father;
+
     // Marks where the particle spawned
     protected Vector2 spawnPosition;
 
@@ -38,12 +41,14 @@ public abstract class Particle_Dad : MonoBehaviour
     /// <param name="startSpeed">
     /// The speed the particle begins with
     /// </param>
-    public virtual void ParticleInitialize(Vector2 goal, float startSpeed)
+    public virtual void ParticleInitialize(Vector2 goal, float startSpeed, Particle_Controller_Dad papa)
     {
+        father = papa;
         spawnPosition = transform.position;
         goalPosition = goal;
         moveSpeed = startSpeed;
         inMotion = true;
+        father.AddParticle(gameObject);
     }
 
     /// <summary>
@@ -67,9 +72,9 @@ public abstract class Particle_Dad : MonoBehaviour
     /// <param name="targetDist">
     /// The distance from the target the particle reaches EOL at
     /// </param>
-    public virtual void ParticleInitialize(Vector2 goal, float startSpeed, float startAccel, Vector2 startDirection, float startTurnSpeed, float targetDist)
+    public virtual void ParticleInitialize(Vector2 goal, float startSpeed, float startAccel, Vector2 startDirection, float startTurnSpeed, float targetDist, Particle_Controller_Dad papa)
     {
-        ParticleInitialize(goal, startSpeed);
+        ParticleInitialize(goal, startSpeed, papa);
         moveAccel = startAccel;
         moveDirection = startDirection;
         turnSpeed = startTurnSpeed;

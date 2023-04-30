@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Player_Energy
 {
+    public GameObject TestMove; // REMOVE LATER
+
     // The points towards each color's next move
     private float bluePoints = 0;
     private float orangePoints = 0;
@@ -43,7 +45,9 @@ public class Player_Energy
         {
             triggered = true;
 
-            // SEND ATTACK TO QUEUE
+            QueuedMove genAttack = new QueuedMove(TestMove, PCExtensions.FromColor(_eColor));
+            GameManager.instance.combat.AddMoveToQueue(genAttack);
+            GameManager.instance.combat.AddToMoveCombo();
 
             ColorCapExpend(_eColor);
         }

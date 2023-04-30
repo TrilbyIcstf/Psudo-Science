@@ -305,7 +305,7 @@ public class Board_Controller : MonoBehaviour
     public void ClickTile(int posX, int posY)
     {
         // Prevents a tile from being clicked if their is a lock on mouse controls
-        if (!mouseLock)
+        if (!mouseLock && !Combat_Commands.GetMoveQueueLock())
         {
             mouseDown = true;
             mousePos = Input.mousePosition;
@@ -546,7 +546,7 @@ public class Board_Controller : MonoBehaviour
         }
         else
         {
-            // EXECUTE THE QUEUE
+            StartCoroutine(GameManager.instance.combat.WaitToStartQueue());
 
             matchCombo = 0;
             mouseLock = false;
@@ -608,8 +608,6 @@ public class Board_Controller : MonoBehaviour
         if (fallingTileLock == 0)
         {
             ResolveChains();
-
-            //Debug.Log("All done.");
         }
     }
 

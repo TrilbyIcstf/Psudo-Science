@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Lesser_Fire_Controller : Particle_Controller_Dad
+public class Lesser_Fire_Particle_Controller : Particle_Controller_Dad
 {
     // The particle gameobject
     public GameObject lesserFireParticle;
@@ -12,11 +12,11 @@ public class Lesser_Fire_Controller : Particle_Controller_Dad
     private float spawnDelay = 0.05f;
     private float minAngle = 25;
     private float maxAngle = 60;
+    private Vector2 spawnPosition;
+    private Vector2 goalPosition;
 
-    public IEnumerator Activate(Vector2 spawnPosition, Vector2 goalPosition)
+    public override IEnumerator Activate()
     {
-        yield return new WaitUntil(() => !GameManager.instance.fx.CheckParticleLock());
-
         float initialAngle = ((Mathf.Rad2Deg * Mathf.Atan2(goalPosition.y - spawnPosition.y, goalPosition.x - spawnPosition.x)) + 360) % 360;
         Vector2[] directions = MakeSpawnAngleArray(initialAngle);
         Particle_Lesser_Spark particleScript = lesserFireParticle.GetComponent<Particle_Lesser_Spark>();
@@ -24,9 +24,23 @@ public class Lesser_Fire_Controller : Particle_Controller_Dad
         for (int i = 0; i < numberToSpawn; i++)
         {
             GameObject tempParticle = Instantiate(lesserFireParticle, spawnPosition, Quaternion.identity);
-            tempParticle.GetComponent<Particle_Lesser_Spark>().ParticleInitialize(goalPosition, 0.15f, 1.001f, directions[i], 0.05f, 0.7f);
+            //particleList.Add(tempParticle);
+            tempParticle.GetComponent<Particle_Lesser_Spark>().ParticleInitialize(goalPosition, 0.15f, 1.001f, directions[i], 0.05f, 0.7f, this);
             yield return new WaitForSeconds(spawnDelay);
         }
+
+        yield return new WaitUntil(() => particleList.Count <= 0);
+
+        father.RemoveController(this);
+        GameManager.instance.fx.RemoveParticleManager(gameObject);
+        Destroy(gameObject);
+    }
+
+    public void Setup(Vector2 sp, Vector2 gp, Move_Dad papa)
+    {
+        base.Setup(papa);
+        spawnPosition = sp;
+        goalPosition = gp;
     }
 
     private Vector2[] MakeSpawnAngleArray(float initialAngle)
@@ -42,5 +56,10 @@ public class Lesser_Fire_Controller : Particle_Controller_Dad
         }
 
         return angleArray;
+    }
+
+    public override bool ControllerActive()
+    {
+        return particleList.Count > 0;
     }
 }

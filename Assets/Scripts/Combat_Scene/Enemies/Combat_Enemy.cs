@@ -8,6 +8,9 @@ public class Combat_Enemy : MonoBehaviour
     // The template for the enemy
     public Enemy_Information enemyBase;
 
+    // Position of this enemy in the enemy array
+    private int enemyPosition;
+
     // The enemy's current stats
     private int currentHealth;
     private bool alive = true;
@@ -28,8 +31,22 @@ public class Combat_Enemy : MonoBehaviour
 
         imageTransform = GetComponent<RectTransform>();
         imageTransform.sizeDelta = enemyBase.SpriteSize;
+        gameObject.GetComponent<BoxCollider2D>().size = imageTransform.sizeDelta;
 
         currentHealth = enemyBase.MaxHealth;
         behavior = GetComponent<Behavior_Dad>();
+    }
+
+    public void Setup(int position)
+    {
+        enemyPosition = position;
+    }
+
+    private void OnMouseDown()
+    {
+        if (alive && !GameManager.instance.fx.CheckAllFXLock())
+        {
+            GameManager.instance.combat.TargetEnemy(enemyPosition);
+        }
     }
 }

@@ -5,22 +5,25 @@ using UnityEngine;
 public class Combat_Startup_Spoof : MonoBehaviour
 {
     public Encounter testEnemies;
-    public GameObject testParticleController;
-    private GameObject tempController;
+    public GameObject testAttack;
 
     private void Start()
     {
         GameManager.instance.combat.CombatSetup(testEnemies);
-        tempController = Instantiate(testParticleController);
     }
 
     private void Update()
     {
+        /*
         if (Input.GetKeyDown(KeyCode.A))
         {
-            Debug.Log("A down");
-            StartCoroutine(tempController.GetComponent<Lesser_Fire_Controller>().Activate(new Vector2(-3, -3), new Vector2(3, 3)));
+            QueuedMove qm = new QueuedMove(testAttack, PC.VANESSA);
+            GameManager.instance.combat.AddMoveToQueue(qm);
+            qm = new QueuedMove(testAttack, PC.VANESSA);
+            GameManager.instance.combat.AddMoveToQueue(qm);
+            GameManager.instance.combat.StartQueue();
         }
+        */
     }
 
     private void OnDrawGizmosSelected()

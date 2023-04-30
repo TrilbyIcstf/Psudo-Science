@@ -27,8 +27,9 @@ public enum Element
     AIR
 }
 
-public enum AttackType
+public enum MoveType
 {
+    NULL,
     PHYSICAL,
     MAGICAL,
     HEALING,
@@ -52,6 +53,9 @@ public enum EquipType
     ACC
 }
 
+/// <summary>
+/// Enum for effect timing on equipment and status effects
+/// </summary>
 public enum CombatTiming
 {
     COMBATSTART,
@@ -62,6 +66,35 @@ public enum CombatTiming
     ENEMYATTACK,
     PLAYERHIT,
     PLAYERENERGY
+}
+
+public enum PC
+{
+    VANESSA = 0,
+    CAROLINE = 1,
+    GABRIELLE = 2,
+    VALLERY = 3,
+    NULL = 99
+}
+
+static class PCExtensions
+{
+    public static PC FromColor(TColor color)
+    {
+        switch(color)
+        {
+            case TColor.BLUE:
+                return PC.VANESSA;
+            case TColor.ORANGE:
+                return PC.CAROLINE;
+            case TColor.PINK:
+                return PC.GABRIELLE;
+            case TColor.PURPLE:
+                return PC.VALLERY;
+            default:
+                return PC.NULL;
+        }
+    }
 }
 
 public enum Bestiary

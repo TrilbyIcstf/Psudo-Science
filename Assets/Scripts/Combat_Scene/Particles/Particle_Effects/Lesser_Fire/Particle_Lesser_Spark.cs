@@ -4,14 +4,15 @@ using UnityEngine;
 
 public class Particle_Lesser_Spark : Particle_Dad
 {
-    public override void ParticleInitialize(Vector2 goal, float startSpeed, float startAccel, Vector2 startDirection, float startTurnSpeed, float targetDist)
+    public override void ParticleInitialize(Vector2 goal, float startSpeed, float startAccel, Vector2 startDirection, float startTurnSpeed, float targetDist, Particle_Controller_Dad papa)
     {
         lifeSpan = 5;
-        base.ParticleInitialize(goal, startSpeed, startAccel, startDirection, startTurnSpeed, targetDist);
+        base.ParticleInitialize(goal, startSpeed, startAccel, startDirection, startTurnSpeed, targetDist, papa);
     }
 
     protected override void ParticleDestroy()
     {
+        father.RemoveParticle(gameObject);
         Destroy(gameObject);
     }
 
