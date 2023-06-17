@@ -1462,6 +1462,10 @@ PrefabInstance:
       propertyPath: testMove
       value: 
       objectReference: {fileID: 1489994068259963331, guid: 09787f3096f0e074ca71d165d06ebd42, type: 3}
+    - target: {fileID: 5640420561896677349, guid: dcdcb9fa99ad22f42b24e15844db1ddb, type: 3}
+      propertyPath: comboCounter
+      value: 
+      objectReference: {fileID: 593052205}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dcdcb9fa99ad22f42b24e15844db1ddb, type: 3}
 --- !u!1 &1669564793
