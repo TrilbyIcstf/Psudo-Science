@@ -18,23 +18,16 @@ public class Combat_Enemy : MonoBehaviour
     // The behavior script which decides how the enemy attacks
     private Behavior_Dad behavior;
 
-    // The in game image element of the enemy
-    private Image enemyImage;
-    private RectTransform imageTransform;
+    // Script for controlling appearance of the enemy
+    private Enemy_Visuals visuals;
 
     // Start is called before the first frame update
     void Start()
     {
-        enemyImage = GetComponent<Image>();
-
-        enemyImage.sprite = enemyBase.EnemySprite;
-
-        imageTransform = GetComponent<RectTransform>();
-        imageTransform.sizeDelta = enemyBase.SpriteSize;
-        gameObject.GetComponent<BoxCollider2D>().size = imageTransform.sizeDelta;
-
         currentHealth = enemyBase.MaxHealth;
         behavior = GetComponent<Behavior_Dad>();
+        visuals = GetComponent<Enemy_Visuals>();
+        visuals.Startup(enemyBase);
     }
 
     public void Setup(int position)
@@ -48,5 +41,23 @@ public class Combat_Enemy : MonoBehaviour
         {
             GameManager.instance.combat.TargetEnemy(enemyPosition);
         }
+    }
+
+    private void OnMouseEnter()
+    {
+        if (alive && !GameManager.instance.fx.CheckAllFXLock())
+        {
+            GameManager.instance.combat.HoverEnemy(enemyPosition);
+        }
+    }
+
+    private void OnMouseExit()
+    {
+        GameManager.instance.combat.UnhoverEnemy(enemyPosition);
+    }
+
+    public Enemy_Visuals getSpriteInfo()
+    {
+        return visuals;
     }
 }

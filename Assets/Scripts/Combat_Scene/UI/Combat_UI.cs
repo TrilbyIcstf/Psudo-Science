@@ -22,6 +22,7 @@ public class Combat_UI : MonoBehaviour
     public GameObject player4Energy;
     [Header("Crosshair")]
     public Enemy_Crosshair crosshairScript;
+    public Hover_Crosshair hoverScript;
 
     // Start is called before the first frame update
     void Start()
@@ -29,7 +30,7 @@ public class Combat_UI : MonoBehaviour
         GameManager.instance.combat.SetCombatUI(this);
     }
 
-    public void TargetCrosshair(Vector3 target)
+    public void TargetCrosshair(Vector2 target)
     {
         crosshairScript.TargetCrosshair(target);
     }
@@ -37,5 +38,15 @@ public class Combat_UI : MonoBehaviour
     public void SetCrosshairEnabled(bool val)
     {
         crosshairScript.SetCrosshairEnabled(val);
+    }
+
+    public void HoverCrosshair(Vector2 target)
+    {
+        hoverScript.TargetCrosshair(target);
+    }
+
+    public void SetHoverEnabled(bool val)
+    {
+        hoverScript.SetCrosshairEnabled(val);
     }
 }

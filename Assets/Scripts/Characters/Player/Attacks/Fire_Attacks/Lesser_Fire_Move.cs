@@ -6,6 +6,7 @@ public class Lesser_Fire_Move : Move_Dad
 {
     private bool attackStarted = false;
     private GameObject target;
+    private BodyPart targetPart = BodyPart.BODY;
 
     public void Setup(GameObject tar)
     {
@@ -15,7 +16,7 @@ public class Lesser_Fire_Move : Move_Dad
     public override void StartAttack(PC user)
     {
         mainParticleController = Instantiate(mainParticleController);
-        mainParticleController.GetComponent<Lesser_Fire_Particle_Controller>().Setup(Combat_UI_Commands.GetPlayerPosition(user).position, (Vector2)Combat_Commands.GetTargetedEnemy().transform.position, this);
+        mainParticleController.GetComponent<Lesser_Fire_Particle_Controller>().Setup(Combat_UI_Commands.GetPlayerPosition(user).position, (Vector2)Combat_Commands.GetTargetedBodyPart(targetPart), this);
         GameManager.instance.fx.AddParticleManager(mainParticleController);
         attackStarted = true;
     }

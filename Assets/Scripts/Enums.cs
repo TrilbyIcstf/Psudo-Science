@@ -53,6 +53,15 @@ public enum EquipType
     ACC
 }
 
+public enum BodyPart
+{
+    CENTER,
+    HEAD,
+    BODY,
+    LEGS,
+    HANDS
+}
+
 /// <summary>
 /// Enum for effect timing on equipment and status effects
 /// </summary>

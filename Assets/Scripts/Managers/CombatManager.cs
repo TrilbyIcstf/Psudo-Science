@@ -18,6 +18,7 @@ public class CombatManager : MonoBehaviour
 
     // The enemy currently targeted by the player
     private int targetedEnemy = 0;
+    private int hoveredEnemy = 0;
 
     private Queue<QueuedMove> moveQueue = new Queue<QueuedMove>();
     private bool moveQueueActive = false;
@@ -116,10 +117,33 @@ public class CombatManager : MonoBehaviour
 
     public bool TargetEnemy(int enemy)
     {
-        combatUI.TargetCrosshair(activeEnemies[enemy].transform.position);
-        combatUI.SetCrosshairEnabled(true);
         targetedEnemy = enemy;
+        combatUI.TargetCrosshair(GetTargetedEnemy().GetComponent<Enemy_Visuals>().GetCenter());
+        combatUI.SetCrosshairEnabled(true);
+        UnhoverEnemy(enemy);
         return true;
+    }
+
+    public bool HoverEnemy(int enemy)
+    {
+        if (enemy == targetedEnemy)
+        {
+            return false;
+        }
+        hoveredEnemy = enemy;
+        combatUI.HoverCrosshair(GetHoveredEnemy().GetComponent<Enemy_Visuals>().GetCenter());
+        combatUI.SetHoverEnabled(true);
+        return true;
+    }
+
+    public bool UnhoverEnemy(int enemy)
+    {
+        if (hoveredEnemy == enemy)
+        {
+            combatUI.SetHoverEnabled(false);
+            return true;
+        }
+        return false;
     }
 
     public GameObject GetTargetedEnemy()
@@ -127,6 +151,15 @@ public class CombatManager : MonoBehaviour
         if (activeEnemies.Count >= targetedEnemy)
         {
             return activeEnemies[targetedEnemy];
+        }
+        return null;
+    }
+
+    public GameObject GetHoveredEnemy()
+    {
+        if (activeEnemies.Count >= hoveredEnemy)
+        {
+            return activeEnemies[hoveredEnemy];
         }
         return null;
     }

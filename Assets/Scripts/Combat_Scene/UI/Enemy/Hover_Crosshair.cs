@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Enemy_Crosshair : MonoBehaviour
+public class Hover_Crosshair : MonoBehaviour
 {
-    private float crosshairAlpha = 1.0f;
+    private float baseAlpha = 0.95f;
+    private float crosshairAlpha;
+    private float animTimer = 0;
     private Image crosshairImage;
+    private static float loopTime = 2.0f;
 
     public void Start()
     {
@@ -15,29 +18,23 @@ public class Enemy_Crosshair : MonoBehaviour
 
     public void FixedUpdate()
     {
-        if (crosshairAlpha > 0.4f)
+        animTimer += Time.deltaTime;
+
+        crosshairAlpha = baseAlpha - Mathf.Sin((animTimer / loopTime) * Mathf.PI);
+
+        if (animTimer > loopTime)
         {
-            crosshairAlpha -= 0.04f;
+            animTimer -= loopTime;
         }
     }
 
     public void Update()
     {
-        UpdateScale();
-    }
+        float scaledAlpha = Mathf.Max(Mathf.Min(0.8f, crosshairAlpha), 0.3f);
 
-    private void UpdateScale()
-    {
-        if (crosshairAlpha > 0.4f)
-        {
-            float scaledAlpha = Mathf.Min(1.0f, crosshairAlpha);
-
-            crosshairImage.transform.localScale = new Vector3(0.9f + (scaledAlpha / 4), 0.9f + (scaledAlpha / 4), 1);
-
-            Color tempColor = crosshairImage.color;
-            tempColor.a = Mathf.Min(1.0f, crosshairAlpha);
-            crosshairImage.color = tempColor;
-        }
+        Color tempColor = crosshairImage.color;
+        tempColor.a = scaledAlpha;
+        crosshairImage.color = tempColor;
     }
 
     /// <summary>
@@ -48,8 +45,8 @@ public class Enemy_Crosshair : MonoBehaviour
     /// </param>
     public void TargetCrosshair(Vector2 target)
     {
-        crosshairAlpha = 2.0f;
-        UpdateScale();
+        crosshairAlpha = baseAlpha;
+        animTimer = 0;
 
         gameObject.transform.position = target;
     }
