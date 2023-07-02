@@ -1294,6 +1294,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6023766720938304023, guid: f0963e863c3eb15468392ed8b9be611a, type: 3}
   m_PrefabInstance: {fileID: 6023766719459723681}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1461071216 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: -3592997808978976260, guid: 733b0dc38ad14484a935dc84e813ad97, type: 3}
+  m_PrefabInstance: {fileID: 88319024}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce714001ddfa5bf41b5a49e48dc639dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &1483697079 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6023766720938304022, guid: f0963e863c3eb15468392ed8b9be611a, type: 3}
@@ -1694,6 +1705,7 @@ MonoBehaviour:
   player3Energy: {fileID: 2078919717}
   player4Energy: {fileID: 1955199761}
   crosshairScript: {fileID: 1533134044}
+  hoverScript: {fileID: 1461071216}
 --- !u!1 &1673768793
 GameObject:
   m_ObjectHideFlags: 0
