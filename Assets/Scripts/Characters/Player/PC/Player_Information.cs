@@ -33,7 +33,7 @@ public class Player_Information : ScriptableObject
     [SerializeField] private Equip_Information eqAcc2;
 
     [Header("Status")]
-    [SerializeField] private Player_Status status;
+    [SerializeField] private Player_Status status = new Player_Status(1);
 
     public void LevelUp(int _LVL, int _MHP, int _ATK, int _DEF, int _MAT, int _MDF)
     {
@@ -43,6 +43,23 @@ public class Player_Information : ScriptableObject
         defenseStat += _DEF;
         magicStat += _MAT;
         magDefenseStat += _MDF;
+    }
+
+    public void Heal(int heal)
+    {
+        int newHealth = Mathf.Min(status.CurrentHealth + heal, MaxHealth);
+        status.CurrentHealth = newHealth;
+    }
+
+    public void resetStatus(int health, bool cleanse = false)
+    {
+        health = Mathf.Clamp(health, 0, EquipMaxHealth);
+        status = new Player_Status(status, health, cleanse);
+    }
+
+    public void resetStatus(bool heal = true, bool cleanse = false)
+    {
+        status = new Player_Status(status, heal ? EquipMaxHealth : status.CurrentHealth, cleanse);
     }
 
     // Get/Set
@@ -56,11 +73,16 @@ public class Player_Information : ScriptableObject
     public int BaseDefense { get => defenseStat; set => defenseStat = value; }
     public int BaseMagic { get => magicStat; set => magicStat = value; }
     public int BaseMagDefense { get => magDefenseStat; set => magDefenseStat = value; }
-    public int MaxHealth { get => maxHealthStat + eqWeapon.Health + eqHelmet.Health + eqArmor.Health + eqPant.Health + eqAcc1.Health + eqAcc2.Health; }
-    public int Attack { get => attackStat + eqWeapon.Attack + eqHelmet.Attack + eqArmor.Attack + eqPant.Attack + eqAcc1.Attack + eqAcc2.Attack; }
-    public int Defense { get => defenseStat + eqWeapon.Defense + eqHelmet.Defense + eqArmor.Defense + eqPant.Defense + eqAcc1.Defense + eqAcc2.Defense; }
-    public int Magic { get => magicStat + eqWeapon.Magic + eqHelmet.Magic + eqArmor.Magic + eqPant.Magic + eqAcc1.Magic + eqAcc2.Magic; }
-    public int MagDefense { get => magDefenseStat + eqWeapon.MagDefense + eqHelmet.MagDefense + eqArmor.MagDefense + eqPant.MagDefense + eqAcc1.MagDefense + eqAcc2.MagDefense; }
+    public int EquipMaxHealth { get => maxHealthStat + eqWeapon.Health + eqHelmet.Health + eqArmor.Health + eqPant.Health + eqAcc1.Health + eqAcc2.Health; }
+    public int EquipAttack { get => attackStat + eqWeapon.Attack + eqHelmet.Attack + eqArmor.Attack + eqPant.Attack + eqAcc1.Attack + eqAcc2.Attack; }
+    public int EquipDefense { get => defenseStat + eqWeapon.Defense + eqHelmet.Defense + eqArmor.Defense + eqPant.Defense + eqAcc1.Defense + eqAcc2.Defense; }
+    public int EquipMagic { get => magicStat + eqWeapon.Magic + eqHelmet.Magic + eqArmor.Magic + eqPant.Magic + eqAcc1.Magic + eqAcc2.Magic; }
+    public int EquipMagDefense { get => magDefenseStat + eqWeapon.MagDefense + eqHelmet.MagDefense + eqArmor.MagDefense + eqPant.MagDefense + eqAcc1.MagDefense + eqAcc2.MagDefense; }
+    public int MaxHealth { get => Mathf.CeilToInt((EquipMaxHealth + status.HealthBuff) * status.HealthMult); }
+    public int Attack { get => Mathf.CeilToInt((EquipAttack + status.AttackBuff) * status.AttackMult); }
+    public int Defense { get => Mathf.CeilToInt((EquipDefense + status.DefenseBuff) * status.DefenseMult); }
+    public int Magic { get => Mathf.CeilToInt((EquipMagic + status.MagicBuff) * status.MagicMult); }
+    public int MagDefense { get => Mathf.CeilToInt((EquipMagDefense + status.MagDefenseBuff) * status.MagDefenseMult); }
     public Equip_Information Weapon { get => eqWeapon; set => eqWeapon = value; }
     public Equip_Information Helmet { get => eqHelmet; set => eqHelmet = value; }
     public Equip_Information Armor { get => eqArmor; set => eqArmor = value; }

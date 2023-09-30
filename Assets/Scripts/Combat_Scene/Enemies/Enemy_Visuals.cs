@@ -6,8 +6,15 @@ using UnityEngine.UI;
 public class Enemy_Visuals : MonoBehaviour
 {
     // The in game image element of the enemy
+    public GameObject spriteObject;
     private Image enemyImage;
     private RectTransform imageTransform;
+
+    // Link to the script that controls animations
+    public Enemy_Animations animController;
+
+    // Link to the enemy's health bar
+    public Enemy_Health_UI healthBar;
 
     // The position element of the enemy's body parts
     public RectTransform center;
@@ -18,13 +25,30 @@ public class Enemy_Visuals : MonoBehaviour
 
     public void Startup(Enemy_Information enemyBase)
     {
-        enemyImage = GetComponent<Image>();
+        enemyImage = spriteObject.GetComponent<Image>();
+        imageTransform = spriteObject.GetComponent<RectTransform>();
 
-        enemyImage.sprite = enemyBase.EnemySprite;
+        if (enemyBase.EnemySprite != null)
+        {
+            enemyImage.sprite = enemyBase.EnemySprite;
 
-        imageTransform = GetComponent<RectTransform>();
-        imageTransform.sizeDelta = enemyBase.SpriteSize;
+            imageTransform.sizeDelta = enemyBase.SpriteSize;
+        }
+
         gameObject.GetComponent<BoxCollider2D>().size = imageTransform.sizeDelta;
+
+        UpdateHealthBar(enemyBase.MaxHealth, enemyBase.MaxHealth);
+        SetHealthBarHeight(enemyBase.HealthBarHeight);
+    }
+
+    public void PlayAnimation(EnemyAnimation ea)
+    {
+        animController.PlayAnimation(ea);
+    }
+
+    public void PlayAnimationRotated(EnemyAnimation ea, float rotation)
+    {
+        animController.PlayAnimationRotated(ea, rotation);
     }
 
     public Vector2 GetCenter()
@@ -58,5 +82,25 @@ public class Enemy_Visuals : MonoBehaviour
                 break;
         }
         return body.position;
+    }
+
+    public void SetHealthBarEnabled(bool enabled)
+    {
+        healthBar.SetEnabled(enabled);
+    }
+
+    public void SetHealthBarTimer(float time)
+    {
+        healthBar.SetTimer(time);
+    }
+
+    public void UpdateHealthBar(float current, float max)
+    {
+        healthBar.SetHealth(current, max);
+    }
+
+    public void SetHealthBarHeight(float height)
+    {
+        healthBar.SetHeight(height);
     }
 }

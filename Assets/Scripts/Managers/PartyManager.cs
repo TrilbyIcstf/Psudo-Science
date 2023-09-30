@@ -9,11 +9,6 @@ public class PartyManager : MonoBehaviour
     public Player_Information player3;
     public Player_Information player4;
 
-    private Player_Status playerStatus1;
-    private Player_Status playerStatus2;
-    private Player_Status playerStatus3;
-    private Player_Status playerStatus4;
-
     void Awake()
     {
         ResetStatus();
@@ -26,19 +21,19 @@ public class PartyManager : MonoBehaviour
     {
         if (player1 != null)
         {
-            playerStatus1 = new Player_Status(player1.MaxHealth/2);
+            player1.resetStatus(player1.MaxHealth / 2);
         }
         if (player2 != null)
         {
-            playerStatus2 = new Player_Status(player2.MaxHealth/3);
+            player2.resetStatus(player2.MaxHealth / 3);
         }
         if (player3 != null)
         {
-            playerStatus3 = new Player_Status(player3.MaxHealth/4);
+            player3.resetStatus(player3.MaxHealth / 4);
         }
         if (player4 != null)
         {
-            playerStatus4 = new Player_Status(player4.MaxHealth/5);
+            player4.resetStatus(player4.MaxHealth / 5);
         }
     }
 
@@ -46,48 +41,25 @@ public class PartyManager : MonoBehaviour
     {
         if (player1 != null)
         {
-            playerStatus1.CurrentHealth = (int)Mathf.Min(playerStatus1.CurrentHealth + _heal1, (player1.MaxHealth * playerStatus1.HealthMult) + playerStatus1.HealthBuff);
+            player1.Heal(_heal1);
         }
         if (player2 != null)
         {
-            playerStatus2.CurrentHealth = (int)Mathf.Min(playerStatus2.CurrentHealth + _heal2, (player2.MaxHealth * playerStatus2.HealthMult) + playerStatus2.HealthBuff);
+            player2.Heal(_heal2);
         }
         if (player3 != null)
         {
-            playerStatus3.CurrentHealth = (int)Mathf.Min(playerStatus3.CurrentHealth + _heal3, (player3.MaxHealth * playerStatus3.HealthMult) + playerStatus3.HealthBuff);
+            player3.Heal(_heal3);
         }
         if (player4 != null)
         {
-            playerStatus4.CurrentHealth = (int)Mathf.Min(playerStatus4.CurrentHealth + _heal4, (player4.MaxHealth * playerStatus4.HealthMult) + playerStatus4.HealthBuff);
+            player4.Heal(_heal4);
         }
     }
 
-    // Get/Set
-    public Player_Status PlayerStatus1 { get => playerStatus1; set => playerStatus1 = value; }
-    public Player_Status PlayerStatus2 { get => playerStatus2; set => playerStatus2 = value; }
-    public Player_Status PlayerStatus3 { get => playerStatus3; set => playerStatus3 = value; }
-    public Player_Status PlayerStatus4 { get => playerStatus4; set => playerStatus4 = value; }
-
-    public Player_Status GetPlayer(TColor _tint)
+    public Player_Information GetPlayer(TColor _tint)
     {
-        switch (_tint)
-        {
-            case TColor.BLUE:
-                return playerStatus1;
-            case TColor.ORANGE:
-                return playerStatus2;
-            case TColor.PINK:
-                return playerStatus3;
-            case TColor.PURPLE:
-                return playerStatus4;
-            default:
-                return null;
-        }
-    }
-
-    public Player_Information GetPlayerInfo(TColor _tint)
-    {
-        switch (_tint)
+        switch(_tint)
         {
             case TColor.BLUE:
                 return player1;
@@ -96,6 +68,23 @@ public class PartyManager : MonoBehaviour
             case TColor.PINK:
                 return player3;
             case TColor.PURPLE:
+                return player4;
+            default:
+                return null;
+        }
+    }
+
+    public Player_Information GetPlayer(PC _pc)
+    {
+        switch(_pc)
+        {
+            case PC.VANESSA:
+                return player1;
+            case PC.SAMANTHA:
+                return player2;
+            case PC.GABRIELLE:
+                return player3;
+            case PC.VALLERY:
                 return player4;
             default:
                 return null;

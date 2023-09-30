@@ -8,13 +8,22 @@ public abstract class Particle_Controller_Dad : MonoBehaviour
 
     // List to keep track of the particles
     protected List<GameObject> particleList = new List<GameObject>();
+    
+    // Which enemies the attack is targeting
+    protected List<int> targets = new List<int>();
 
     public abstract IEnumerator Activate();
 
-    public virtual void Setup(Move_Dad papa)
+    public virtual void Setup(Move_Dad papa, List<int> targets)
     {
         father = papa;
         father.AddController(this);
+        this.targets = targets;
+    }
+
+    public virtual void SendAnimation(EnemyAnimation ea, int enemy, float rotation = -99)
+    {
+        GameManager.instance.combat.PlayEnemyAnimation(ea, enemy, rotation);
     }
 
     public abstract bool ControllerActive();

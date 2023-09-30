@@ -12,6 +12,7 @@ public abstract class Move_Dad : MonoBehaviour
 
     public abstract void StartAttack(PC user);
 
+    public abstract void EndAttack(PC user);
     public abstract bool MoveFinished();
 
     public void AddController(Particle_Controller_Dad newController)

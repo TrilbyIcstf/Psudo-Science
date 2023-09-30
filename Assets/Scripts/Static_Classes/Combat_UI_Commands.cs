@@ -28,7 +28,7 @@ public static class Combat_UI_Commands
         {
             case PC.VANESSA:
                 return GameManager.instance.combat.combatUI.player1.transform;
-            case PC.CAROLINE:
+            case PC.SAMANTHA:
                 return GameManager.instance.combat.combatUI.player2.transform;
             case PC.GABRIELLE:
                 return GameManager.instance.combat.combatUI.player3.transform;

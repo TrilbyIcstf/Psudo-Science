@@ -27,15 +27,15 @@ public class Health_UI : MonoBehaviour
     void Start()
     {
         slider = GetComponent<Slider>();
-        SetHealth(GameManager.instance.party.GetPlayer(playerColor).CurrentHealth);
+        SetHealth(GameManager.instance.party.GetPlayer(playerColor).Status.CurrentHealth);
     }
 
     public void RecieveHealth(float amount)
     {
         healthCounter += amount;
-        healthCounter = Mathf.Min(healthCounter, GameManager.instance.party.GetPlayerInfo(playerColor).MaxHealth);
+        healthCounter = Mathf.Min(healthCounter, GameManager.instance.party.GetPlayer(playerColor).MaxHealth);
 
-        slider.value = Mathf.Clamp(healthCounter / GameManager.instance.party.GetPlayerInfo(playerColor).MaxHealth, 0, 1);
+        slider.value = Mathf.Clamp(healthCounter / GameManager.instance.party.GetPlayer(playerColor).MaxHealth, 0, 1);
 
         // Refreshes a timer which will update the bar to the correct value once all the blips are gone
         if (blipCounter != null)
@@ -49,9 +49,9 @@ public class Health_UI : MonoBehaviour
     public void SetHealth(float amount)
     {
         healthCounter = amount;
-        healthCounter = Mathf.Min(healthCounter, GameManager.instance.party.GetPlayerInfo(playerColor).MaxHealth);
+        healthCounter = Mathf.Min(healthCounter, GameManager.instance.party.GetPlayer(playerColor).MaxHealth);
 
-        slider.value = Mathf.Clamp(healthCounter / GameManager.instance.party.GetPlayerInfo(playerColor).MaxHealth, 0, 1);
+        slider.value = Mathf.Clamp(healthCounter / GameManager.instance.party.GetPlayer(playerColor).MaxHealth, 0, 1);
     }
 
     private IEnumerator CheckRemainingBlips()
@@ -71,7 +71,7 @@ public class Health_UI : MonoBehaviour
 
         if (!blipsRemain)
         {
-            SetHealth(GameManager.instance.party.GetPlayer(playerColor).CurrentHealth);
+            SetHealth(GameManager.instance.party.GetPlayer(playerColor).Status.CurrentHealth);
         }
     }
 }

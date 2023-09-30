@@ -15,7 +15,7 @@ public class Combat_Health_Hover : MonoBehaviour
     {
         if (healthText.enabled)
         {
-            string tempText = GameManager.instance.party.GetPlayer(playerColor).CurrentHealth + "/" + GameManager.instance.party.GetPlayerInfo(playerColor).MaxHealth;
+            string tempText = GameManager.instance.party.GetPlayer(playerColor).Status.CurrentHealth + "/" + GameManager.instance.party.GetPlayer(playerColor).MaxHealth;
             healthText.text = tempText;
         }
     }

@@ -14,6 +14,7 @@ public class Lesser_Fire_Particle_Controller : Particle_Controller_Dad
     private float maxAngle = 60;
     private Vector2 spawnPosition;
     private Vector2 goalPosition;
+    private int enemyNum;
 
     public override IEnumerator Activate()
     {
@@ -24,8 +25,7 @@ public class Lesser_Fire_Particle_Controller : Particle_Controller_Dad
         for (int i = 0; i < numberToSpawn; i++)
         {
             GameObject tempParticle = Instantiate(lesserFireParticle, spawnPosition, Quaternion.identity);
-            //particleList.Add(tempParticle);
-            tempParticle.GetComponent<Particle_Lesser_Spark>().ParticleInitialize(goalPosition, 0.15f, 1.001f, directions[i], 0.05f, 0.7f, this);
+            tempParticle.GetComponent<Particle_Lesser_Spark>().ParticleInitialize(goalPosition, targets[0], 0.15f, 1.001f, directions[i], 0.05f, 0.7f, this);
             yield return new WaitForSeconds(spawnDelay);
         }
 
@@ -36,9 +36,9 @@ public class Lesser_Fire_Particle_Controller : Particle_Controller_Dad
         Destroy(gameObject);
     }
 
-    public void Setup(Vector2 sp, Vector2 gp, Move_Dad papa)
+    public void Setup(Vector2 sp, Vector2 gp, Move_Dad papa, List<int> targets)
     {
-        base.Setup(papa);
+        base.Setup(papa, targets);
         spawnPosition = sp;
         goalPosition = gp;
     }

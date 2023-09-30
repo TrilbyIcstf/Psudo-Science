@@ -27,6 +27,13 @@ public enum Element
     AIR
 }
 
+public enum StatusEffect
+{
+    POISONED,
+    BURNED,
+    CONFUSED
+}
+
 public enum MoveType
 {
     NULL,
@@ -80,7 +87,7 @@ public enum CombatTiming
 public enum PC
 {
     VANESSA = 0,
-    CAROLINE = 1,
+    SAMANTHA = 1,
     GABRIELLE = 2,
     VALLERY = 3,
     NULL = 99
@@ -95,7 +102,7 @@ static class PCExtensions
             case TColor.BLUE:
                 return PC.VANESSA;
             case TColor.ORANGE:
-                return PC.CAROLINE;
+                return PC.SAMANTHA;
             case TColor.PINK:
                 return PC.GABRIELLE;
             case TColor.PURPLE:
@@ -111,4 +118,23 @@ public enum Bestiary
     BookRat,
     KnickedSkeleton,
     StainedKnight
+}
+
+public enum EnemyAnimation
+{
+    SmallRecoil
+}
+
+public static class EnumMapping
+{
+    public static string EnemyAnimationMap(EnemyAnimation ea)
+    {
+        switch(ea)
+        {
+            case EnemyAnimation.SmallRecoil:
+                return "SmallRecoil";
+            default:
+                return "";
+        }
+    }
 }

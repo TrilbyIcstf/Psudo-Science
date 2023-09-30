@@ -29,6 +29,7 @@ public class Enemy_Information : ScriptableObject
     [Header("Image")]
     [SerializeField] private Sprite enemySprite;
     [SerializeField] private Vector2 spriteSize;
+    [SerializeField] private float healthBarHeight;
 
     public int Level{ get => levelStat; set => levelStat = value; }
     public int MaxHealth { get => maxHealthStat; set => maxHealthStat = value; }
@@ -41,4 +42,5 @@ public class Enemy_Information : ScriptableObject
     public Bestiary EnemyType { get => enemyType; set => enemyType = value; }
     public Sprite EnemySprite { get => enemySprite; set => enemySprite = value; }
     public Vector2 SpriteSize { get => spriteSize; set => spriteSize = value; }
+    public float HealthBarHeight { get => healthBarHeight; set => healthBarHeight = value; }
 }

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.UI; // REMOVE ME LATER
 
@@ -57,6 +58,28 @@ public class CombatManager : MonoBehaviour
         board = null;
     }
 
+    public void ProcessPlayerAttackDamage(PC user, int[] targets, Func<Player_Information, Enemy_Stats, int> potencyCalc)
+    {
+        foreach (int i in targets)
+        {
+            if (activeEnemies[i] != null)
+            {
+                Combat_Enemy target = activeEnemies[i].GetComponent<Combat_Enemy>();
+                Enemy_Stats targetStats = target.GetStats();
+                if (targetStats.CurrentHealth > 0)
+                {
+                    int damageDealt = potencyCalc(GameManager.instance.party.GetPlayer(user), targetStats);
+                    target.TakeDamage(damageDealt);
+                }
+            }
+        }
+    }
+
+    public void ProcessPlayerAttackDamage(PC user, int target, Func<Player_Information, Enemy_Stats, int> potencyCalc)
+    {
+        ProcessPlayerAttackDamage(user, new int[] { target }, potencyCalc);
+    }
+
     public bool AddMoveToQueue(QueuedMove move)
     {
         try
@@ -104,6 +127,7 @@ public class CombatManager : MonoBehaviour
             Move_Dad nextScript = nextMoveObject.GetComponent<Move_Dad>();
             nextScript.StartAttack(nextMove.user);
             yield return new WaitUntil(() => nextScript.MoveFinished());
+            nextScript.EndAttack(nextMove.user);
             nextScript.Destroy();
             if (moveQueue.Count > 0)
             {
@@ -117,9 +141,17 @@ public class CombatManager : MonoBehaviour
 
     public bool TargetEnemy(int enemy)
     {
+        if (GetTargetedEnemy() != null)
+        {
+            Enemy_Visuals oldVisuals = GetTargetedEnemy().GetComponent<Enemy_Visuals>();
+            oldVisuals.SetHealthBarEnabled(false);
+        }
+
         targetedEnemy = enemy;
-        combatUI.TargetCrosshair(GetTargetedEnemy().GetComponent<Enemy_Visuals>().GetCenter());
+        Enemy_Visuals enemyVisuals = GetTargetedEnemy().GetComponent<Enemy_Visuals>();
+        combatUI.TargetCrosshair(enemyVisuals.GetCenter());
         combatUI.SetCrosshairEnabled(true);
+        enemyVisuals.SetHealthBarTimer(0.75f);
         UnhoverEnemy(enemy);
         return true;
     }
@@ -131,7 +163,8 @@ public class CombatManager : MonoBehaviour
             return false;
         }
         hoveredEnemy = enemy;
-        combatUI.HoverCrosshair(GetHoveredEnemy().GetComponent<Enemy_Visuals>().GetCenter());
+        Enemy_Visuals enemyVisuals = GetHoveredEnemy().GetComponent<Enemy_Visuals>();
+        combatUI.HoverCrosshair(enemyVisuals.GetCenter());
         combatUI.SetHoverEnabled(true);
         return true;
     }
@@ -155,6 +188,11 @@ public class CombatManager : MonoBehaviour
         return null;
     }
 
+    public int GetTargetedNumber()
+    {
+        return targetedEnemy;
+    }
+
     public GameObject GetHoveredEnemy()
     {
         if (activeEnemies.Count >= hoveredEnemy)
@@ -162,6 +200,11 @@ public class CombatManager : MonoBehaviour
             return activeEnemies[hoveredEnemy];
         }
         return null;
+    }
+
+    public int GetHoveredNumber()
+    {
+        return hoveredEnemy;
     }
 
     public void SetBoard(Board_Controller _val)
@@ -198,5 +241,20 @@ public class CombatManager : MonoBehaviour
     public void ResetCombo()
     {
         moveCombo = 0;
+    }
+
+    public void PlayEnemyAnimation(EnemyAnimation ea, int enemy, float rotation = -99)
+    {
+        if (activeEnemies.Count > enemy && activeEnemies[enemy] != null)
+        {
+            if (rotation >= 0)
+            {
+                activeEnemies[enemy].GetComponent<Enemy_Visuals>().PlayAnimationRotated(ea, rotation);
+            } 
+            else 
+            {
+                activeEnemies[enemy].GetComponent<Enemy_Visuals>().PlayAnimation(ea);
+            }
+        }
     }
 }

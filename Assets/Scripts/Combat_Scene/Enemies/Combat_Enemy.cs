@@ -8,6 +8,8 @@ public class Combat_Enemy : MonoBehaviour
     // The template for the enemy
     public Enemy_Information enemyBase;
 
+    private Enemy_Stats stats;
+
     // Position of this enemy in the enemy array
     private int enemyPosition;
 
@@ -28,11 +30,18 @@ public class Combat_Enemy : MonoBehaviour
         behavior = GetComponent<Behavior_Dad>();
         visuals = GetComponent<Enemy_Visuals>();
         visuals.Startup(enemyBase);
+        stats = new Enemy_Stats(enemyBase);
     }
 
     public void Setup(int position)
     {
         enemyPosition = position;
+    }
+
+    public void TakeDamage(int amount)
+    {
+        stats.CurrentHealth = Mathf.Max(0, stats.CurrentHealth - amount);
+        visuals.UpdateHealthBar(stats.CurrentHealth, stats.MaxHealth);
     }
 
     private void OnMouseDown()
@@ -48,16 +57,24 @@ public class Combat_Enemy : MonoBehaviour
         if (alive && !GameManager.instance.fx.CheckAllFXLock())
         {
             GameManager.instance.combat.HoverEnemy(enemyPosition);
+            visuals.SetHealthBarEnabled(true);
         }
     }
 
     private void OnMouseExit()
     {
         GameManager.instance.combat.UnhoverEnemy(enemyPosition);
+
+        visuals.SetHealthBarEnabled(false);
     }
 
-    public Enemy_Visuals getSpriteInfo()
+    public Enemy_Visuals GetSpriteInfo()
     {
         return visuals;
+    }
+
+    public Enemy_Stats GetStats()
+    {
+        return stats;
     }
 }
