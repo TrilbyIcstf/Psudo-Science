@@ -35,11 +35,11 @@ public class Enemy_Animations : MonoBehaviour
         {
             if (holderPos.rotation.z != 0)
             {
-                float rotRad = holderPos.rotation.z * Mathf.Deg2Rad;
+                float rotRad = holderPos.rotation.eulerAngles.z * Mathf.Deg2Rad;
                 Debug.Log(rotRad);
 
                 float xPos = (spriteVector.x * Mathf.Cos(rotRad)) - (spriteVector.y * Mathf.Sin(rotRad));
-                float yPos = (spriteVector.x * Mathf.Sin(rotRad)) - (spriteVector.y * Mathf.Cos(rotRad));
+                float yPos = (spriteVector.x * Mathf.Sin(rotRad)) + (spriteVector.y * Mathf.Cos(rotRad));
 
                 holderPos.anchoredPosition = new Vector2(xPos, yPos);
             }
@@ -57,15 +57,15 @@ public class Enemy_Animations : MonoBehaviour
 
     public void PlayAnimationRotated(EnemyAnimation ea, float rotation)
     {
-        holderPos.Rotate(0, 0, rotation);
-        spritePos.Rotate(0, 0, -rotation);
+        holderPos.rotation = Quaternion.Euler(0, 0, rotation);
+        spritePos.rotation = Quaternion.Euler(0, 0, 0);
         animController.SetTrigger(EnumMapping.EnemyAnimationMap(ea));
     }
 
     public void ResetRotation()
     {
-        holderPos.Rotate(0, 0, 0);
-        spritePos.Rotate(0, 0, 0);
+        holderPos.rotation = Quaternion.Euler(0, 0, 0);
+        spritePos.rotation = Quaternion.Euler(0, 0, 0);
     }
 
     public void StartMoving()

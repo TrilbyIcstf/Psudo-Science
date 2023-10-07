@@ -15,7 +15,14 @@ public class Particle_Lesser_Spark : Particle_Dad
 
     protected override void ParticleDestroy()
     {
-        father.SendAnimation(EnemyAnimation.SmallRecoil, target, Vector2.Angle(new Vector2(0, 1), moveDirection));
+        //float angle = (Mathf.Atan2(goalPosition.y - transform.position.y, goalPosition.x - transform.position.x) * Mathf.Rad2Deg) - 90;
+        float angle = (Mathf.Atan2(moveDirection.y, moveDirection.x) * Mathf.Rad2Deg) - 90;
+        if (angle < 0)
+        {
+            angle += 360;
+        }
+        Debug.Log(angle);
+        father.SendAnimation(EnemyAnimation.SmallRecoil, target, angle);
 
         father.RemoveParticle(gameObject);
         Destroy(gameObject);

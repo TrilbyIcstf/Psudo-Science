@@ -8,8 +8,8 @@ public class Lesser_Fire_Particle_Controller : Particle_Controller_Dad
     public GameObject lesserFireParticle;
 
     // Variables for spawning the particles
-    private int numberToSpawn = 8;
-    private float spawnDelay = 0.05f;
+    private int numberToSpawn = 4;
+    private float spawnDelay = 0.1f;
     private float minAngle = 25;
     private float maxAngle = 60;
     private Vector2 spawnPosition;
