@@ -51,6 +51,11 @@ public class Enemy_Visuals : MonoBehaviour
         animController.PlayAnimationRotated(ea, rotation);
     }
 
+    public void PlayAnimationColor(EnemyAnimation ea, Vector3 color)
+    {
+        animController.PlayAnimationColor(ea, color);
+    }
+
     public Vector2 GetCenter()
     {
         return center.position;

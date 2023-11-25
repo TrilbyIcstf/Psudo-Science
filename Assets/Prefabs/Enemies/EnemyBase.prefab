@@ -526,6 +526,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sprite: {fileID: 8239299552922415537}
+  spriteVector: {x: 0, y: 0}
+  overlayMultiplier: 0
 --- !u!1 &7716331690469901562
 GameObject:
   m_ObjectHideFlags: 0

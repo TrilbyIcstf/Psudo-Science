@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Animations;
+using UnityEngine.UI;
 
 public class Enemy_Animations : MonoBehaviour
 {
@@ -16,6 +17,13 @@ public class Enemy_Animations : MonoBehaviour
 
     private bool isMoving = false;
 
+    // Information on the sprite object's color
+    private Image spriteImage;
+    private Color spriteColor;
+
+    private Vector3 overlayColor = Vector3.zero;
+    public float overlayMultiplier = 0;
+
     // Transforms for self and sprite
     private RectTransform holderPos;
     private RectTransform spritePos;
@@ -27,6 +35,9 @@ public class Enemy_Animations : MonoBehaviour
 
         holderPos = GetComponent<RectTransform>();
         spritePos = sprite.GetComponent<RectTransform>();
+
+        spriteImage = sprite.GetComponent<Image>();
+        spriteColor = spriteImage.color;
     }
 
     private void Update()
@@ -48,6 +59,16 @@ public class Enemy_Animations : MonoBehaviour
                 holderPos.anchoredPosition = spriteVector;
             }
         }
+
+        if (overlayMultiplier > 0)
+        {
+            Color tempColor = spriteColor;
+            tempColor.r = spriteColor.r + (overlayColor.x - spriteColor.r) * overlayMultiplier;
+            tempColor.g = spriteColor.g + (overlayColor.y - spriteColor.g) * overlayMultiplier;
+            tempColor.b = spriteColor.b + (overlayColor.z - spriteColor.b) * overlayMultiplier;
+            spriteImage.color = tempColor;
+            Debug.Log("COLOR");
+        }
     }
 
     public void PlayAnimation(EnemyAnimation ea)
@@ -59,6 +80,12 @@ public class Enemy_Animations : MonoBehaviour
     {
         holderPos.rotation = Quaternion.Euler(0, 0, rotation);
         spritePos.rotation = Quaternion.Euler(0, 0, 0);
+        animController.SetTrigger(EnumMapping.EnemyAnimationMap(ea));
+    }
+
+    public void PlayAnimationColor(EnemyAnimation ea, Vector3 color)
+    {
+        overlayColor = color;
         animController.SetTrigger(EnumMapping.EnemyAnimationMap(ea));
     }
 
@@ -77,5 +104,11 @@ public class Enemy_Animations : MonoBehaviour
     {
         isMoving = false;
         spriteVector = new Vector2();
+    }
+
+    public void ResetColor()
+    {
+        overlayMultiplier = 0;
+        spriteImage.color = spriteColor;
     }
 }

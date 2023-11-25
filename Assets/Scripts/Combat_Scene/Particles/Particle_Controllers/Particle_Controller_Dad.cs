@@ -21,9 +21,9 @@ public abstract class Particle_Controller_Dad : MonoBehaviour
         this.targets = targets;
     }
 
-    public virtual void SendAnimation(EnemyAnimation ea, int enemy, float rotation = -99)
+    public virtual void SendAnimation(AnimDetails a)
     {
-        GameManager.instance.combat.PlayEnemyAnimation(ea, enemy, rotation);
+        GameManager.instance.combat.PlayEnemyAnimation(a);
     }
 
     public abstract bool ControllerActive();

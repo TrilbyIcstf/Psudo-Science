@@ -21,8 +21,7 @@ public class Particle_Lesser_Spark : Particle_Dad
         {
             angle += 360;
         }
-        Debug.Log(angle);
-        father.SendAnimation(EnemyAnimation.SmallRecoil, target, angle);
+        father.SendAnimation(AnimDetails.Anim(EnemyAnimation.ColorFlash, target, new Vector3(200f, 0, 0)));
 
         father.RemoveParticle(gameObject);
         Destroy(gameObject);

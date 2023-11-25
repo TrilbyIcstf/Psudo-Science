@@ -243,18 +243,58 @@ public class CombatManager : MonoBehaviour
         moveCombo = 0;
     }
 
-    public void PlayEnemyAnimation(EnemyAnimation ea, int enemy, float rotation = -99)
+    public void PlayEnemyAnimation(AnimDetails a)
     {
-        if (activeEnemies.Count > enemy && activeEnemies[enemy] != null)
+        if (activeEnemies.Count > a.enemy && activeEnemies[a.enemy] != null)
         {
-            if (rotation >= 0)
+            if (a.rotation >= 0)
             {
-                activeEnemies[enemy].GetComponent<Enemy_Visuals>().PlayAnimationRotated(ea, rotation);
+                activeEnemies[a.enemy].GetComponent<Enemy_Visuals>().PlayAnimationRotated(a.ea, a.rotation);
             } 
+            else if (!a.color.Equals(Vector3.zero))
+            {
+                activeEnemies[a.enemy].GetComponent<Enemy_Visuals>().PlayAnimationColor(a.ea, a.color);
+            }
             else 
             {
-                activeEnemies[enemy].GetComponent<Enemy_Visuals>().PlayAnimation(ea);
+                activeEnemies[a.enemy].GetComponent<Enemy_Visuals>().PlayAnimation(a.ea);
             }
         }
+    }
+}
+
+public class AnimDetails
+{
+    public EnemyAnimation ea;
+    public int enemy;
+    public float rotation;
+    public Vector3 color;
+
+    AnimDetails(EnemyAnimation ea, int enemy, float rotation, Vector3 color)
+    {
+        this.ea = ea;
+        this.enemy = enemy;
+        this.rotation = rotation;
+        this.color = color;
+    }
+
+    public static AnimDetails Anim(EnemyAnimation ea, int enemy)
+    {
+        return new AnimDetails(ea, enemy, -99, Vector3.zero);
+    }
+
+    public static AnimDetails Anim(EnemyAnimation ea, int enemy, float rotation)
+    {
+        return new AnimDetails(ea, enemy, rotation, Vector3.zero);
+    }
+
+    public static AnimDetails Anim(EnemyAnimation ea, int enemy, Vector3 color)
+    {
+        return new AnimDetails(ea, enemy, -99, color);
+    }
+
+    public static AnimDetails Anim(EnemyAnimation ea, int enemy, float rotation, Vector3 color)
+    {
+        return new AnimDetails(ea, enemy, rotation, color);
     }
 }
