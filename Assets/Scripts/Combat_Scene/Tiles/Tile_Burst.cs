@@ -25,7 +25,7 @@ public class Tile_Burst : MonoBehaviour
                 for (int i = 0; i < _blips; i++)
                 {
                     GameObject tempBlip = Instantiate(normalBlip, transform.position, Quaternion.identity);
-                    tempBlip.GetComponent<Energy_Blip>().Activate(_tint, (int)_tint + 1, Combat_UI_Commands.GetEnergyBarPos(_tint), _totalVal / _blips);
+                    tempBlip.GetComponent<Energy_Blip>().Activate(_tint, (int)_tint + 1, Combat_UI_Commands.GetEnergyBarPos(_tint), _totalVal / (float)_blips);
                 }
             } 
             else if (_tint == TColor.GREEN)
@@ -43,7 +43,7 @@ public class Tile_Burst : MonoBehaviour
                 for (int i = 1; i <= 4; i++)
                 {
                     GameObject tempBlip = Instantiate(normalBlip, transform.position, Quaternion.identity);
-                    tempBlip.GetComponent<Energy_Blip>().Activate(_tint, i, Combat_UI_Commands.GetEnergyBarPos(i), _totalVal/5);
+                    tempBlip.GetComponent<Energy_Blip>().Activate(_tint, i, Combat_UI_Commands.GetEnergyBarPos(i), _totalVal/5.0f);
                 }
             }
         }

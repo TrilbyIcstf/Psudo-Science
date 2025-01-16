@@ -21,26 +21,35 @@ public class Energy_UI : MonoBehaviour
     private Slider slider;
 
     // Tracks the amount of energy being displayed. Tries to simulate the actual energy of that color, but may not be accurate.
-    private float energyCounter = 0;
+    private float trackedEnergyCounter = 0;
+
+    // Tracks the energy cap to display.
+    private float trackedEnergyCap;
 
     // Timer used to set bar value to actual value once blips are finished
     private IEnumerator blipCounter;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         slider = GetComponent<Slider>();
         energyBar.color = energyColor.Evaluate(0.0f);
+        trackedEnergyCap = GameManager.instance.combat.energy.GetCap(playerColor);
     }
 
     public void RecieveEnergy(float amount)
     {
-        energyCounter += amount;
-        float colorCap = GameManager.instance.combat.energy.GetCap(playerColor);
-        EnergyCounter = energyCounter % colorCap;
+        trackedEnergyCounter += amount;
+        while (trackedEnergyCounter >= trackedEnergyCap)
+        {
+            trackedEnergyCounter -= trackedEnergyCap;
+            trackedEnergyCap = GameManager.instance.combat.energy.GetCap(playerColor);
+        }
 
-        slider.value = Mathf.Clamp(energyCounter / colorCap, 0, 0.97f);
-        energyBar.color = energyColor.Evaluate(Mathf.Clamp(energyCounter / colorCap, 0, 1));
+        trackedEnergyCounter = trackedEnergyCounter % trackedEnergyCap;
+
+        slider.value = Mathf.Clamp(trackedEnergyCounter / trackedEnergyCap, 0, 0.98f);
+        energyBar.color = energyColor.Evaluate(Mathf.Clamp(trackedEnergyCounter / trackedEnergyCap, 0, 1));
 
         // Refreshes a timer which will update the bar to the correct value once all the blips are gone
         if (blipCounter != null)
@@ -53,11 +62,11 @@ public class Energy_UI : MonoBehaviour
 
     public void SetEnergy(float amount)
     {
-        energyCounter = amount;
-        float colorCap = GameManager.instance.combat.energy.GetCap(playerColor);
+        trackedEnergyCounter = amount;
+        trackedEnergyCap = GameManager.instance.combat.energy.GetCap(playerColor);
 
-        slider.value = Mathf.Clamp((energyCounter % colorCap) / colorCap, 0, 0.95f);
-        energyBar.color = energyColor.Evaluate(Mathf.Clamp((energyCounter % colorCap) / colorCap, 0, 1));
+        slider.value = Mathf.Clamp((trackedEnergyCounter % trackedEnergyCap) / trackedEnergyCap, 0, 0.98f);
+        energyBar.color = energyColor.Evaluate(Mathf.Clamp((trackedEnergyCounter % trackedEnergyCap) / trackedEnergyCap, 0, 1));
     }
 
     private IEnumerator CheckRemainingBlips()
@@ -81,5 +90,6 @@ public class Energy_UI : MonoBehaviour
         }
     }
 
-    public float EnergyCounter { get => energyCounter; set => energyCounter = value; }
+    public float EnergyCounter { get => trackedEnergyCounter; set => trackedEnergyCounter = value; }
+    public float EnergyCap { get => trackedEnergyCap; set => trackedEnergyCap = value; }
 }

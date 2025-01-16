@@ -96,3 +96,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveDirection: {x: 0, y: 0}
+  onDestroyParticleSystem: {fileID: 7010146528100942671, guid: e6cf1845a073d2b40849d1a5ffda5391, type: 3}

@@ -16,7 +16,7 @@ public class Combat_Energy_Hover : MonoBehaviour
         if (energyText.enabled)
         {
             //string tempText = GameManager.instance.combat.energy.GetColor(playerColor).ToString("F0") + "/" + GameManager.instance.combat.energy.GetCap(playerColor);
-            string tempText = GetComponent<Energy_UI>().EnergyCounter.ToString("F0") + "/" + GameManager.instance.combat.energy.GetCap(playerColor);
+            string tempText = GetComponent<Energy_UI>().EnergyCounter.ToString("F0") + "/" + GetComponent<Energy_UI>().EnergyCap.ToString("F0");
             energyText.text = tempText;
         }
     }

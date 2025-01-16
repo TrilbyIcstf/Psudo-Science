@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using System;
 using UnityEngine;
 using UnityEngine.UI; // REMOVE ME LATER
@@ -12,7 +13,7 @@ public class CombatManager : MonoBehaviour
 
     public Board_Controller board;
     public Combat_UI combatUI;
-    public Player_Energy energy;
+    public Player_Energy energy = new Player_Energy();
 
     // The enemies in the current encounter
     [SerializeField] private List<GameObject> activeEnemies;
@@ -25,8 +26,7 @@ public class CombatManager : MonoBehaviour
     private bool moveQueueActive = false;
     private bool moveQueueLock = false;
 
-    // The delay between different moves in the move queue
-    private float moveQueueDelay = 1.5f;
+    private bool deathAnimationLock = false;
 
     // A tracker for how many moves you've triggered in one turn.
     private int moveCombo = 0;
@@ -35,7 +35,6 @@ public class CombatManager : MonoBehaviour
     public void CombatSetup(Encounter _enc)
     {
         energy = new Player_Energy();
-        energy.TestMove = testMove; // REMOVE ME
         Transform enemyHolderPos = GameObject.FindGameObjectWithTag("EnemyHolder").transform;
 
         for (int i = 0; i < _enc.EncounterContents.Count; i++)
@@ -47,8 +46,13 @@ public class CombatManager : MonoBehaviour
 
         if (activeEnemies.Count > 0)
         {
-            TargetEnemy(0);
+            TargetEnemy(0, true);
         }
+    }
+
+    public void CombatVictory()
+    {
+
     }
 
     public void CombatCleanup()
@@ -70,7 +74,36 @@ public class CombatManager : MonoBehaviour
                 {
                     int damageDealt = potencyCalc(GameManager.instance.party.GetPlayer(user), targetStats);
                     target.TakeDamage(damageDealt);
+                    if (target.ShouldDie())
+                    {
+                        this.deathAnimationLock = true;
+                        KillEnemy(target);
+                    }
                 }
+            }
+        }
+    }
+
+    private void KillEnemy(Combat_Enemy rip)
+    {
+        if (rip.Die())
+        {
+            StartCoroutine(rip.GetSpriteInfo().PlayDeathAnimation(() => { this.deathAnimationLock = false; }));
+            int nextEnemy = -1;
+            for (int i = 0; i < activeEnemies.Count && nextEnemy < 0; i++)
+            {
+                if (activeEnemies[i].GetComponent<Combat_Enemy>().isAlive())
+                {
+                    nextEnemy = i;
+                }
+            }
+
+            if (nextEnemy >= 0)
+            {
+                TargetEnemy(nextEnemy, true);
+            } else
+            {
+                CombatVictory();
             }
         }
     }
@@ -125,10 +158,12 @@ public class CombatManager : MonoBehaviour
             QueuedMove nextMove = moveQueue.Dequeue();
             GameObject nextMoveObject = Instantiate(nextMove.move);
             Move_Dad nextScript = nextMoveObject.GetComponent<Move_Dad>();
+            float moveQueueDelay = 1.5f;
             nextScript.StartAttack(nextMove.user);
             yield return new WaitUntil(() => nextScript.MoveFinished());
             nextScript.EndAttack(nextMove.user);
             nextScript.Destroy();
+            yield return new WaitUntil(() => !this.deathAnimationLock);
             if (moveQueue.Count > 0)
             {
                 yield return new WaitForSeconds(moveQueueDelay);
@@ -136,10 +171,9 @@ public class CombatManager : MonoBehaviour
         }
         yield return new WaitForSeconds(1.0f);
         moveQueueLock = false;
-        Debug.Log("Queue done");
     }
 
-    public bool TargetEnemy(int enemy)
+    public bool TargetEnemy(int enemy, bool stealth = false)
     {
         if (GetTargetedEnemy() != null)
         {
@@ -151,8 +185,11 @@ public class CombatManager : MonoBehaviour
         Enemy_Visuals enemyVisuals = GetTargetedEnemy().GetComponent<Enemy_Visuals>();
         combatUI.TargetCrosshair(enemyVisuals.GetCenter());
         combatUI.SetCrosshairEnabled(true);
-        enemyVisuals.SetHealthBarTimer(0.75f);
-        UnhoverEnemy(enemy);
+        if (!stealth)
+        {
+            enemyVisuals.SetHealthBarTimer(0.75f);
+            UnhoverEnemy(enemy);
+        }
         return true;
     }
 

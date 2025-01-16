@@ -198,6 +198,7 @@ MonoBehaviour:
   body: {fileID: 8217357777624408194}
   legs: {fileID: 4357065200286915595}
   hands: {fileID: 5909604303676056193}
+  deathMask: {fileID: 9096365069046572380, guid: e36f67d8439f0eb46a3b2a61b4f0c95b, type: 3}
 --- !u!222 &5910685540129541445
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -645,6 +646,7 @@ GameObject:
   - component: {fileID: 1114924205325920453}
   - component: {fileID: 4516058945536107525}
   - component: {fileID: 8003214496272307333}
+  - component: {fileID: 6056562107855053762}
   m_Layer: 0
   m_Name: Sprite
   m_TagString: Untagged
@@ -709,6 +711,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &6056562107855053762
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8239299552922415537}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31a19414c41e5ae4aae2af33fee712f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ShowMaskGraphic: 1
 --- !u!1 &8765879057918325888
 GameObject:
   m_ObjectHideFlags: 0

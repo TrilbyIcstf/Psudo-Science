@@ -44,6 +44,17 @@ public class Combat_Enemy : MonoBehaviour
         visuals.UpdateHealthBar(stats.CurrentHealth, stats.MaxHealth);
     }
 
+    public bool ShouldDie()
+    {
+        return stats.CurrentHealth <= 0;
+    }
+
+    public bool Die()
+    {
+        this.alive = false;
+        return true;
+    }
+
     private void OnMouseDown()
     {
         if (alive && !GameManager.instance.fx.CheckAllFXLock())
@@ -76,5 +87,10 @@ public class Combat_Enemy : MonoBehaviour
     public Enemy_Stats GetStats()
     {
         return stats;
+    }
+
+    public bool isAlive()
+    {
+        return alive;
     }
 }

@@ -23,6 +23,9 @@ public class Enemy_Visuals : MonoBehaviour
     public RectTransform legs;
     public RectTransform hands;
 
+    // Visuals used for the death animation
+    public GameObject deathMask;
+
     public void Startup(Enemy_Information enemyBase)
     {
         enemyImage = spriteObject.GetComponent<Image>();
@@ -54,6 +57,13 @@ public class Enemy_Visuals : MonoBehaviour
     public void PlayAnimationColor(EnemyAnimation ea, Vector3 color)
     {
         animController.PlayAnimationColor(ea, color);
+    }
+
+    public IEnumerator PlayDeathAnimation(GameManager.CallbackFunction callback)
+    {
+        GameObject DeathOverlay = Instantiate(deathMask, spriteObject.transform);
+        yield return new WaitForSeconds(0.0f);
+        callback();
     }
 
     public Vector2 GetCenter()

@@ -516,12 +516,13 @@ public class Board_Controller : MonoBehaviour
 
                     float pointVal = board[i, j].GetComponent<Tile_Interact>().GetChain() * (1.0f + (0.5f * matchCombo));
 
+                    // Determines number of points added to color, based on length of match chain
+                    matchCounter[(int)tempColor] += pointVal;
+
                     // Spawning particles for the destroyed tile
                     GameObject TempParticles = Instantiate(tileBurst, board[i, j].transform.position, Quaternion.identity);
                     TempParticles.GetComponent<Tile_Burst>().Activate(tempColor, 3, pointVal);
 
-                    // Determines number of points added to color, based on length of match chain
-                    matchCounter[(int)tempColor] += pointVal;
                     Destroy(board[i, j]);
                     board[i, j] = null;
                 }

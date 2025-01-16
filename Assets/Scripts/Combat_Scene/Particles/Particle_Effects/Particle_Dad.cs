@@ -15,7 +15,6 @@ public abstract class Particle_Dad : MonoBehaviour
     protected float targetDistance = 1;
 
     // Variables tracking the particle's movement
-    [SerializeField]
     protected Vector2 moveDirection;
     protected float moveSpeed = 0;
     protected float moveAccel = 0;

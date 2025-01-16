@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class Player_Energy
 {
-    public GameObject TestMove; // REMOVE LATER
-
     // The points towards each color's next move
     private float bluePoints = 0;
     private float orangePoints = 0;
@@ -45,14 +43,22 @@ public class Player_Energy
         {
             triggered = true;
 
-            QueuedMove genAttack = new QueuedMove(TestMove, PCExtensions.FromColor(_eColor));
-            GameManager.instance.combat.AddMoveToQueue(genAttack);
-            GameManager.instance.combat.AddToMoveCombo();
-
-            ColorCapExpend(_eColor);
+            QueueMove(_eColor);
         }
 
         return triggered;
+    }
+
+    public void QueueMove(TColor _eColor)
+    {
+        GameObject testMove = GameManager.instance.ll.moveRepository.GetValue(MoveName.LesserSpark);
+        Move_Information moveInfo = GameManager.instance.ll.moveRepository.GetInformation(MoveName.LesserSpark);
+        QueuedMove genAttack = new QueuedMove(testMove, PCExtensions.FromColor(_eColor));
+        GameManager.instance.combat.AddMoveToQueue(genAttack);
+        GameManager.instance.combat.AddToMoveCombo();
+
+        ColorCapExpend(_eColor);
+        SetColorCap(_eColor, moveInfo.ManaCost);
     }
 
     /// <summary>
@@ -115,6 +121,36 @@ public class Player_Energy
                 return purplePoints;
             default:
                 return -8675309;
+        }
+    }
+
+    /// <summary>
+    /// Sets the energy cap for a specific color.
+    /// </summary>
+    /// <param name="_eColor">
+    /// The color to set.
+    /// </param>
+    /// <param name="cap">
+    /// The new cap.
+    /// </param>
+    public void SetColorCap(TColor _eColor, float cap)
+    {
+        switch (_eColor)
+        {
+            case TColor.BLUE:
+                BlueCap = cap;
+                return;
+            case TColor.ORANGE:
+                OrangeCap = cap;
+                return;
+            case TColor.PINK:
+                PinkCap = cap;
+                return;
+            case TColor.PURPLE:
+                PurpleCap = cap;
+                return;
+            default:
+                return;
         }
     }
 

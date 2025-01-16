@@ -113,6 +113,12 @@ static class PCExtensions
     }
 }
 
+public enum MoveName
+{
+    LesserSpark,
+    LesserHeal
+}
+
 public enum Bestiary
 {
     BookRat,

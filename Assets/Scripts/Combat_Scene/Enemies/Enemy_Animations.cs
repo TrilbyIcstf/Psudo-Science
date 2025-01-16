@@ -67,7 +67,6 @@ public class Enemy_Animations : MonoBehaviour
             tempColor.g = spriteColor.g + (overlayColor.y - spriteColor.g) * overlayMultiplier;
             tempColor.b = spriteColor.b + (overlayColor.z - spriteColor.b) * overlayMultiplier;
             spriteImage.color = tempColor;
-            Debug.Log("COLOR");
         }
     }
 

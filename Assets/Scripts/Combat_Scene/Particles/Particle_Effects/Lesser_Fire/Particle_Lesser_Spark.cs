@@ -5,6 +5,7 @@ using UnityEngine;
 public class Particle_Lesser_Spark : Particle_Dad
 {
     private int target;
+    public GameObject onDestroyParticleSystem;
 
     public void ParticleInitialize(Vector2 goal, int target, float startSpeed, float startAccel, Vector2 startDirection, float startTurnSpeed, float targetDist, Particle_Controller_Dad papa)
     {
@@ -22,6 +23,7 @@ public class Particle_Lesser_Spark : Particle_Dad
             angle += 360;
         }
         father.SendAnimation(AnimDetails.Anim(EnemyAnimation.ColorFlash, target, new Vector3(200f, 0, 0)));
+        GameObject particleSystem = Instantiate(onDestroyParticleSystem, transform.position, Quaternion.identity);
 
         father.RemoveParticle(gameObject);
         Destroy(gameObject);

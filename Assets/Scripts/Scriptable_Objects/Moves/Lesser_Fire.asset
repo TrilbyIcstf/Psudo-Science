@@ -15,5 +15,5 @@ MonoBehaviour:
   moveName: Lesser Fire
   type: 2
   element: 3
-  potency: 10
+  potency: 50
   manaCost: 30

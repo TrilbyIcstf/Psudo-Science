@@ -25,7 +25,7 @@ public class Lesser_Fire_Particle_Controller : Particle_Controller_Dad
         for (int i = 0; i < numberToSpawn; i++)
         {
             GameObject tempParticle = Instantiate(lesserFireParticle, spawnPosition, Quaternion.identity);
-            tempParticle.GetComponent<Particle_Lesser_Spark>().ParticleInitialize(goalPosition, targets[0], 0.15f, 1.001f, directions[i], 0.05f, 0.7f, this);
+            tempParticle.GetComponent<Particle_Lesser_Spark>().ParticleInitialize(goalPosition, targets[0], 0.2f, 1.001f, directions[i], 0.05f, 0.7f, this);
             yield return new WaitForSeconds(spawnDelay);
         }
 
@@ -47,10 +47,11 @@ public class Lesser_Fire_Particle_Controller : Particle_Controller_Dad
     {
         Vector2[] angleArray = new Vector2[numberToSpawn];
         int angleDirection = 1;
+        float angleAdjust = Vector2.Distance(spawnPosition, goalPosition) <= 7.5f ? 2 : 1;
 
         for (int i = 0; i < numberToSpawn; i++)
         {
-            float newAngle = initialAngle + (Random.Range(minAngle, maxAngle) * angleDirection);
+            float newAngle = initialAngle + ((Random.Range(minAngle, maxAngle) / angleAdjust) * angleDirection);
             angleArray[i] = new Vector2(Mathf.Cos(Mathf.Deg2Rad * newAngle), Mathf.Sin(Mathf.Deg2Rad * newAngle));
             angleDirection *= -1;
         }
