@@ -6,8 +6,8 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance
     {
-        get { return GameManager._instance != null ? GameManager._instance : (GameManager)FindObjectOfType(typeof(GameManager)); }
-        set { GameManager._instance = value; }
+        get { return GameManager._instance != null ? GameManager._instance : (GameManager)FindFirstObjectByType<GameManager>(); }
+        private set { GameManager._instance = value; }
     }
     private static GameManager _instance;
 

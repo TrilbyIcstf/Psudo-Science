@@ -9,7 +9,7 @@ public class Hover_Crosshair : MonoBehaviour
     private float crosshairAlpha;
     private float animTimer = 0;
     private Image crosshairImage;
-    private static float loopTime = 2.0f;
+    private static float loopTime = 1.5f;
 
     public void Start()
     {
@@ -18,9 +18,9 @@ public class Hover_Crosshair : MonoBehaviour
 
     public void FixedUpdate()
     {
-        animTimer += Time.deltaTime;
+        animTimer += Time.deltaTime * 0.5f;
 
-        crosshairAlpha = baseAlpha - Mathf.Sin((animTimer / loopTime) * Mathf.PI);
+        crosshairAlpha = baseAlpha - (Mathf.Sin((animTimer / loopTime) * Mathf.PI) * 0.6f);
 
         if (animTimer > loopTime)
         {
@@ -30,7 +30,7 @@ public class Hover_Crosshair : MonoBehaviour
 
     public void Update()
     {
-        float scaledAlpha = Mathf.Max(Mathf.Min(0.8f, crosshairAlpha), 0.3f);
+        float scaledAlpha = Mathf.Max(Mathf.Min(1.0f, crosshairAlpha), 0.5f);
 
         Color tempColor = crosshairImage.color;
         tempColor.a = scaledAlpha;

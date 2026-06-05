@@ -11,6 +11,7 @@ public class Move_Information : ScriptableObject
 {
     [Header("Identifiers")]
     [SerializeField] private string moveName;
+    [SerializeField] private MoveName moveEnum;
 
     [Header("Classification")]
     [SerializeField] private MoveType type;
@@ -21,6 +22,7 @@ public class Move_Information : ScriptableObject
     [SerializeField] private float manaCost;
 
     public string MoveName { get => moveName; set => moveName = value; }
+    public MoveName MoveEnum { get => moveEnum; set => moveEnum = value; }
     public MoveType Type { get => type; set => type = value; }
     public Element Element { get => element; set => element = value; }
     public float Potency { get => potency; set => potency = value; }

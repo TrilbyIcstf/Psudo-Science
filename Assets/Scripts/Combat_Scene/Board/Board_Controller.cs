@@ -255,10 +255,11 @@ public class Board_Controller : MonoBehaviour
             movingHorizontal = false;
             movingVertical = false;
 
-            // Checking if any chains of 4+ have been created, and resolving them accordingly
-            ResolveChains();
-
-            //DebugColorPointMessage();
+            if (spacesMoved != 0)
+            {
+                // Checking if any chains of 4+ have been created, and resolving them accordingly
+                ResolveChains();
+            }
         }
 
         // Checks if mouse is being pressed on a tile

@@ -10,6 +10,8 @@ public class CombatManager : MonoBehaviour
     // Testing vars
     public GameObject testMove;
     public Text comboCounter;
+    [SerializeField]
+    private Text turnCounter;
 
     public Board_Controller board;
     public Combat_UI combatUI;
@@ -31,6 +33,8 @@ public class CombatManager : MonoBehaviour
     // A tracker for how many moves you've triggered in one turn.
     private int moveCombo = 0;
     private int highestMoveCombo = 0;
+
+    private int turnCount = 0;
 
     public void CombatSetup(Encounter _enc)
     {
@@ -62,23 +66,19 @@ public class CombatManager : MonoBehaviour
         board = null;
     }
 
-    public void ProcessPlayerAttackDamage(PC user, int[] targets, Func<Player_Information, Enemy_Stats, int> potencyCalc)
+    public void ProcessPlayerAttackDamage(int target, int potency)
     {
-        foreach (int i in targets)
+        if (activeEnemies[target] != null)
         {
-            if (activeEnemies[i] != null)
+            Combat_Enemy enemy = activeEnemies[target].GetComponent<Combat_Enemy>();
+            Enemy_Stats targetStats = enemy.GetStats();
+            if (targetStats.CurrentHealth > 0)
             {
-                Combat_Enemy target = activeEnemies[i].GetComponent<Combat_Enemy>();
-                Enemy_Stats targetStats = target.GetStats();
-                if (targetStats.CurrentHealth > 0)
+                enemy.TakeDamage(potency);
+                if (enemy.ShouldDie())
                 {
-                    int damageDealt = potencyCalc(GameManager.instance.party.GetPlayer(user), targetStats);
-                    target.TakeDamage(damageDealt);
-                    if (target.ShouldDie())
-                    {
-                        this.deathAnimationLock = true;
-                        KillEnemy(target);
-                    }
+                    this.deathAnimationLock = true;
+                    KillEnemy(enemy);
                 }
             }
         }
@@ -108,11 +108,6 @@ public class CombatManager : MonoBehaviour
         }
     }
 
-    public void ProcessPlayerAttackDamage(PC user, int target, Func<Player_Information, Enemy_Stats, int> potencyCalc)
-    {
-        ProcessPlayerAttackDamage(user, new int[] { target }, potencyCalc);
-    }
-
     public bool AddMoveToQueue(QueuedMove move)
     {
         try
@@ -128,11 +123,17 @@ public class CombatManager : MonoBehaviour
 
     public IEnumerator WaitToStartQueue()
     {
-        moveQueueLock = true;
         yield return new WaitUntil(() => !GameManager.instance.fx.CheckAllFXLock());
-        yield return new WaitForSeconds(1.0f);
 
-        StartQueue();
+        if (moveQueue.Count > 0)
+        {
+            yield return new WaitForSeconds(1.0f);
+
+            StartQueue();
+        }
+        
+        turnCount++;
+        turnCounter.text = "Turn: " + turnCount;
     }
 
     public void StartQueue()
@@ -152,25 +153,31 @@ public class CombatManager : MonoBehaviour
     private IEnumerator RunQueue()
     {
         ResetCombo();
+        float moveQueueDelay = 1.0f;
 
-        while(moveQueue.Count > 0 && moveQueueActive)
+        while (moveQueue.Count > 0 && moveQueueActive)
         {
-            QueuedMove nextMove = moveQueue.Dequeue();
-            GameObject nextMoveObject = Instantiate(nextMove.move);
-            Move_Dad nextScript = nextMoveObject.GetComponent<Move_Dad>();
-            float moveQueueDelay = 1.5f;
-            nextScript.StartAttack(nextMove.user);
-            yield return new WaitUntil(() => nextScript.MoveFinished());
-            nextScript.EndAttack(nextMove.user);
-            nextScript.Destroy();
+            QueuedMove queuedMove = moveQueue.Dequeue();
+            GameObject controller = Instantiate(queuedMove.move);
+            Move_Dad move = controller.GetComponent<Move_Dad>();
+
+            Player_Information user = GameManager.instance.party.GetPlayer(queuedMove.user);
+
+            float potency = move.PotencyCalc(user, targetedEnemy, move.moveInfo);
+            move.StartAttack(queuedMove.user);
+            yield return new WaitUntil(() => move.IsMoveFinished());
+            move.EndAttack(queuedMove.user);
+            move.ApplyMove(user, targetedEnemy, move.moveInfo, potency);
+            Destroy(controller);
             yield return new WaitUntil(() => !this.deathAnimationLock);
             if (moveQueue.Count > 0)
             {
                 yield return new WaitForSeconds(moveQueueDelay);
             }
         }
-        yield return new WaitForSeconds(1.0f);
-        moveQueueLock = false;
+        yield return new WaitForSeconds(0.25f);
+
+        StopQueue();
     }
 
     public bool TargetEnemy(int enemy, bool stealth = false)

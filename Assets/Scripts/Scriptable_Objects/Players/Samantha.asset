@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b91e7d9f255213d45ac7fbff278dcfd7, type: 3}
-  m_Name: Caroline
+  m_Name: Samantha
   m_EditorClassIdentifier: 
-  characterFirstName: Caroline
+  characterFirstName: Samantha
   characterLastName: Fritz
   playerClass: 2
   levelStat: 1

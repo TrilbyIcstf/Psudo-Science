@@ -10,10 +10,14 @@ public abstract class Move_Dad : MonoBehaviour
 
     public GameObject mainParticleController;
 
-    public abstract void StartAttack(PC user);
+    // Section for handling move effects
+    public abstract float PotencyCalc(Player_Information pi, int target, Move_Information mi);
+    public abstract bool ApplyMove(Player_Information pi, int target, Move_Information mi, float potency);
 
+    // Section for handling animations and particles
+    public abstract void StartAttack(PC user);
     public abstract void EndAttack(PC user);
-    public abstract bool MoveFinished();
+    public abstract bool IsMoveFinished();
 
     public void AddController(Particle_Controller_Dad newController)
     {

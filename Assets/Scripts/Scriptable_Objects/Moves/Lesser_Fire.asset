@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Lesser_Fire
   m_EditorClassIdentifier: 
   moveName: Lesser Fire
+  moveEnum: 0
   type: 2
   element: 3
   potency: 50

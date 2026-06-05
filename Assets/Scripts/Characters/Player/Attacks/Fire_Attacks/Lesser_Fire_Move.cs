@@ -13,6 +13,19 @@ public class Lesser_Fire_Move : Move_Dad
         target = tar;
     }
 
+    // Move effects
+    public override float PotencyCalc(Player_Information pi, int target, Move_Information mi)
+    {
+        return (int)mi.Potency;
+    }
+
+    public override bool ApplyMove(Player_Information pi, int target, Move_Information mi, float potency)
+    {
+        GameManager.instance.combat.ProcessPlayerAttackDamage(target, (int)potency);
+        return true;
+    }
+
+    // Particles/Animations
     public override void StartAttack(PC user)
     {
         mainParticleController = Instantiate(mainParticleController);
@@ -21,18 +34,10 @@ public class Lesser_Fire_Move : Move_Dad
         attackStarted = true;
     }
 
-    public override void EndAttack(PC user)
-    {
-        GameManager.instance.combat.ProcessPlayerAttackDamage(user, GameManager.instance.combat.GetTargetedNumber(), potencyCalc);
-    }
+    public override void EndAttack(PC user) { }
 
-    public override bool MoveFinished()
+    public override bool IsMoveFinished()
     {
         return attackStarted && particleControllerList.Count <= 0;
-    }
-
-    private int potencyCalc(Player_Information pi, Enemy_Stats es)
-    {
-        return (int)moveInfo.Potency;
     }
 }
