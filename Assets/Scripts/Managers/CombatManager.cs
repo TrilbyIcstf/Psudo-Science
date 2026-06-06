@@ -8,7 +8,6 @@ using UnityEngine.UI; // REMOVE ME LATER
 public class CombatManager : MonoBehaviour
 {
     // Testing vars
-    public GameObject testMove;
     public Text comboCounter;
     [SerializeField]
     private Text turnCounter;
@@ -70,7 +69,7 @@ public class CombatManager : MonoBehaviour
     {
         if (activeEnemies[target] != null)
         {
-            Combat_Enemy enemy = activeEnemies[target].GetComponent<Combat_Enemy>();
+            Combat_Enemy enemy = GetEnemy(target);
             Enemy_Stats targetStats = enemy.GetStats();
             if (targetStats.CurrentHealth > 0)
             {
@@ -163,11 +162,11 @@ public class CombatManager : MonoBehaviour
 
             Player_Information user = GameManager.instance.party.GetPlayer(queuedMove.user);
 
-            float potency = move.PotencyCalc(user, targetedEnemy, move.moveInfo);
-            move.StartAttack(queuedMove.user);
+            List<MoveResult> results = move.ResultsCalc(user, targetedEnemy, move.moveInfo);
+            move.StartMove(queuedMove.user, results);
             yield return new WaitUntil(() => move.IsMoveFinished());
-            move.EndAttack(queuedMove.user);
-            move.ApplyMove(user, targetedEnemy, move.moveInfo, potency);
+            move.EndMove(queuedMove.user);
+            move.ApplyMove(user, results, move.moveInfo);
             Destroy(controller);
             yield return new WaitUntil(() => !this.deathAnimationLock);
             if (moveQueue.Count > 0)
@@ -182,14 +181,14 @@ public class CombatManager : MonoBehaviour
 
     public bool TargetEnemy(int enemy, bool stealth = false)
     {
-        if (GetTargetedEnemy() != null)
+        if (GetTargetedEnemyObject() != null)
         {
-            Enemy_Visuals oldVisuals = GetTargetedEnemy().GetComponent<Enemy_Visuals>();
+            Enemy_Visuals oldVisuals = GetTargetedEnemyObject().GetComponent<Enemy_Visuals>();
             oldVisuals.SetHealthBarEnabled(false);
         }
 
         targetedEnemy = enemy;
-        Enemy_Visuals enemyVisuals = GetTargetedEnemy().GetComponent<Enemy_Visuals>();
+        Enemy_Visuals enemyVisuals = GetTargetedEnemyObject().GetComponent<Enemy_Visuals>();
         combatUI.TargetCrosshair(enemyVisuals.GetCenter());
         combatUI.SetCrosshairEnabled(true);
         if (!stealth)
@@ -207,7 +206,7 @@ public class CombatManager : MonoBehaviour
             return false;
         }
         hoveredEnemy = enemy;
-        Enemy_Visuals enemyVisuals = GetHoveredEnemy().GetComponent<Enemy_Visuals>();
+        Enemy_Visuals enemyVisuals = GetHoveredEnemyObject().GetComponent<Enemy_Visuals>();
         combatUI.HoverCrosshair(enemyVisuals.GetCenter());
         combatUI.SetHoverEnabled(true);
         return true;
@@ -223,11 +222,29 @@ public class CombatManager : MonoBehaviour
         return false;
     }
 
-    public GameObject GetTargetedEnemy()
+    public Combat_Enemy GetEnemy(int target)
     {
-        if (activeEnemies.Count >= targetedEnemy)
+        if (activeEnemies.Count > target)
+        {
+            return activeEnemies[target].GetComponent<Combat_Enemy>();
+        }
+        return null;
+    }
+
+    public GameObject GetTargetedEnemyObject()
+    {
+        if (activeEnemies.Count > targetedEnemy)
         {
             return activeEnemies[targetedEnemy];
+        }
+        return null;
+    }
+
+    public GameObject GetHoveredEnemyObject()
+    {
+        if (activeEnemies.Count > hoveredEnemy)
+        {
+            return activeEnemies[hoveredEnemy];
         }
         return null;
     }
@@ -235,15 +252,6 @@ public class CombatManager : MonoBehaviour
     public int GetTargetedNumber()
     {
         return targetedEnemy;
-    }
-
-    public GameObject GetHoveredEnemy()
-    {
-        if (activeEnemies.Count >= hoveredEnemy)
-        {
-            return activeEnemies[hoveredEnemy];
-        }
-        return null;
     }
 
     public int GetHoveredNumber()

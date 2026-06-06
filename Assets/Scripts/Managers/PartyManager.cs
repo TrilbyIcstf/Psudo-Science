@@ -1,13 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class PartyManager : MonoBehaviour
 {
-    public Player_Information player1;
-    public Player_Information player2;
-    public Player_Information player3;
-    public Player_Information player4;
+    [SerializeField] private Player_Information player1;
+    [SerializeField] private Player_Information player2;
+    [SerializeField] private Player_Information player3;
+    [SerializeField] private Player_Information player4;
+
+    private List<Player_Information> players => new List<Player_Information> { player1, player2, player3, player4 };
 
     void Awake()
     {
@@ -37,6 +40,16 @@ public class PartyManager : MonoBehaviour
         }
     }
 
+    public void SingleHeal(int pos, int potency)
+    {
+        players[pos].Heal(potency);
+    }
+
+    public void PartyHeal(int heal)
+    {
+        PartyHeal(heal, heal, heal, heal);
+    }
+
     public void PartyHeal(int _heal1, int _heal2, int _heal3, int _heal4)
     {
         if (player1 != null)
@@ -55,6 +68,10 @@ public class PartyManager : MonoBehaviour
         {
             player4.Heal(_heal4);
         }
+    }
+    public List<Player_Information> Players()
+    {
+        return players;
     }
 
     public Player_Information GetPlayer(TColor _tint)
@@ -89,5 +106,15 @@ public class PartyManager : MonoBehaviour
             default:
                 return null;
         }
+    }
+
+    public Player_Information GetPlayer(int _posit)
+    {
+        return players[_posit];
+    }
+
+    public int MostDamaged()
+    {
+        return players.Aggregate((highest, next) => next.Damage > highest.Damage ? next : highest).position;
     }
 }

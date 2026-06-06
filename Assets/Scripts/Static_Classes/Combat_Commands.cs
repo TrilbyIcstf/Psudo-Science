@@ -11,7 +11,7 @@ public static class Combat_Commands
 
     public static GameObject GetTargetedEnemy()
     {
-        return GameManager.instance.combat.GetTargetedEnemy();
+        return GameManager.instance.combat.GetTargetedEnemyObject();
     }
 
     public static int GetTargetedEnemyNumber()

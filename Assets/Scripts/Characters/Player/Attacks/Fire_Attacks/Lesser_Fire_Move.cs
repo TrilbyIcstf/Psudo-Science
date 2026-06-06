@@ -5,36 +5,39 @@ using UnityEngine;
 public class Lesser_Fire_Move : Move_Dad
 {
     private bool attackStarted = false;
-    private GameObject target;
     private BodyPart targetPart = BodyPart.BODY;
 
-    public void Setup(GameObject tar)
+
+    // Move Effects
+    public override List<MoveResult> ResultsCalc(Player_Information pi, int target, Move_Information mi)
     {
-        target = tar;
+        List<MoveResult> results = new List<MoveResult>();
+        results.Add(PotencyCalc(pi, target, mi));
+        return results;
     }
 
-    // Move effects
-    public override float PotencyCalc(Player_Information pi, int target, Move_Information mi)
+    public override MoveResult PotencyCalc(Player_Information pi, int target, Move_Information mi)
     {
-        return (int)mi.Potency;
+        return new MoveResult(mi.Potency, Target.ENEMY, target);
     }
 
-    public override bool ApplyMove(Player_Information pi, int target, Move_Information mi, float potency)
+    public override bool ApplyMove(Player_Information pi, List<MoveResult> results, Move_Information mi)
     {
-        GameManager.instance.combat.ProcessPlayerAttackDamage(target, (int)potency);
+        MoveResult result = results[0];
+        GameManager.instance.combat.ProcessPlayerAttackDamage(result.targetNum, (int)result.potency);
         return true;
     }
 
     // Particles/Animations
-    public override void StartAttack(PC user)
+    public override void StartMove(PC user, List<MoveResult> results)
     {
         mainParticleController = Instantiate(mainParticleController);
-        mainParticleController.GetComponent<Lesser_Fire_Particle_Controller>().Setup(Combat_UI_Commands.GetPlayerPosition(user).position, (Vector2)Combat_Commands.GetTargetedBodyPart(targetPart), this, new List<int> {Combat_Commands.GetTargetedEnemyNumber()});
+        mainParticleController.GetComponent<Lesser_Fire_Particle_Controller>().Setup(Combat_UI_Commands.GetPlayerPosition(user).position, (Vector2)Combat_Commands.GetTargetedBodyPart(targetPart), this, new List<int> {Combat_Commands.GetTargetedEnemyNumber()}, results[0].potency);
         GameManager.instance.fx.AddParticleManager(mainParticleController);
         attackStarted = true;
     }
 
-    public override void EndAttack(PC user) { }
+    public override void EndMove(PC user) { }
 
     public override bool IsMoveFinished()
     {

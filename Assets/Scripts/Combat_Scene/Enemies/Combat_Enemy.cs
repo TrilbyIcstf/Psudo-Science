@@ -14,7 +14,7 @@ public class Combat_Enemy : MonoBehaviour
     private int enemyPosition;
 
     // The enemy's current stats
-    private int currentHealth;
+    private int displayHealth;
     private bool alive = true;
 
     // The behavior script which decides how the enemy attacks
@@ -26,11 +26,11 @@ public class Combat_Enemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        currentHealth = enemyBase.MaxHealth;
         behavior = GetComponent<Behavior_Dad>();
         visuals = GetComponent<Enemy_Visuals>();
         visuals.Startup(enemyBase);
         stats = new Enemy_Stats(enemyBase);
+        displayHealth = stats.MaxHealth;
     }
 
     public void Setup(int position)
@@ -41,7 +41,15 @@ public class Combat_Enemy : MonoBehaviour
     public void TakeDamage(int amount)
     {
         stats.CurrentHealth = Mathf.Max(0, stats.CurrentHealth - amount);
-        visuals.UpdateHealthBar(stats.CurrentHealth, stats.MaxHealth);
+        displayHealth = stats.CurrentHealth;
+        visuals.UpdateHealthBar(displayHealth, stats.MaxHealth);
+    }
+
+    // Visually displays damage without actually reducing the enemy's health
+    public void TakeDisplayDamage(int amount)
+    {
+        displayHealth = Mathf.Max(0, displayHealth - amount);
+        visuals.UpdateHealthBar(displayHealth, stats.MaxHealth);
     }
 
     public bool ShouldDie()
@@ -68,8 +76,8 @@ public class Combat_Enemy : MonoBehaviour
         if (alive && !GameManager.instance.fx.CheckAllFXLock())
         {
             GameManager.instance.combat.HoverEnemy(enemyPosition);
-            visuals.SetHealthBarEnabled(true);
         }
+        visuals.SetHealthBarEnabled(true);
     }
 
     private void OnMouseExit()

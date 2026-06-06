@@ -7,22 +7,25 @@ public class Particle_Lesser_Spark : Particle_Dad
     private int target;
     public GameObject onDestroyParticleSystem;
 
-    public void ParticleInitialize(Vector2 goal, int target, float startSpeed, float startAccel, Vector2 startDirection, float startTurnSpeed, float targetDist, Particle_Controller_Dad papa)
+    int damage;
+
+    public void ParticleInitialize(Vector2 goal, int target, float startSpeed, float startAccel, Vector2 startDirection, float startTurnSpeed, float targetDist, int damage, Particle_Controller_Dad papa)
     {
         lifeSpan = 5;
         this.target = target;
+        this.damage = damage;
         base.ParticleInitialize(goal, startSpeed, startAccel, startDirection, startTurnSpeed, targetDist, papa);
     }
 
     protected override void ParticleDestroy()
     {
-        //float angle = (Mathf.Atan2(goalPosition.y - transform.position.y, goalPosition.x - transform.position.x) * Mathf.Rad2Deg) - 90;
         float angle = (Mathf.Atan2(moveDirection.y, moveDirection.x) * Mathf.Rad2Deg) - 90;
         if (angle < 0)
         {
             angle += 360;
         }
         father.SendAnimation(AnimDetails.Anim(EnemyAnimation.ColorFlash, target, new Vector3(200f, 0, 0)));
+        father.SendTempDamage(damage, target);
         GameObject particleSystem = Instantiate(onDestroyParticleSystem, transform.position, Quaternion.identity);
 
         father.RemoveParticle(gameObject);

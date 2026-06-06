@@ -558,7 +558,6 @@ public class Board_Controller : MonoBehaviour
     // Checks for null tiles, and will drop tiles down to fill those spots, as well as spawn new ones in
     private void TileFall()
     {
-        //Debug.Log("Start of fall");
         for (int i = 0; i < 8; i++)
         {
             int blankSpots = 0;
@@ -658,7 +657,8 @@ public class Board_Controller : MonoBehaviour
                 GameManager.instance.combat.energy.GainEnergy(chain, _color);
                 break;
             case TColor.GREEN:
-                GameManager.instance.party.PartyHeal((int)chain, (int)chain, (int)chain, (int)chain);
+                int healAmount = Mathf.FloorToInt(chain / 4);
+                GameManager.instance.party.PartyHeal(healAmount);
                 break;
             case TColor.GREY:
                 GameManager.instance.combat.energy.ExpoPowerUp((chain / 100) + 1, TColor.BLUE);

@@ -9,9 +9,12 @@ using UnityEngine;
 [System.Serializable]
 public class Player_Information : ScriptableObject
 {
+    [Header("Game Position")]
+    [SerializeField] public int position = 0;
+
     // Information on the represented character
     [Header("Character Info")]
-    [SerializeField] private string characterFirstName = "John";
+    [SerializeField] private string characterFirstName = "Jane";
     [SerializeField] private string characterLastName = "Doe";
     [SerializeField] private PlayerClass playerClass = PlayerClass.HERO;
 
@@ -63,6 +66,7 @@ public class Player_Information : ScriptableObject
     }
 
     // Get/Set
+    public int Position { get => position; }
     public string FirstName { get => characterFirstName; set => characterFirstName = value; }
     public string LastName { get => characterLastName; set => characterLastName = value; }
     public string FullName { get => characterFirstName + " " + characterLastName; }
@@ -79,6 +83,8 @@ public class Player_Information : ScriptableObject
     public int EquipMagic { get => magicStat + eqWeapon.Magic + eqHelmet.Magic + eqArmor.Magic + eqPant.Magic + eqAcc1.Magic + eqAcc2.Magic; }
     public int EquipMagDefense { get => magDefenseStat + eqWeapon.MagDefense + eqHelmet.MagDefense + eqArmor.MagDefense + eqPant.MagDefense + eqAcc1.MagDefense + eqAcc2.MagDefense; }
     public int MaxHealth { get => Mathf.CeilToInt((EquipMaxHealth + status.HealthBuff) * status.HealthMult); }
+    public int CurrentHealth { get => status.CurrentHealth; }
+    public int Damage { get => MaxHealth - status.CurrentHealth; }
     public int Attack { get => Mathf.CeilToInt((EquipAttack + status.AttackBuff) * status.AttackMult); }
     public int Defense { get => Mathf.CeilToInt((EquipDefense + status.DefenseBuff) * status.DefenseMult); }
     public int Magic { get => Mathf.CeilToInt((EquipMagic + status.MagicBuff) * status.MagicMult); }

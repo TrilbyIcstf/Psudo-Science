@@ -12,3 +12,18 @@ public struct QueuedMove
         this.user = user;
     }
 }
+
+public struct MoveResult
+{
+    public float potency;
+
+    public Target targetType;
+    public int targetNum;
+
+    public MoveResult(float potency, Target targetType, int targetNum)
+    {
+        this.potency = potency;
+        this.targetType = targetType;
+        this.targetNum = targetNum;
+    }
+}

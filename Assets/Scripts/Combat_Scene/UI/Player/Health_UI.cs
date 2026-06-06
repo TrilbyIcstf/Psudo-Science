@@ -17,7 +17,10 @@ public class Health_UI : MonoBehaviour
     // The slider UI being controlled
     private Slider slider;
 
-    // Tracks the amount of energy being displayed. Tries to simulate the actual energy of that color, but may not be accurate.
+    // Tracks the max health for the counter.
+    private float healthMax = 0;
+
+    // Tracks the amount of health being displayed. Tries to simulate the actual health of that color, but may not be accurate.
     private float healthCounter = 0;
 
     // Timer used to set bar value to actual value once blips are finished
@@ -27,15 +30,14 @@ public class Health_UI : MonoBehaviour
     void Start()
     {
         slider = GetComponent<Slider>();
-        SetHealth(GameManager.instance.party.GetPlayer(playerColor).Status.CurrentHealth);
+        RefreshHealth();
     }
 
     public void RecieveHealth(float amount)
     {
-        healthCounter += amount;
-        healthCounter = Mathf.Min(healthCounter, GameManager.instance.party.GetPlayer(playerColor).MaxHealth);
+        healthCounter = Mathf.Min(healthCounter + amount, healthMax);
 
-        slider.value = Mathf.Clamp(healthCounter / GameManager.instance.party.GetPlayer(playerColor).MaxHealth, 0, 1);
+        UpdateBar();
 
         // Refreshes a timer which will update the bar to the correct value once all the blips are gone
         if (blipCounter != null)
@@ -46,12 +48,24 @@ public class Health_UI : MonoBehaviour
         StartCoroutine(blipCounter);
     }
 
+    public void RefreshHealth()
+    {
+        healthMax = GameManager.instance.party.GetPlayer(playerColor).MaxHealth;
+        healthCounter = GameManager.instance.party.GetPlayer(playerColor).CurrentHealth;
+
+        UpdateBar();
+    }
+
     public void SetHealth(float amount)
     {
-        healthCounter = amount;
-        healthCounter = Mathf.Min(healthCounter, GameManager.instance.party.GetPlayer(playerColor).MaxHealth);
+        healthCounter = Mathf.Min(amount, healthMax);
+        UpdateBar();
+    }
 
-        slider.value = Mathf.Clamp(healthCounter / GameManager.instance.party.GetPlayer(playerColor).MaxHealth, 0, 1);
+    private void UpdateBar()
+    {
+        Debug.Log(healthMax);
+        slider.value = Mathf.Clamp(healthCounter / healthMax, 0, 1);
     }
 
     private IEnumerator CheckRemainingBlips()

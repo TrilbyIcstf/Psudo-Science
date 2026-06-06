@@ -141,4 +141,12 @@ public static class Combat_UI_Commands
                 break;
         }
     }
+
+    public static void RefreshHealthBars()
+    {
+        foreach (Player_Information player in GameManager.instance.party.Players())
+        {
+            GameManager.instance.combat.combatUI.PlayerHealths[player.position].GetComponent<Health_UI>().RefreshHealth();
+        }
+    }
 }

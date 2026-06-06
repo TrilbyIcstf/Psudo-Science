@@ -15,6 +15,7 @@ public class Lesser_Fire_Particle_Controller : Particle_Controller_Dad
     private Vector2 spawnPosition;
     private Vector2 goalPosition;
     private int enemyNum;
+    private float potency;
 
     public override IEnumerator Activate()
     {
@@ -22,10 +23,14 @@ public class Lesser_Fire_Particle_Controller : Particle_Controller_Dad
         Vector2[] directions = MakeSpawnAngleArray(initialAngle);
         Particle_Lesser_Spark particleScript = lesserFireParticle.GetComponent<Particle_Lesser_Spark>();
 
+        int remainder = (int)potency % numberToSpawn;
+        int damage = Mathf.FloorToInt(potency / numberToSpawn);
+
         for (int i = 0; i < numberToSpawn; i++)
         {
+            int tempDamage = damage + (i < remainder ? 1 : 0);
             GameObject tempParticle = Instantiate(lesserFireParticle, spawnPosition, Quaternion.identity);
-            tempParticle.GetComponent<Particle_Lesser_Spark>().ParticleInitialize(goalPosition, targets[0], 0.2f, 1.001f, directions[i], 0.05f, 0.7f, this);
+            tempParticle.GetComponent<Particle_Lesser_Spark>().ParticleInitialize(goalPosition, targets[0], 0.2f, 1.001f, directions[i], 0.05f, 0.7f, tempDamage, this);
             yield return new WaitForSeconds(spawnDelay);
         }
 
@@ -36,11 +41,12 @@ public class Lesser_Fire_Particle_Controller : Particle_Controller_Dad
         Destroy(gameObject);
     }
 
-    public void Setup(Vector2 sp, Vector2 gp, Move_Dad papa, List<int> targets)
+    public void Setup(Vector2 sp, Vector2 gp, Move_Dad papa, List<int> targets, float potency)
     {
         base.Setup(papa, targets);
         spawnPosition = sp;
         goalPosition = gp;
+        this.potency = potency;
     }
 
     private Vector2[] MakeSpawnAngleArray(float initialAngle)

@@ -113,6 +113,13 @@ static class PCExtensions
     }
 }
 
+public enum Target
+{
+    PC,
+    ENEMY,
+    NULL
+}
+
 public enum MoveName
 {
     LesserSpark,

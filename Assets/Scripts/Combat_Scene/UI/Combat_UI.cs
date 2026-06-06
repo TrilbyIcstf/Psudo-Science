@@ -24,6 +24,10 @@ public class Combat_UI : MonoBehaviour
     public Enemy_Crosshair crosshairScript;
     public Hover_Crosshair hoverScript;
 
+    public List<GameObject> Players => new List<GameObject> { player1, player2, player3, player4 };
+    public List<GameObject> PlayerHealths => new List<GameObject> { player1Health, player2Health, player3Health, player4Health };
+    public List<GameObject> PlayerEnergies => new List<GameObject> { player1Energy, player2Energy, player3Energy, player4Energy };
+
     // Start is called before the first frame update
     void Start()
     {
