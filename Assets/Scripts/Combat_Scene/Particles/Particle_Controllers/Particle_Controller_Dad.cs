@@ -10,15 +10,28 @@ public abstract class Particle_Controller_Dad : MonoBehaviour
     protected List<GameObject> particleList = new List<GameObject>();
     
     // Which enemies the attack is targeting
-    protected List<int> targets = new List<int>();
+    protected List<MoveResult> targets = new List<MoveResult>();
+
+    private bool started = false;
 
     public abstract IEnumerator Activate();
+    public abstract void Cleanup();
+    public abstract bool ControllerActive();
 
-    public virtual void Setup(Move_Dad papa, List<int> targets)
+    public virtual void Setup(Move_Dad papa, List<MoveResult> targets)
     {
         father = papa;
         father.AddController(this);
         this.targets = targets;
+        started = true;
+    }
+
+    private void LateUpdate()
+    {
+        if (started && !ControllerActive())
+        {
+            Cleanup();
+        }
     }
 
     public virtual void SendAnimation(AnimDetails a)
@@ -30,8 +43,6 @@ public abstract class Particle_Controller_Dad : MonoBehaviour
     {
         GameManager.instance.combat.GetEnemy(target).TakeDisplayDamage(damage);
     }
-
-    public abstract bool ControllerActive();
 
     public void AddParticle(GameObject newParticle)
     {

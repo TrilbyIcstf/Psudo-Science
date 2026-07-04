@@ -8,20 +8,19 @@ public class Lesser_Fire_Particle_Controller : Particle_Controller_Dad
     public GameObject lesserFireParticle;
 
     // Variables for spawning the particles
-    private int numberToSpawn = 4;
-    private float spawnDelay = 0.1f;
-    private float minAngle = 25;
-    private float maxAngle = 60;
+    private const int numberToSpawn = 4;
+    private const float spawnDelay = 0.1f;
+    private const float minAngle = 25;
+    private const float maxAngle = 60;
+    private const float lifeSpan = 5;
     private Vector2 spawnPosition;
     private Vector2 goalPosition;
-    private int enemyNum;
     private float potency;
 
     public override IEnumerator Activate()
     {
         float initialAngle = ((Mathf.Rad2Deg * Mathf.Atan2(goalPosition.y - spawnPosition.y, goalPosition.x - spawnPosition.x)) + 360) % 360;
         Vector2[] directions = MakeSpawnAngleArray(initialAngle);
-        Particle_Lesser_Spark particleScript = lesserFireParticle.GetComponent<Particle_Lesser_Spark>();
 
         int remainder = (int)potency % numberToSpawn;
         int damage = Mathf.FloorToInt(potency / numberToSpawn);
@@ -30,23 +29,24 @@ public class Lesser_Fire_Particle_Controller : Particle_Controller_Dad
         {
             int tempDamage = damage + (i < remainder ? 1 : 0);
             GameObject tempParticle = Instantiate(lesserFireParticle, spawnPosition, Quaternion.identity);
-            tempParticle.GetComponent<Particle_Lesser_Spark>().ParticleInitialize(goalPosition, targets[0], 0.2f, 1.001f, directions[i], 0.05f, 0.7f, tempDamage, this);
+            tempParticle.GetComponent<Particle_Chaser>().ParticleInitialize(goalPosition, targets[0].targetNum, 0.2f, 1.001f, directions[i], 0.05f, 0.7f, tempDamage, lifeSpan, this);
             yield return new WaitForSeconds(spawnDelay);
         }
+    }
 
-        yield return new WaitUntil(() => particleList.Count <= 0);
-
+    public override void Cleanup()
+    {
         father.RemoveController(this);
         GameManager.instance.fx.RemoveParticleManager(gameObject);
         Destroy(gameObject);
     }
 
-    public void Setup(Vector2 sp, Vector2 gp, Move_Dad papa, List<int> targets, float potency)
+    public void Setup(Vector2 sp, Vector2 gp, Move_Dad papa, List<MoveResult> targets, float potency)
     {
-        base.Setup(papa, targets);
         spawnPosition = sp;
         goalPosition = gp;
         this.potency = potency;
+        base.Setup(papa, targets);
     }
 
     private Vector2[] MakeSpawnAngleArray(float initialAngle)

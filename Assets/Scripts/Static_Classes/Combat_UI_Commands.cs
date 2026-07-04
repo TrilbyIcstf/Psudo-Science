@@ -39,6 +39,11 @@ public static class Combat_UI_Commands
         }
     }
 
+    public static Transform GetPlayerPosition(int _player)
+    {
+        return GetPlayerPosition((PC)_player);
+    }
+
     public static Transform GetEnergyBarPos(TColor _tint)
     {
         switch (_tint)

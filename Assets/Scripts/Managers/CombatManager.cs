@@ -320,9 +320,9 @@ public class AnimDetails
     public EnemyAnimation ea;
     public int enemy;
     public float rotation;
-    public Vector3 color;
+    public Color color;
 
-    AnimDetails(EnemyAnimation ea, int enemy, float rotation, Vector3 color)
+    AnimDetails(EnemyAnimation ea, int enemy, float rotation, Color color)
     {
         this.ea = ea;
         this.enemy = enemy;
@@ -332,20 +332,20 @@ public class AnimDetails
 
     public static AnimDetails Anim(EnemyAnimation ea, int enemy)
     {
-        return new AnimDetails(ea, enemy, -99, Vector3.zero);
+        return new AnimDetails(ea, enemy, -99, Color.black);
     }
 
     public static AnimDetails Anim(EnemyAnimation ea, int enemy, float rotation)
     {
-        return new AnimDetails(ea, enemy, rotation, Vector3.zero);
+        return new AnimDetails(ea, enemy, rotation, Color.black);
     }
 
-    public static AnimDetails Anim(EnemyAnimation ea, int enemy, Vector3 color)
+    public static AnimDetails Anim(EnemyAnimation ea, int enemy, Color color)
     {
         return new AnimDetails(ea, enemy, -99, color);
     }
 
-    public static AnimDetails Anim(EnemyAnimation ea, int enemy, float rotation, Vector3 color)
+    public static AnimDetails Anim(EnemyAnimation ea, int enemy, float rotation, Color color)
     {
         return new AnimDetails(ea, enemy, rotation, color);
     }

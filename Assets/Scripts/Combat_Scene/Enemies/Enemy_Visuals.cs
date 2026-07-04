@@ -54,7 +54,7 @@ public class Enemy_Visuals : MonoBehaviour
         animController.PlayAnimationRotated(ea, rotation);
     }
 
-    public void PlayAnimationColor(EnemyAnimation ea, Vector3 color)
+    public void PlayAnimationColor(EnemyAnimation ea, Color color)
     {
         animController.PlayAnimationColor(ea, color);
     }

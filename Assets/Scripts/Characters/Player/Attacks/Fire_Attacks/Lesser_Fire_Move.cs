@@ -31,9 +31,9 @@ public class Lesser_Fire_Move : Move_Dad
     // Particles/Animations
     public override void StartMove(PC user, List<MoveResult> results)
     {
-        mainParticleController = Instantiate(mainParticleController);
-        mainParticleController.GetComponent<Lesser_Fire_Particle_Controller>().Setup(Combat_UI_Commands.GetPlayerPosition(user).position, (Vector2)Combat_Commands.GetTargetedBodyPart(targetPart), this, new List<int> {Combat_Commands.GetTargetedEnemyNumber()}, results[0].potency);
-        GameManager.instance.fx.AddParticleManager(mainParticleController);
+        GameObject tempParticleController = Instantiate(mainParticleController);
+        tempParticleController.GetComponent<Lesser_Fire_Particle_Controller>().Setup(Combat_UI_Commands.GetPlayerPosition(user).position, (Vector2)Combat_Commands.GetTargetedBodyPart(targetPart), this, results, results[0].potency);
+        GameManager.instance.fx.AddParticleManager(tempParticleController);
         attackStarted = true;
     }
 

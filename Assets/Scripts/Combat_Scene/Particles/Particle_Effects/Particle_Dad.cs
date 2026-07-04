@@ -40,12 +40,13 @@ public abstract class Particle_Dad : MonoBehaviour
     /// <param name="startSpeed">
     /// The speed the particle begins with
     /// </param>
-    public virtual void ParticleInitialize(Vector2 goal, float startSpeed, Particle_Controller_Dad papa)
+    public virtual void ParticleInitialize(Vector2 goal, float startSpeed, float lifeSpan, Particle_Controller_Dad papa)
     {
         father = papa;
         spawnPosition = transform.position;
         goalPosition = goal;
         moveSpeed = startSpeed;
+        this.lifeSpan = lifeSpan;
         inMotion = true;
         father.AddParticle(gameObject);
     }
@@ -71,13 +72,13 @@ public abstract class Particle_Dad : MonoBehaviour
     /// <param name="targetDist">
     /// The distance from the target the particle reaches EOL at
     /// </param>
-    public virtual void ParticleInitialize(Vector2 goal, float startSpeed, float startAccel, Vector2 startDirection, float startTurnSpeed, float targetDist, Particle_Controller_Dad papa)
+    public virtual void ParticleInitialize(Vector2 goal, float startSpeed, float startAccel, Vector2 startDirection, float startTurnSpeed, float targetDist, float lifeSpan, Particle_Controller_Dad papa)
     {
-        ParticleInitialize(goal, startSpeed, papa);
         moveAccel = startAccel;
         moveDirection = startDirection;
         turnSpeed = startTurnSpeed;
         targetDistance = targetDist;
+        ParticleInitialize(goal, startSpeed, lifeSpan, papa);
     }
 
     // Update is called once per frame
@@ -85,6 +86,7 @@ public abstract class Particle_Dad : MonoBehaviour
     {
         if (inMotion)
         {
+            age += Time.deltaTime;
             if (ParticleEOL())
             {
                 ParticleDestroy();
@@ -92,6 +94,11 @@ public abstract class Particle_Dad : MonoBehaviour
 
             ParticleUpdate();
         }
+    }
+
+    protected bool AgeCheck()
+    {
+        return age > lifeSpan;
     }
 
     // Abstract method to be called every frame. Should handle movement logic.

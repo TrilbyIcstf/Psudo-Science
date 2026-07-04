@@ -34,7 +34,7 @@ public class Tile_Burst : MonoBehaviour
                 for (int i = 1; i <= 4; i++)
                 {
                     GameObject tempBlip = Instantiate(normalBlip, transform.position, Quaternion.identity);
-                    tempBlip.GetComponent<Energy_Blip>().Activate(_tint, i, Combat_UI_Commands.GetHealthBarPos(i), _totalVal);
+                    tempBlip.GetComponent<Energy_Blip>().Activate(_tint, i, Combat_UI_Commands.GetHealthBarPos(i), _totalVal / 4);
                 }
             }
             else if (_tint == TColor.BLACK)

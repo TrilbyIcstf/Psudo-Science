@@ -21,7 +21,7 @@ public class Enemy_Animations : MonoBehaviour
     private Image spriteImage;
     private Color spriteColor;
 
-    private Vector3 overlayColor = Vector3.zero;
+    private Color overlayColor = Color.black;
     public float overlayMultiplier = 0;
 
     // Transforms for self and sprite
@@ -63,9 +63,9 @@ public class Enemy_Animations : MonoBehaviour
         if (overlayMultiplier > 0)
         {
             Color tempColor = spriteColor;
-            tempColor.r = spriteColor.r + (overlayColor.x - spriteColor.r) * overlayMultiplier;
-            tempColor.g = spriteColor.g + (overlayColor.y - spriteColor.g) * overlayMultiplier;
-            tempColor.b = spriteColor.b + (overlayColor.z - spriteColor.b) * overlayMultiplier;
+            tempColor.r = spriteColor.r + (overlayColor.r - spriteColor.r) * overlayMultiplier;
+            tempColor.g = spriteColor.g + (overlayColor.g - spriteColor.g) * overlayMultiplier;
+            tempColor.b = spriteColor.b + (overlayColor.b - spriteColor.b) * overlayMultiplier;
             spriteImage.color = tempColor;
         }
     }
@@ -82,7 +82,7 @@ public class Enemy_Animations : MonoBehaviour
         animController.SetTrigger(EnumMapping.EnemyAnimationMap(ea));
     }
 
-    public void PlayAnimationColor(EnemyAnimation ea, Vector3 color)
+    public void PlayAnimationColor(EnemyAnimation ea, Color color)
     {
         overlayColor = color;
         animController.SetTrigger(EnumMapping.EnemyAnimationMap(ea));

@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &7667985208338036994
+--- !u!1 &8648763258403159586
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,22 +8,22 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 8845040504038073164}
-  - component: {fileID: 142131617389224600}
+  - component: {fileID: 8725563056179592802}
+  - component: {fileID: 3418920177797721020}
   m_Layer: 0
-  m_Name: Lesser_Heal
+  m_Name: Lesser_Heal_Particle_Controller
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &8845040504038073164
+--- !u!4 &8725563056179592802
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7667985208338036994}
+  m_GameObject: {fileID: 8648763258403159586}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -32,17 +32,16 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &142131617389224600
+--- !u!114 &3418920177797721020
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7667985208338036994}
+  m_GameObject: {fileID: 8648763258403159586}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2629db616586d064ca8d60f55d673562, type: 3}
+  m_Script: {fileID: 11500000, guid: 218d70fa910caaa42a83d11437a8b5a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveInfo: {fileID: 11400000, guid: ac7fb421abdafa2419fe339d5dc41586, type: 2}
-  mainParticleController: {fileID: 8648763258403159586, guid: 1ff3464fbcf6d3d4693e85cbc2d93078, type: 3}
+  lesserHealParticle: {fileID: 4742793805052061861, guid: 5d9fb7c234f76214e87ecd50785af429, type: 3}

@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class Lesser_Heal_Move : Move_Dad
 {
+    private bool moveStarted = false;
+
     // Move Effects
     public override bool ApplyMove(Player_Information pi, List<MoveResult> results, Move_Information mi)
     {
@@ -27,13 +29,18 @@ public class Lesser_Heal_Move : Move_Dad
     // Particles/Animations
     public override void StartMove(PC user, List<MoveResult> results)
     {
-        
+        GameObject tempParticleController = Instantiate(mainParticleController);
+        Vector2 targetPos = Combat_UI_Commands.GetPlayerPosition(results[0].targetNum).position;
+
+        tempParticleController.GetComponent<Lesser_Heal_Particle_Controller>().Setup(targetPos, this, results);
+        GameManager.instance.fx.AddParticleManager(tempParticleController);
+        moveStarted = true;
     }
 
     public override void EndMove(PC user) { }
 
     public override bool IsMoveFinished()
     {
-        return true;
+        return moveStarted && particleControllerList.Count <= 0;
     }
 }

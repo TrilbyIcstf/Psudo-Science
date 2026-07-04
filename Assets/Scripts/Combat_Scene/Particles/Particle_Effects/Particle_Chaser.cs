@@ -2,19 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Particle_Lesser_Spark : Particle_Dad
+public class Particle_Chaser : Particle_Dad
 {
     private int target;
     public GameObject onDestroyParticleSystem;
 
-    int damage;
+    private int damage;
 
-    public void ParticleInitialize(Vector2 goal, int target, float startSpeed, float startAccel, Vector2 startDirection, float startTurnSpeed, float targetDist, int damage, Particle_Controller_Dad papa)
+    [SerializeField] private Color damageColor;
+
+    public void ParticleInitialize(Vector2 goal, int target, float startSpeed, float startAccel, Vector2 startDirection, float startTurnSpeed, float targetDist, int damage, float lifeSpan, Particle_Controller_Dad papa)
     {
-        lifeSpan = 5;
         this.target = target;
         this.damage = damage;
-        base.ParticleInitialize(goal, startSpeed, startAccel, startDirection, startTurnSpeed, targetDist, papa);
+        base.ParticleInitialize(goal, startSpeed, startAccel, startDirection, startTurnSpeed, targetDist, lifeSpan, papa);
     }
 
     protected override void ParticleDestroy()
@@ -24,7 +25,7 @@ public class Particle_Lesser_Spark : Particle_Dad
         {
             angle += 360;
         }
-        father.SendAnimation(AnimDetails.Anim(EnemyAnimation.ColorFlash, target, new Vector3(200f, 0, 0)));
+        father.SendAnimation(AnimDetails.Anim(EnemyAnimation.ColorFlash, target, damageColor));
         father.SendTempDamage(damage, target);
         GameObject particleSystem = Instantiate(onDestroyParticleSystem, transform.position, Quaternion.identity);
 
@@ -39,7 +40,6 @@ public class Particle_Lesser_Spark : Particle_Dad
 
     protected override void ParticleUpdate()
     {
-        age += Time.deltaTime;
         transform.position += (Vector3)(moveSpeed * moveDirection.normalized);
         moveSpeed *= moveAccel;
         moveDirection = Particle_Math.LerpTowardsPoint(goalPosition, transform.position, moveDirection, turnSpeed);
@@ -49,10 +49,5 @@ public class Particle_Lesser_Spark : Particle_Dad
     private bool GoalCheck()
     {
         return Particle_Math.CheckApproach(goalPosition, transform.position, targetDistance, moveSpeed, moveDirection);
-    }
-
-    private bool AgeCheck()
-    {
-        return age > lifeSpan;
     }
 }
