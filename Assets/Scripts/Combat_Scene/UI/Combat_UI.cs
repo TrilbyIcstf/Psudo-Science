@@ -28,10 +28,18 @@ public class Combat_UI : MonoBehaviour
     public List<GameObject> PlayerHealths => new List<GameObject> { player1Health, player2Health, player3Health, player4Health };
     public List<GameObject> PlayerEnergies => new List<GameObject> { player1Energy, player2Energy, player3Energy, player4Energy };
 
+    private List<Combat_Move_Button_Controller> moveButtonControllers = new List<Combat_Move_Button_Controller>();
+
     // Start is called before the first frame update
     void Start()
     {
         GameManager.instance.combat.SetCombatUI(this);
+        List<GameObject> tempPlayers = Players;
+
+        for (int i = 0; i < tempPlayers.Count; i++)
+        {
+            moveButtonControllers.Add(tempPlayers[i].GetComponent<Combat_Move_Button_Controller>());
+        }
     }
 
     public void TargetCrosshair(Vector2 target)
@@ -52,5 +60,18 @@ public class Combat_UI : MonoBehaviour
     public void SetHoverEnabled(bool val)
     {
         hoverScript.SetCrosshairEnabled(val);
+    }
+
+    public void SetupMoveButtons(MoveName[][] teamMoves)
+    {
+        for (int i = 0; i < teamMoves.Length; i++)
+        {
+            moveButtonControllers[i].Init(teamMoves[i], 0);
+        }
+    }
+
+    public void HighlightMoveButton(PC pc, int pos)
+    {
+        moveButtonControllers[(int)pc].SetHighlight(pos);
     }
 }

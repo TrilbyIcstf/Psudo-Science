@@ -51,6 +51,10 @@ public class CombatManager : MonoBehaviour
         {
             TargetEnemy(0, true);
         }
+
+        MoveName[] test1 = { MoveName.LesserSpark, MoveName.LesserHeal, MoveName.LesserSpark };
+        MoveName[][] test2 = { test1, test1, test1, test1 };
+        combatUI.SetupMoveButtons(test2);
     }
 
     public void CombatVictory()
@@ -100,11 +104,17 @@ public class CombatManager : MonoBehaviour
             if (nextEnemy >= 0)
             {
                 TargetEnemy(nextEnemy, true);
-            } else
+            }
+            else
             {
                 CombatVictory();
             }
         }
+    }
+
+    public void SelectMove(PC pc, int pos)
+    {
+        combatUI.HighlightMoveButton(pc, pos);
     }
 
     public bool AddMoveToQueue(QueuedMove move)

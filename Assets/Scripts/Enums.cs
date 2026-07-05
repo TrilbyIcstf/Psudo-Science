@@ -154,3 +154,17 @@ public static class EnumMapping
         }
     }
 }
+
+public enum Direction
+{
+    LEFT,
+    RIGHT
+}
+
+public static class DirectionExtension
+{
+    public static float NumericRepresentation(this Direction dir)
+    {
+        return dir == Direction.LEFT ? -1 : 1;
+    }
+}

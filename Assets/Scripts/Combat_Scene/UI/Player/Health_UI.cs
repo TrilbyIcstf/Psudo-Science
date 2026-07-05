@@ -64,7 +64,6 @@ public class Health_UI : MonoBehaviour
 
     private void UpdateBar()
     {
-        Debug.Log(healthMax);
         slider.value = Mathf.Clamp(healthCounter / healthMax, 0, 1);
     }
 
