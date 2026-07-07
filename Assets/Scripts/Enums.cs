@@ -95,7 +95,7 @@ public enum PC
 
 static class PCExtensions
 {
-    public static PC FromColor(TColor color)
+    public static PC ToPC(this TColor color)
     {
         switch(color)
         {

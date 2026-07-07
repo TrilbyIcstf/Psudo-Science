@@ -4,11 +4,14 @@ using UnityEngine;
 
 public abstract class Move_Dad : MonoBehaviour
 {
-    public Move_Information moveInfo;
+    [SerializeField]
+    protected Move_Information moveInfo;
+    public Move_Information MoveInfo { get => moveInfo; }
 
     protected List<Particle_Controller_Dad> particleControllerList = new List<Particle_Controller_Dad>();
 
-    public GameObject mainParticleController;
+    [SerializeField]
+    protected GameObject mainParticleController;
 
     // Section for handling move effects
     public abstract List<MoveResult> ResultsCalc(Player_Information pi, int target, Move_Information mi);

@@ -23,6 +23,10 @@ public class CombatManager : MonoBehaviour
     private int targetedEnemy = 0;
     private int hoveredEnemy = 0;
 
+    // The currently selected moves for each character
+    private Dictionary<PC, MoveName> selectedMoves = new Dictionary<PC, MoveName>();
+
+    // Queue of moves being used in a combo
     private Queue<QueuedMove> moveQueue = new Queue<QueuedMove>();
     private bool moveQueueActive = false;
     private bool moveQueueLock = false;
@@ -52,9 +56,21 @@ public class CombatManager : MonoBehaviour
             TargetEnemy(0, true);
         }
 
-        MoveName[] test1 = { MoveName.LesserSpark, MoveName.LesserHeal, MoveName.LesserSpark };
+        SetupMoves();
+    }
+
+    private void SetupMoves()
+    {
+        // TODO: In future, have this check how many players are in the battle.
+
+        MoveName[] test1 = { MoveName.LesserSpark, MoveName.LesserHeal };
         MoveName[][] test2 = { test1, test1, test1, test1 };
         combatUI.SetupMoveButtons(test2);
+
+        selectedMoves[PC.VANESSA] = MoveName.LesserSpark;
+        selectedMoves[PC.SAMANTHA] = MoveName.LesserSpark;
+        selectedMoves[PC.GABRIELLE] = MoveName.LesserSpark;
+        selectedMoves[PC.VALLERY] = MoveName.LesserSpark;
     }
 
     public void CombatVictory()
@@ -112,8 +128,9 @@ public class CombatManager : MonoBehaviour
         }
     }
 
-    public void SelectMove(PC pc, int pos)
+    public void SelectMove(PC pc, MoveName move, int pos)
     {
+        selectedMoves[pc] = move;
         combatUI.HighlightMoveButton(pc, pos);
     }
 
@@ -172,11 +189,11 @@ public class CombatManager : MonoBehaviour
 
             Player_Information user = GameManager.instance.party.GetPlayer(queuedMove.user);
 
-            List<MoveResult> results = move.ResultsCalc(user, targetedEnemy, move.moveInfo);
+            List<MoveResult> results = move.ResultsCalc(user, targetedEnemy, move.MoveInfo);
             move.StartMove(queuedMove.user, results);
             yield return new WaitUntil(() => move.IsMoveFinished());
             move.EndMove(queuedMove.user);
-            move.ApplyMove(user, results, move.moveInfo);
+            move.ApplyMove(user, results, move.MoveInfo);
             Destroy(controller);
             yield return new WaitUntil(() => !this.deathAnimationLock);
             if (moveQueue.Count > 0)
@@ -230,6 +247,11 @@ public class CombatManager : MonoBehaviour
             return true;
         }
         return false;
+    }
+
+    public MoveName GetSelectedMove(PC player)
+    {
+        return selectedMoves[player];
     }
 
     public Combat_Enemy GetEnemy(int target)

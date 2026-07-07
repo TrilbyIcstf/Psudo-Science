@@ -35,7 +35,7 @@ public class MoveNameDictionary
         GameObject value = GetValue(key);
         if (value != null)
         {
-            return value.GetComponent<Move_Dad>().moveInfo;
+            return value.GetComponent<Move_Dad>().MoveInfo;
         }
 
         return null;

@@ -11,26 +11,29 @@ public class Combat_Move_Button_Controller : MonoBehaviour
     [SerializeField]
     private GameObject baseMoveButton;
 
-    private Combat_Move_Button[] activeButtons = new Combat_Move_Button[3];
+    private Combat_Move_Button[] activeButtons;
 
-    public void Init(MoveName[] moves, int startPos)
+    // Convenience var
+    private Player_UI_Info playerInfo { get => GetComponent<Player_UI_Info>(); }
+
+    public void Init(MoveName[] moves)
     {
-        startPos = Mathf.Min(startPos, moves.Length - 1);
+        activeButtons = new Combat_Move_Button[moves.Length];
 
         for (int i = 0; i < moves.Length; i++)
         {
             CreateButton(i);
-            activeButtons[i].SetHighlight(i == startPos);
         }
 
         SetMoves(moves);
+        SetHighlight(0);
     }
 
     public void SetMoves(MoveName[] moves)
     {
         for (int i = 0; i < moves.Length; i++)
         {
-
+            activeButtons[i].SetDetails(playerInfo.Player, moves[i], i);
         }
     }
 

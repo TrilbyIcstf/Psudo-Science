@@ -66,7 +66,7 @@ public class Combat_UI : MonoBehaviour
     {
         for (int i = 0; i < teamMoves.Length; i++)
         {
-            moveButtonControllers[i].Init(teamMoves[i], 0);
+            moveButtonControllers[i].Init(teamMoves[i]);
         }
     }
 

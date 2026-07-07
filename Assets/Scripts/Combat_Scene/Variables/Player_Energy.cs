@@ -51,9 +51,10 @@ public class Player_Energy
 
     public void QueueMove(TColor _eColor)
     {
-        GameObject testMove = GameManager.instance.ll.moveRepository.GetValue(MoveName.LesserHeal);
-        Move_Information moveInfo = GameManager.instance.ll.moveRepository.GetInformation(MoveName.LesserHeal);
-        QueuedMove genAttack = new QueuedMove(testMove, PCExtensions.FromColor(_eColor));
+        MoveName selectedMove = GameManager.instance.combat.GetSelectedMove(_eColor.ToPC());
+        GameObject testMove = GameManager.instance.ll.moveRepository.GetValue(selectedMove);
+        Move_Information moveInfo = GameManager.instance.ll.moveRepository.GetInformation(selectedMove);
+        QueuedMove genAttack = new QueuedMove(testMove, _eColor.ToPC());
         GameManager.instance.combat.AddMoveToQueue(genAttack);
         GameManager.instance.combat.AddToMoveCombo();
 
