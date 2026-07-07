@@ -334,29 +334,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &287599966 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4688678761440397242, guid: dcdcb9fa99ad22f42b24e15844db1ddb, type: 3}
+--- !u!114 &287599967 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1257611719747398932, guid: dcdcb9fa99ad22f42b24e15844db1ddb, type: 3}
   m_PrefabInstance: {fileID: 1656285531}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &287599967
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 287599966}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ed268af6e0e12044a86dc5a363972fb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveRepository:
-    keyValuePairs:
-    - key: 0
-      value: {fileID: 1489994068259963331, guid: 09787f3096f0e074ca71d165d06ebd42, type: 3}
-    - key: 1
-      value: {fileID: 7667985208338036994, guid: 4a0cc8d01d026d645b64ff4033a8ba21, type: 3}
 --- !u!1 &338222300
 GameObject:
   m_ObjectHideFlags: 0
@@ -605,6 +593,10 @@ PrefabInstance:
       propertyPath: m_Direction
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2534737266108355435, guid: f0963e863c3eb15468392ed8b9be611a, type: 3}
+      propertyPath: player
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 3182359514467787031, guid: f0963e863c3eb15468392ed8b9be611a, type: 3}
       propertyPath: m_FontData.m_Alignment
       value: 3
@@ -731,7 +723,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6023766720938304023, guid: f0963e863c3eb15468392ed8b9be611a, type: 3}
       propertyPath: m_Name
-      value: Player4
+      value: Player4 (Vallery)
       objectReference: {fileID: 0}
     - target: {fileID: 6519116941677791903, guid: f0963e863c3eb15468392ed8b9be611a, type: 3}
       propertyPath: m_LocalScale.x
@@ -1311,6 +1303,10 @@ PrefabInstance:
       propertyPath: m_Direction
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2534737266108355435, guid: f0963e863c3eb15468392ed8b9be611a, type: 3}
+      propertyPath: player
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3182359514467787031, guid: f0963e863c3eb15468392ed8b9be611a, type: 3}
       propertyPath: m_FontData.m_Alignment
       value: 3
@@ -1437,7 +1433,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6023766720938304023, guid: f0963e863c3eb15468392ed8b9be611a, type: 3}
       propertyPath: m_Name
-      value: Player2
+      value: Player2 (Samantha)
       objectReference: {fileID: 0}
     - target: {fileID: 6519116941677791903, guid: f0963e863c3eb15468392ed8b9be611a, type: 3}
       propertyPath: m_LocalScale.x
@@ -1725,6 +1721,10 @@ PrefabInstance:
       propertyPath: energyColor.m_NumColorKeys
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 2534737266108355435, guid: f0963e863c3eb15468392ed8b9be611a, type: 3}
+      propertyPath: player
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5299094095311368363, guid: f0963e863c3eb15468392ed8b9be611a, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -0.000005722046
@@ -1835,7 +1835,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6023766720938304023, guid: f0963e863c3eb15468392ed8b9be611a, type: 3}
       propertyPath: m_Name
-      value: Player3
+      value: Player3 (Gabrielle)
       objectReference: {fileID: 0}
     - target: {fileID: 6688966592743743877, guid: f0963e863c3eb15468392ed8b9be611a, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -1945,10 +1945,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 4688678761440397242, guid: dcdcb9fa99ad22f42b24e15844db1ddb, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 287599967}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dcdcb9fa99ad22f42b24e15844db1ddb, type: 3}
 --- !u!1 &1669564793
 GameObject:
@@ -2716,7 +2713,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6023766720938304023, guid: f0963e863c3eb15468392ed8b9be611a, type: 3}
       propertyPath: m_Name
-      value: Player1
+      value: Player1 (Vanessa)
       objectReference: {fileID: 0}
     - target: {fileID: 6023766720938304025, guid: f0963e863c3eb15468392ed8b9be611a, type: 3}
       propertyPath: m_Enabled
