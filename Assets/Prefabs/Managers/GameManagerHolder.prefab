@@ -51,7 +51,7 @@ MonoBehaviour:
   combat: {fileID: 5640420561896677349}
   party: {fileID: 3701883663012883544}
   fx: {fileID: 7570031627221841954}
-  ll: {fileID: 0}
+  ll: {fileID: 1257611719747398932}
   currentState: 0
 --- !u!114 &5640420561896677349
 MonoBehaviour:
@@ -117,3 +117,5 @@ MonoBehaviour:
       value: {fileID: 1489994068259963331, guid: 09787f3096f0e074ca71d165d06ebd42, type: 3}
     - key: 1
       value: {fileID: 7667985208338036994, guid: 4a0cc8d01d026d645b64ff4033a8ba21, type: 3}
+    - key: 2
+      value: {fileID: 8371054626992783663, guid: 6b1ccf7f0f7c3c249895871c9cbf4dbb, type: 3}

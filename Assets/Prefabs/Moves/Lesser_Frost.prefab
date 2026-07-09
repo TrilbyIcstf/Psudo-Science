@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1758204172408961474
+--- !u!1 &8371054626992783663
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,22 +8,22 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2624612659532855189}
-  - component: {fileID: 7110706649055131749}
+  - component: {fileID: 3783178232026440711}
+  - component: {fileID: -2050117651822311074}
   m_Layer: 0
-  m_Name: Lesser_Fire_Particle_Controller
+  m_Name: Lesser_Frost
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &2624612659532855189
+--- !u!4 &3783178232026440711
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1758204172408961474}
+  m_GameObject: {fileID: 8371054626992783663}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -32,17 +32,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7110706649055131749
+--- !u!114 &-2050117651822311074
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1758204172408961474}
+  m_GameObject: {fileID: 8371054626992783663}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 42ff7d3efd1bb85489844294817ddbd5, type: 3}
+  m_Script: {fileID: 11500000, guid: eee8b49d7b368dc44af2a393518be8f2, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
-  bulletParticle: {fileID: 1764702927482841226, guid: 16bf4e60d53e40a4cb74a50d00246ab3, type: 3}
-  bulletColor: {r: 1, g: 0.2901961, b: 0.17254902, a: 1}
+  m_EditorClassIdentifier: Assembly-CSharp::Lesser_Frost_Move
+  moveInfo: {fileID: 11400000, guid: e503f010e1769084f8c1225a8c53ae8d, type: 2}
+  mainParticleController: {fileID: 5451913773268281468, guid: 3c187bd5e5c090844b4386a241a90d3b, type: 3}

@@ -63,7 +63,7 @@ public class CombatManager : MonoBehaviour
     {
         // TODO: In future, have this check how many players are in the battle.
 
-        MoveName[] test1 = { MoveName.LesserSpark, MoveName.LesserHeal };
+        MoveName[] test1 = { MoveName.LesserSpark, MoveName.LesserHeal, MoveName.LesserFrost };
         MoveName[][] test2 = { test1, test1, test1, test1 };
         combatUI.SetupMoveButtons(test2);
 

@@ -123,7 +123,9 @@ public enum Target
 public enum MoveName
 {
     LesserSpark,
-    LesserHeal
+    LesserHeal,
+    LesserFrost,
+    LesserAreo
 }
 
 public enum Bestiary

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: -3938554068194953869}
   - component: {fileID: 7739992113682845902}
   m_Layer: 0
-  m_Name: Small_Spark_Particle
+  m_Name: Small_Magic_Chaser_Particle
   m_TagString: ParticleEffect
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -53,6 +53,8 @@ SpriteRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -74,11 +76,12 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 5
   m_Sprite: {fileID: 21300000, guid: 53320694b53daf548b1176e16bb1e84c, type: 3}
-  m_Color: {r: 1, g: 0.28833807, b: 0.17358488, a: 1}
+  m_Color: {r: 0.11525452, g: 0.54093176, b: 0.6981132, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

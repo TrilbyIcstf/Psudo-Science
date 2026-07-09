@@ -1,0 +1,8 @@
+1. Create a new enum for the move.
+2. Create new scriptable object for move.
+3. Create/assign particle controller script for move.
+4. Create particles/other fx if needed.
+5. Create particle controller prefab.
+6. Create new move script inheriting from Move_Dad.
+7. Create new move prefab, add script, scriptable object, and particle system to it.
+8. Go into the GameManager prefab, add the new move prefab to the LORE LIBRARIAN.
