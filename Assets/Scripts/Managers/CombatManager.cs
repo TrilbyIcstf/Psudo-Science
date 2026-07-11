@@ -17,7 +17,9 @@ public class CombatManager : MonoBehaviour
     public Player_Energy energy = new Player_Energy();
 
     // The enemies in the current encounter
-    [SerializeField] private List<GameObject> activeEnemies;
+    [SerializeField] 
+    private List<GameObject> activeEnemies;
+    private Combat_Enemy[] enemyScripts;
 
     // The enemy currently targeted by the player
     private int targetedEnemy = 0;
@@ -44,9 +46,11 @@ public class CombatManager : MonoBehaviour
         energy = new Player_Energy();
         Transform enemyHolderPos = GameObject.FindGameObjectWithTag("EnemyHolder").transform;
 
-        for (int i = 0; i < _enc.EncounterContents.Count; i++)
+        for (int i = 0; i < _enc.EncounterEnemies.Count; i++)
         {
-            activeEnemies.Add(Instantiate(_enc.EncounterContents[i], enemyHolderPos));
+            Bestiary enemyType = _enc.EncounterEnemies[i];
+            GameObject enemyObject = GameManager.instance.ll.enemyRepository.GetValue(enemyType);
+            activeEnemies.Add(Instantiate(enemyObject, enemyHolderPos));
             activeEnemies[i].GetComponent<Combat_Enemy>().Setup(i);
             activeEnemies[i].transform.position += _enc.EnemyPositions[i];
         }
@@ -54,6 +58,7 @@ public class CombatManager : MonoBehaviour
         if (activeEnemies.Count > 0)
         {
             TargetEnemy(0, true);
+            enemyScripts = new Combat_Enemy[activeEnemies.Count];
         }
 
         SetupMoves();
@@ -258,7 +263,12 @@ public class CombatManager : MonoBehaviour
     {
         if (activeEnemies.Count > target)
         {
-            return activeEnemies[target].GetComponent<Combat_Enemy>();
+            if (enemyScripts[target] is null)
+            {
+                enemyScripts[target] = activeEnemies[target].GetComponent<Combat_Enemy>();
+            }
+
+            return enemyScripts[target];
         }
         return null;
     }

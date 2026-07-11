@@ -12,7 +12,6 @@ public class Enemy_Stats
     private int defenseStat;
     private int magicStat;
     private int magDefenseStat;
-    private int actSpeedStat;
 
     private int maxHealthBoost = 0;
     private int attackBoost = 0;
@@ -30,7 +29,6 @@ public class Enemy_Stats
         this.defenseStat = baseStats.Defense;
         this.magicStat = baseStats.Magic;
         this.magDefenseStat = baseStats.MagDefense;
-        this.actSpeedStat = baseStats.ActSpeed;
     }
 
     public int DealDamage(int amount)
@@ -46,5 +44,4 @@ public class Enemy_Stats
     public int Defense { get => defenseStat; set => defenseStat = value; }
     public int Magic { get => magicStat; set => magicStat = value; }
     public int MagDefense { get => magDefenseStat; set => magDefenseStat = value; }
-    public int ActSpeed { get => actSpeedStat; set => actSpeedStat = value; }
 }

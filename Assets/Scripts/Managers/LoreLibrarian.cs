@@ -1,35 +1,36 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using System.Linq;
 
 public class LoreLibrarian : MonoBehaviour
 {
     public MoveNameDictionary moveRepository;
+    public BestiaryDictionary enemyRepository;
 }
 
-[System.Serializable]
-public class MoveNameDictionary
+public class GenericDictionary<K, V>
 {
-    [System.Serializable]
-    public struct KeyValuePair
+    [Serializable]
+    protected struct KeyValuePair
     {
-        public MoveName key;
-        public GameObject value;
+        public K key;
+        public V value;
     }
 
-    public List<KeyValuePair> keyValuePairs = new List<KeyValuePair>();
+    [SerializeField]
+    protected List<KeyValuePair> keyValuePairs = new List<KeyValuePair>();
 
-    public GameObject GetValue(MoveName key)
+    public V GetValue(K key)
     {
-        foreach (KeyValuePair kv in this.keyValuePairs)
-        {
-            if (kv.key == key) { return kv.value; }
-        }
-
-        return null;
+        return keyValuePairs.FirstOrDefault(kv => EqualityComparer<K>.Default.Equals(kv.key, key)).value;
     }
+}
 
+[Serializable]
+public class MoveNameDictionary : GenericDictionary<MoveName, GameObject>
+{
     public Move_Information GetInformation(MoveName key)
     {
         GameObject value = GetValue(key);
@@ -41,3 +42,6 @@ public class MoveNameDictionary
         return null;
     }
 }
+
+[Serializable]
+public class BestiaryDictionary : GenericDictionary<Bestiary, GameObject> { }

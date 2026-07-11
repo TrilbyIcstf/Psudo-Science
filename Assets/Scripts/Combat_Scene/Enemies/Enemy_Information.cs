@@ -23,7 +23,6 @@ public class Enemy_Information : ScriptableObject
     [SerializeField] private int defenseStat = 10;
     [SerializeField] private int magicStat = 10;
     [SerializeField] private int magDefenseStat = 10;
-    [SerializeField] private int actSpeedStat = 4;
 
     // The image of the enemy
     [Header("Image")]
@@ -37,7 +36,6 @@ public class Enemy_Information : ScriptableObject
     public int Defense { get => defenseStat; set => defenseStat = value; }
     public int Magic { get => magicStat; set => magicStat = value; }
     public int MagDefense { get => magDefenseStat; set => magDefenseStat = value; }
-    public int ActSpeed { get => actSpeedStat; set => actSpeedStat = value; }
     public string EnemyName { get => enemyName; set => enemyName = value; }
     public Bestiary EnemyType { get => enemyType; set => enemyType = value; }
     public Sprite EnemySprite { get => enemySprite; set => enemySprite = value; }

@@ -13,9 +13,12 @@ MonoBehaviour:
   m_Name: Encounter
   m_EditorClassIdentifier: 
   encounterContents:
-  - {fileID: 6667548592260005386, guid: 97892a498de9c974a88833ac53dcbe87, type: 3}
-  - {fileID: 6667548592260005386, guid: 97892a498de9c974a88833ac53dcbe87, type: 3}
-  - {fileID: 6667548592260005386, guid: 97892a498de9c974a88833ac53dcbe87, type: 3}
+  - enemy: 2
+    varient: 0
+  - enemy: 2
+    varient: 0
+  - enemy: 2
+    varient: 0
   enemyPositions:
   - {x: -3.8, y: 3.6, z: 0}
   - {x: -0.35, y: 2.94, z: 0}
