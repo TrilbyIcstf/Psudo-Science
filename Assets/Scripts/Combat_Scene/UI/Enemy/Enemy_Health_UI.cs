@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class Enemy_Health_UI : MonoBehaviour
 {
+    private const float baseHeight = 60;
+
     // The text displayed on the health bar
     public Text healthText;
 
@@ -17,8 +19,6 @@ public class Enemy_Health_UI : MonoBehaviour
     // The images of the health bar
     public Image healthFront;
     public Image healthBack;
-
-    private static float baseHeight = 60;
 
     private Slider slider
     {

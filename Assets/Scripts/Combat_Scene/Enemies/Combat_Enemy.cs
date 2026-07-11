@@ -23,18 +23,15 @@ public class Combat_Enemy : MonoBehaviour
     // Script for controlling appearance of the enemy
     private Enemy_Visuals visuals;
 
-    // Start is called before the first frame update
-    void Start()
+    public void Setup(int position, int varient)
     {
         behavior = GetComponent<Behavior_Dad>();
+        behavior.SetVarient(varient);
         visuals = GetComponent<Enemy_Visuals>();
         visuals.Startup(enemyBase);
+        visuals.SetBehavior(behavior);
         stats = new Enemy_Stats(enemyBase);
         displayHealth = stats.MaxHealth;
-    }
-
-    public void Setup(int position)
-    {
         enemyPosition = position;
     }
 

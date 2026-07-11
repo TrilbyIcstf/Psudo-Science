@@ -16,7 +16,7 @@ MonoBehaviour:
   - enemy: 2
     varient: 0
   - enemy: 2
-    varient: 0
+    varient: 1
   - enemy: 2
     varient: 0
   enemyPositions:

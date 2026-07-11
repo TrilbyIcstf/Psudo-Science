@@ -14,14 +14,24 @@ public class Enemy_Visuals : MonoBehaviour
     public Enemy_Animations animController;
 
     // Link to the enemy's health bar
-    public Enemy_Health_UI healthBar;
+    [SerializeField]
+    private Enemy_Health_UI healthBar;
+
+    // Link to the enemy's turn number
+    [SerializeField]
+    private Enemy_Turn_UI turnNumber;
 
     // The position element of the enemy's body parts
-    public RectTransform center;
-    public RectTransform head;
-    public RectTransform body;
-    public RectTransform legs;
-    public RectTransform hands;
+    [SerializeField]
+    private RectTransform center;
+    [SerializeField]
+    private RectTransform head;
+    [SerializeField]
+    private RectTransform body;
+    [SerializeField]
+    private RectTransform legs;
+    [SerializeField]
+    private RectTransform hands;
 
     // Visuals used for the death animation
     public GameObject deathMask;
@@ -42,6 +52,12 @@ public class Enemy_Visuals : MonoBehaviour
 
         UpdateHealthBar(enemyBase.MaxHealth, enemyBase.MaxHealth);
         SetHealthBarHeight(enemyBase.HealthBarHeight);
+        SetTurnNumberHeight(enemyBase.HealthBarHeight);
+    }
+
+    public void SetBehavior(Behavior_Dad behavior)
+    {
+        turnNumber.SetTurnNumber(behavior.BaseSpeed);
     }
 
     public void PlayAnimation(EnemyAnimation ea)
@@ -117,5 +133,10 @@ public class Enemy_Visuals : MonoBehaviour
     public void SetHealthBarHeight(float height)
     {
         healthBar.SetHeight(height);
+    }
+
+    public void SetTurnNumberHeight(float height)
+    {
+        turnNumber.SetHeight(height);
     }
 }

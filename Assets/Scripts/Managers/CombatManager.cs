@@ -49,9 +49,10 @@ public class CombatManager : MonoBehaviour
         for (int i = 0; i < _enc.EncounterEnemies.Count; i++)
         {
             Bestiary enemyType = _enc.EncounterEnemies[i];
+            int enemyVarient = _enc.EnemyVarients[i];
             GameObject enemyObject = GameManager.instance.ll.enemyRepository.GetValue(enemyType);
             activeEnemies.Add(Instantiate(enemyObject, enemyHolderPos));
-            activeEnemies[i].GetComponent<Combat_Enemy>().Setup(i);
+            activeEnemies[i].GetComponent<Combat_Enemy>().Setup(i, enemyVarient);
             activeEnemies[i].transform.position += _enc.EnemyPositions[i];
         }
 
