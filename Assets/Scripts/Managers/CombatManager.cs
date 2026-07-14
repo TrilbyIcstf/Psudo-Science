@@ -17,9 +17,8 @@ public class CombatManager : MonoBehaviour
     public Player_Energy energy = new Player_Energy();
 
     // The enemies in the current encounter
-    [SerializeField] 
-    private List<GameObject> activeEnemies;
-    private Combat_Enemy[] enemyScripts;
+    [SerializeField]
+    private List<ActiveEnemy> activeEnemies = new List<ActiveEnemy>();
 
     // The enemy currently targeted by the player
     private int targetedEnemy = 0;
@@ -51,15 +50,13 @@ public class CombatManager : MonoBehaviour
             Bestiary enemyType = _enc.EncounterEnemies[i];
             int enemyVarient = _enc.EnemyVarients[i];
             GameObject enemyObject = GameManager.instance.ll.enemyRepository.GetValue(enemyType);
-            activeEnemies.Add(Instantiate(enemyObject, enemyHolderPos));
-            activeEnemies[i].GetComponent<Combat_Enemy>().Setup(i, enemyVarient);
-            activeEnemies[i].transform.position += _enc.EnemyPositions[i];
+            activeEnemies.Add(new ActiveEnemy(Instantiate(enemyObject, enemyHolderPos), i, enemyVarient));
+            activeEnemies[i].enemyObject.transform.position += _enc.EnemyPositions[i];
         }
 
         if (activeEnemies.Count > 0)
         {
             TargetEnemy(0, true);
-            enemyScripts = new Combat_Enemy[activeEnemies.Count];
         }
 
         SetupMoves();
@@ -117,7 +114,7 @@ public class CombatManager : MonoBehaviour
             int nextEnemy = -1;
             for (int i = 0; i < activeEnemies.Count && nextEnemy < 0; i++)
             {
-                if (activeEnemies[i].GetComponent<Combat_Enemy>().isAlive())
+                if (activeEnemies[i].enemyScript.isAlive())
                 {
                     nextEnemy = i;
                 }
@@ -146,7 +143,7 @@ public class CombatManager : MonoBehaviour
         {
             moveQueue.Enqueue(move);
             return true;
-        } 
+        }
         catch
         {
             return false;
@@ -163,7 +160,9 @@ public class CombatManager : MonoBehaviour
 
             StartQueue();
         }
-        
+
+        IncrementEnemyTurn();
+
         turnCount++;
         turnCounter.text = "Turn: " + turnCount;
     }
@@ -210,6 +209,15 @@ public class CombatManager : MonoBehaviour
         yield return new WaitForSeconds(0.25f);
 
         StopQueue();
+    }
+
+    public void IncrementEnemyTurn()
+    {
+        for (int i = 0; i < activeEnemies.Count; i++)
+        {
+            activeEnemies[i].speed -= 1;
+            activeEnemies[i].enemyVisuals.SetTurnNumber(activeEnemies[i].speed);
+        }
     }
 
     public bool TargetEnemy(int enemy, bool stealth = false)
@@ -264,12 +272,7 @@ public class CombatManager : MonoBehaviour
     {
         if (activeEnemies.Count > target)
         {
-            if (enemyScripts[target] is null)
-            {
-                enemyScripts[target] = activeEnemies[target].GetComponent<Combat_Enemy>();
-            }
-
-            return enemyScripts[target];
+            return activeEnemies[target].enemyScript;
         }
         return null;
     }
@@ -278,7 +281,7 @@ public class CombatManager : MonoBehaviour
     {
         if (activeEnemies.Count > targetedEnemy)
         {
-            return activeEnemies[targetedEnemy];
+            return activeEnemies[targetedEnemy].enemyObject;
         }
         return null;
     }
@@ -287,7 +290,7 @@ public class CombatManager : MonoBehaviour
     {
         if (activeEnemies.Count > hoveredEnemy)
         {
-            return activeEnemies[hoveredEnemy];
+            return activeEnemies[hoveredEnemy].enemyObject;
         }
         return null;
     }
@@ -344,16 +347,35 @@ public class CombatManager : MonoBehaviour
         {
             if (a.rotation >= 0)
             {
-                activeEnemies[a.enemy].GetComponent<Enemy_Visuals>().PlayAnimationRotated(a.ea, a.rotation);
-            } 
+                activeEnemies[a.enemy].enemyVisuals.PlayAnimationRotated(a.ea, a.rotation);
+            }
             else if (!a.color.Equals(Vector3.zero))
             {
-                activeEnemies[a.enemy].GetComponent<Enemy_Visuals>().PlayAnimationColor(a.ea, a.color);
+                activeEnemies[a.enemy].enemyVisuals.PlayAnimationColor(a.ea, a.color);
             }
-            else 
+            else
             {
-                activeEnemies[a.enemy].GetComponent<Enemy_Visuals>().PlayAnimation(a.ea);
+                activeEnemies[a.enemy].enemyVisuals.PlayAnimation(a.ea);
             }
+        }
+    }
+
+    private class ActiveEnemy
+    {
+        public GameObject enemyObject;
+        public Combat_Enemy enemyScript;
+        public Behavior_Dad enemyBehavior;
+        public Enemy_Visuals enemyVisuals;
+        public int speed;
+
+        public ActiveEnemy(GameObject obj, int position, int varient)
+        {
+            enemyObject = obj;
+            enemyScript = obj.GetComponent<Combat_Enemy>();
+            enemyScript.Setup(position, varient);
+            enemyBehavior = obj.GetComponent<Behavior_Dad>();
+            enemyVisuals = obj.GetComponent<Enemy_Visuals>();
+            speed = enemyBehavior.BaseSpeed;
         }
     }
 }

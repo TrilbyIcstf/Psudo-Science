@@ -130,6 +130,11 @@ public class Enemy_Visuals : MonoBehaviour
         healthBar.SetHealth(current, max);
     }
 
+    public void SetTurnNumber(int val)
+    {
+        turnNumber.SetTurnNumber(val);
+    }
+
     public void SetHealthBarHeight(float height)
     {
         healthBar.SetHeight(height);
