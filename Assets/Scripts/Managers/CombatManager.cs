@@ -7,6 +7,8 @@ using UnityEngine.UI; // REMOVE ME LATER
 
 public class CombatManager : MonoBehaviour
 {
+    private const float MOVEQUEUEDELAY = 1.0f;
+
     // Testing vars
     public Text comboCounter;
     [SerializeField]
@@ -29,9 +31,14 @@ public class CombatManager : MonoBehaviour
 
     // Queue of moves being used in a combo
     private Queue<QueuedMove> moveQueue = new Queue<QueuedMove>();
+
+    // Queue of moves for the enemy
+    private Queue<QueuedEnemyMove> enemyMoveQueue = new Queue<QueuedEnemyMove>();
+
     private bool moveQueueActive = false;
     private bool moveQueueLock = false;
 
+    // Lock for enemy death animation
     private bool deathAnimationLock = false;
 
     // A tracker for how many moves you've triggered in one turn.
@@ -114,7 +121,7 @@ public class CombatManager : MonoBehaviour
             int nextEnemy = -1;
             for (int i = 0; i < activeEnemies.Count && nextEnemy < 0; i++)
             {
-                if (activeEnemies[i].enemyScript.isAlive())
+                if (activeEnemies[i].enemyScript.IsAlive())
                 {
                     nextEnemy = i;
                 }
@@ -153,24 +160,15 @@ public class CombatManager : MonoBehaviour
     public IEnumerator WaitToStartQueue()
     {
         yield return new WaitUntil(() => !GameManager.instance.fx.CheckAllFXLock());
-
-        if (moveQueue.Count > 0)
-        {
-            yield return new WaitForSeconds(1.0f);
-
-            StartQueue();
-        }
-
-        IncrementEnemyTurn();
-
-        turnCount++;
-        turnCounter.text = "Turn: " + turnCount;
+        
+        StartQueue();
     }
 
     public void StartQueue()
     {
         moveQueueLock = true;
         moveQueueActive = true;
+        board.SetMouseLock(true);
 
         StartCoroutine(RunQueue());
     }
@@ -179,45 +177,116 @@ public class CombatManager : MonoBehaviour
     {
         moveQueueLock = false;
         moveQueueActive = false;
+        board.SetMouseLock(false);
+
+        IncrementEnemyTurn();
     }
 
     private IEnumerator RunQueue()
     {
         ResetCombo();
-        float moveQueueDelay = 1.0f;
-
-        while (moveQueue.Count > 0 && moveQueueActive)
+        
+        if (moveQueue.Count > 0)
         {
-            QueuedMove queuedMove = moveQueue.Dequeue();
-            GameObject controller = Instantiate(queuedMove.move);
-            Move_Dad move = controller.GetComponent<Move_Dad>();
+            yield return new WaitForSeconds(1.0f);
 
-            Player_Information user = GameManager.instance.party.GetPlayer(queuedMove.user);
-
-            List<MoveResult> results = move.ResultsCalc(user, targetedEnemy, move.MoveInfo);
-            move.StartMove(queuedMove.user, results);
-            yield return new WaitUntil(() => move.IsMoveFinished());
-            move.EndMove(queuedMove.user);
-            move.ApplyMove(user, results, move.MoveInfo);
-            Destroy(controller);
-            yield return new WaitUntil(() => !this.deathAnimationLock);
-            if (moveQueue.Count > 0)
+            while (moveQueue.Count > 0 && moveQueueActive)
             {
-                yield return new WaitForSeconds(moveQueueDelay);
+                QueuedMove queuedMove = moveQueue.Dequeue();
+                GameObject controller = Instantiate(queuedMove.move);
+                Move_Dad move = controller.GetComponent<Move_Dad>();
+
+                Player_Information user = GameManager.instance.party.GetPlayer(queuedMove.user);
+
+                List<MoveResult> results = move.ResultsCalc(user, targetedEnemy, move.MoveInfo);
+                move.StartMove(queuedMove.user, results);
+                yield return new WaitUntil(() => move.IsMoveFinished());
+                move.EndMove(queuedMove.user);
+                move.ApplyMove(user, results, move.MoveInfo);
+                Destroy(controller);
+                yield return new WaitUntil(() => !this.deathAnimationLock);
+                if (moveQueue.Count > 0)
+                {
+                    yield return new WaitForSeconds(MOVEQUEUEDELAY);
+                }
             }
+            yield return new WaitForSeconds(0.5f);
         }
-        yield return new WaitForSeconds(0.25f);
 
         StopQueue();
+    }
+
+    private void StartEnemyQueue()
+    {
+        moveQueueLock = true;
+        moveQueueActive = true;
+        board.SetMouseLock(true);
+
+        StartCoroutine(RunEnemyQueue());
+    }
+
+    private void StopEnemyQueue()
+    {
+        moveQueueLock = false;
+        moveQueueActive = false;
+        board.SetMouseLock(false);
+    }
+
+    private IEnumerator RunEnemyQueue()
+    {
+        // TEST CODE
+        if (enemyMoveQueue.Count > 0)
+        {
+            yield return new WaitForSeconds(1.0f);
+
+            while (enemyMoveQueue.Count > 0 && moveQueueActive)
+            {
+                QueuedEnemyMove move = enemyMoveQueue.Dequeue();
+                foreach (int i in move.targets)
+                {
+                    GameManager.instance.party.GetPlayer(i).Damage(20);
+                    Combat_UI_Commands.RefreshHealthBars();
+                    Debug.Log("Enemy attack");
+                }
+                activeEnemies[move.user].enemyVisuals.SetTurnNumber(activeEnemies[move.user].speed);
+
+                if (enemyMoveQueue.Count > 0)
+                {
+                    yield return new WaitForSeconds(MOVEQUEUEDELAY);
+                }
+            }
+            yield return new WaitForSeconds(0.5f);
+        }
+
+        StopEnemyQueue();
     }
 
     public void IncrementEnemyTurn()
     {
         for (int i = 0; i < activeEnemies.Count; i++)
         {
-            activeEnemies[i].speed -= 1;
-            activeEnemies[i].enemyVisuals.SetTurnNumber(activeEnemies[i].speed);
+            if (activeEnemies[i].enemyScript.IsAlive())
+            {
+                activeEnemies[i].speed -= 1;
+                activeEnemies[i].enemyVisuals.SetTurnNumber(activeEnemies[i].speed);
+
+                if (activeEnemies[i].speed <= 0)
+                {
+                    (GameObject moveObject, List<int> targets, int cooldown) = activeEnemies[i].enemyBehavior.MakeMove();
+                    activeEnemies[i].speed = cooldown;
+                    QueuedEnemyMove queuedMove = new QueuedEnemyMove(moveObject, i, targets);
+                    enemyMoveQueue.Enqueue(queuedMove);
+                }
+            }
         }
+
+        if (enemyMoveQueue.Count > 0)
+        {
+            StartEnemyQueue();
+        }
+
+        turnCount++;
+        turnCounter.text = "Turn: " + turnCount;
     }
 
     public bool TargetEnemy(int enemy, bool stealth = false)

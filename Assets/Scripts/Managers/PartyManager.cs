@@ -115,6 +115,6 @@ public class PartyManager : MonoBehaviour
 
     public int MostDamaged()
     {
-        return players.Aggregate((highest, next) => next.Damage > highest.Damage ? next : highest).position;
+        return players.Aggregate((highest, next) => next.CurrentDamage > highest.CurrentDamage ? next : highest).position;
     }
 }

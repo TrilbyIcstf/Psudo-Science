@@ -11,10 +11,10 @@ public class Player_Energy
     private float purplePoints = 0;
 
     // The point cap needed to execute the next move
-    private float blueCap = 50;
-    private float orangeCap = 50;
-    private float pinkCap = 50;
-    private float purpleCap = 50;
+    private float blueCap = 20;
+    private float orangeCap = 20;
+    private float pinkCap = 20;
+    private float purpleCap = 20;
 
     // The power multiplier for each color's next move
     private float bluePower = 1;
@@ -52,9 +52,9 @@ public class Player_Energy
     public void QueueMove(TColor _eColor)
     {
         MoveName selectedMove = GameManager.instance.combat.GetSelectedMove(_eColor.ToPC());
-        GameObject testMove = GameManager.instance.ll.moveRepository.GetValue(selectedMove);
+        GameObject moveObject = GameManager.instance.ll.moveRepository.GetValue(selectedMove);
         Move_Information moveInfo = GameManager.instance.ll.moveRepository.GetInformation(selectedMove);
-        QueuedMove genAttack = new QueuedMove(testMove, _eColor.ToPC());
+        QueuedMove genAttack = new QueuedMove(moveObject, _eColor.ToPC());
         GameManager.instance.combat.AddMoveToQueue(genAttack);
         GameManager.instance.combat.AddToMoveCombo();
 

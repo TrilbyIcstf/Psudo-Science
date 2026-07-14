@@ -227,14 +227,14 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 2427537215997513041, guid: 775d41d5bbaf8b0409f884abb9328d7f, type: 3}
       insertIndex: -1
-      addedObject: {fileID: -5796154938937370714}
+      addedObject: {fileID: 2647755915924056388}
   m_SourcePrefab: {fileID: 100100000, guid: 775d41d5bbaf8b0409f884abb9328d7f, type: 3}
 --- !u!1 &6667548592260005386 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2427537215997513041, guid: 775d41d5bbaf8b0409f884abb9328d7f, type: 3}
   m_PrefabInstance: {fileID: 9022887233392391003}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &-5796154938937370714
+--- !u!114 &2647755915924056388
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -243,7 +243,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6667548592260005386}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dafa27ee1f1f6b14696840f47d5e7ffe, type: 3}
+  m_Script: {fileID: 11500000, guid: 388a15a07c7c19744be857bca06ac363, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
-  baseSpeed: 4
+  m_EditorClassIdentifier: Assembly-CSharp::Stained_Knight_Behavior
+  varient: 0

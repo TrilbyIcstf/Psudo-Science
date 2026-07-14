@@ -54,6 +54,12 @@ public class Player_Information : ScriptableObject
         status.CurrentHealth = newHealth;
     }
 
+    public void Damage(int damage)
+    {
+        int newHealth = Mathf.Max(status.CurrentHealth - damage, 0);
+        status.CurrentHealth = newHealth;
+    }
+
     public void resetStatus(int health, bool cleanse = false)
     {
         health = Mathf.Clamp(health, 0, EquipMaxHealth);
@@ -84,7 +90,7 @@ public class Player_Information : ScriptableObject
     public int EquipMagDefense { get => magDefenseStat + eqWeapon.MagDefense + eqHelmet.MagDefense + eqArmor.MagDefense + eqPant.MagDefense + eqAcc1.MagDefense + eqAcc2.MagDefense; }
     public int MaxHealth { get => Mathf.CeilToInt((EquipMaxHealth + status.HealthBuff) * status.HealthMult); }
     public int CurrentHealth { get => status.CurrentHealth; }
-    public int Damage { get => MaxHealth - status.CurrentHealth; }
+    public int CurrentDamage { get => MaxHealth - status.CurrentHealth; }
     public int Attack { get => Mathf.CeilToInt((EquipAttack + status.AttackBuff) * status.AttackMult); }
     public int Defense { get => Mathf.CeilToInt((EquipDefense + status.DefenseBuff) * status.DefenseMult); }
     public int Magic { get => Mathf.CeilToInt((EquipMagic + status.MagicBuff) * status.MagicMult); }

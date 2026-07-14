@@ -94,7 +94,7 @@ public class Combat_Enemy : MonoBehaviour
         return stats;
     }
 
-    public bool isAlive()
+    public bool IsAlive()
     {
         return alive;
     }

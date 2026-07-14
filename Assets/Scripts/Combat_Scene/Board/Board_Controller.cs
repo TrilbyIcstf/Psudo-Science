@@ -551,7 +551,6 @@ public class Board_Controller : MonoBehaviour
             StartCoroutine(GameManager.instance.combat.WaitToStartQueue());
 
             matchCombo = 0;
-            mouseLock = false;
         }
     }
 
@@ -712,6 +711,11 @@ public class Board_Controller : MonoBehaviour
     public float GetRowSpeedBonus(int _rowNum)
     {
         return rowSpeedBonus[_rowNum];
+    }
+
+    public void SetMouseLock(bool val)
+    {
+        mouseLock = val;
     }
 
     public int MatchCombo { get => matchCombo; set => matchCombo = value; }
