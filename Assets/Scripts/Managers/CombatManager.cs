@@ -246,6 +246,7 @@ public class CombatManager : MonoBehaviour
                 {
                     GameManager.instance.party.GetPlayer(i).Damage(20);
                     Combat_UI_Commands.RefreshHealthBars();
+                    combatUI.PlayerUI[i].Anim.PlayAnimationColor(PlayerAnimation.ColorFlash, Color.red);
                     Debug.Log("Enemy attack");
                 }
                 activeEnemies[move.user].enemyVisuals.SetTurnNumber(activeEnemies[move.user].speed);

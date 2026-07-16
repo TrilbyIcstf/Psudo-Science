@@ -141,15 +141,31 @@ public enum EnemyAnimation
     ColorFlash
 }
 
+public enum PlayerAnimation
+{
+    ColorFlash
+}
+
 public static class EnumMapping
 {
-    public static string EnemyAnimationMap(EnemyAnimation ea)
+    public static string ToAnimString(this EnemyAnimation ea)
     {
         switch(ea)
         {
             case EnemyAnimation.SmallRecoil:
                 return "SmallRecoil";
             case EnemyAnimation.ColorFlash:
+                return "ColorFlash";
+            default:
+                return "";
+        }
+    }
+
+    public static string ToAnimString(this PlayerAnimation pa)
+    {
+        switch (pa)
+        {
+            case PlayerAnimation.ColorFlash:
                 return "ColorFlash";
             default:
                 return "";

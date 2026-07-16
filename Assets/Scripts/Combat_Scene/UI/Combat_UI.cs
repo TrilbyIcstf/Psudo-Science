@@ -28,6 +28,11 @@ public class Combat_UI : MonoBehaviour
     public List<GameObject> PlayerHealths => new List<GameObject> { player1Health, player2Health, player3Health, player4Health };
     public List<GameObject> PlayerEnergies => new List<GameObject> { player1Energy, player2Energy, player3Energy, player4Energy };
 
+
+    [SerializeField]
+    private List<Player_UI_Controller> playerUI = new List<Player_UI_Controller>();
+    public List<Player_UI_Controller> PlayerUI { get => playerUI; }
+
     private List<Combat_Move_Button_Controller> moveButtonControllers = new List<Combat_Move_Button_Controller>();
 
     // Start is called before the first frame update

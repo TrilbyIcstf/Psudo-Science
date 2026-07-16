@@ -47,7 +47,6 @@ public class Enemy_Animations : MonoBehaviour
             if (holderPos.rotation.z != 0)
             {
                 float rotRad = holderPos.rotation.eulerAngles.z * Mathf.Deg2Rad;
-                Debug.Log(rotRad);
 
                 float xPos = (spriteVector.x * Mathf.Cos(rotRad)) - (spriteVector.y * Mathf.Sin(rotRad));
                 float yPos = (spriteVector.x * Mathf.Sin(rotRad)) + (spriteVector.y * Mathf.Cos(rotRad));
@@ -72,20 +71,20 @@ public class Enemy_Animations : MonoBehaviour
 
     public void PlayAnimation(EnemyAnimation ea)
     {
-        animController.SetTrigger(EnumMapping.EnemyAnimationMap(ea));
+        animController.SetTrigger(ea.ToAnimString());
     }
 
     public void PlayAnimationRotated(EnemyAnimation ea, float rotation)
     {
         holderPos.rotation = Quaternion.Euler(0, 0, rotation);
         spritePos.rotation = Quaternion.Euler(0, 0, 0);
-        animController.SetTrigger(EnumMapping.EnemyAnimationMap(ea));
+        animController.SetTrigger(ea.ToAnimString());
     }
 
     public void PlayAnimationColor(EnemyAnimation ea, Color color)
     {
         overlayColor = color;
-        animController.SetTrigger(EnumMapping.EnemyAnimationMap(ea));
+        animController.SetTrigger(ea.ToAnimString());
     }
 
     public void ResetRotation()
