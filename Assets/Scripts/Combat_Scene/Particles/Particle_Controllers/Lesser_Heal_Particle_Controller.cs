@@ -5,7 +5,8 @@ using UnityEngine;
 public class Lesser_Heal_Particle_Controller : Particle_Controller_Dad
 {
     // The particle gameobject
-    public GameObject lesserHealParticle;
+    [SerializeField]
+    private GameObject lesserHealParticle;
 
     // Variables for spawning the particles
     private const int numberToSpawn = 4;

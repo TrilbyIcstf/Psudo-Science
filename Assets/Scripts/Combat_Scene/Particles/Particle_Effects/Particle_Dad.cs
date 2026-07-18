@@ -34,6 +34,22 @@ public abstract class Particle_Dad : MonoBehaviour
     /// <summary>
     /// Called to initialize the particle and start its movement
     /// </summary>
+    /// <param name="lifeSpan">
+    /// How long the particle lasts before despawning
+    /// </param>
+    /// <param name="papa">
+    /// Origin particle controller
+    /// </param>
+    public virtual void ParticleInitialize(float lifeSpan, Particle_Controller_Dad papa)
+    {
+        father = papa;
+        this.lifeSpan = lifeSpan;
+        father.AddParticle(gameObject);
+    }
+
+    /// <summary>
+    /// Called to initialize the particle and start its movement
+    /// </summary>
     /// <param name="goal">
     /// The <X,Y> coords of the particle's goal
     /// </param>
@@ -42,13 +58,11 @@ public abstract class Particle_Dad : MonoBehaviour
     /// </param>
     public virtual void ParticleInitialize(Vector2 goal, float startSpeed, float lifeSpan, Particle_Controller_Dad papa)
     {
-        father = papa;
         spawnPosition = transform.position;
         goalPosition = goal;
         moveSpeed = startSpeed;
-        this.lifeSpan = lifeSpan;
         inMotion = true;
-        father.AddParticle(gameObject);
+        ParticleInitialize(lifeSpan, papa);
     }
 
     /// <summary>

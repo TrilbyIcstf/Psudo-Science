@@ -128,6 +128,11 @@ public enum MoveName
     LesserAreo
 }
 
+public enum EnemyMoveName
+{
+    BasicSlash
+}
+
 public enum Bestiary
 {
     BookRat,
