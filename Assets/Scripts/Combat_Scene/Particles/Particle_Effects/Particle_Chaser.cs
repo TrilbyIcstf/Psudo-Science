@@ -25,7 +25,7 @@ public class Particle_Chaser : Particle_Dad
         {
             angle += 360;
         }
-        father.SendAnimation(AnimDetails.Anim(EnemyAnimation.ColorFlash, target, damageColor));
+        father.SendAnimation(new AnimDetails(CombatAnimation.ColorFlash, Target.ENEMY, target, null, damageColor));
         father.SendTempDamage(damage, target);
         GameObject particleSystem = Instantiate(onDestroyParticleSystem, transform.position, Quaternion.identity);
 

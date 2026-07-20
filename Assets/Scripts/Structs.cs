@@ -44,3 +44,21 @@ public struct MoveResult
         this.targetNum = targetNum;
     }
 }
+
+public struct AnimDetails
+{
+    public CombatAnimation anim;
+    public Target targetType;
+    public int target;
+    public float? rotation;
+    public Color? color;
+
+    public AnimDetails(CombatAnimation anim, Target targetType, int target, float? rotation, Color? color)
+    {
+        this.anim = anim;
+        this.targetType = targetType;
+        this.target = target;
+        this.rotation = rotation;
+        this.color = color;
+    }
+}

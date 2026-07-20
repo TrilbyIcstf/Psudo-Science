@@ -60,17 +60,17 @@ public class Enemy_Visuals : MonoBehaviour
         turnNumber.SetTurnNumber(behavior.BaseSpeed);
     }
 
-    public void PlayAnimation(EnemyAnimation ea)
+    public void PlayAnimation(CombatAnimation ea)
     {
         animController.PlayAnimation(ea);
     }
 
-    public void PlayAnimationRotated(EnemyAnimation ea, float rotation)
+    public void PlayAnimationRotated(CombatAnimation ea, float rotation)
     {
         animController.PlayAnimationRotated(ea, rotation);
     }
 
-    public void PlayAnimationColor(EnemyAnimation ea, Color color)
+    public void PlayAnimationColor(CombatAnimation ea, Color color)
     {
         animController.PlayAnimationColor(ea, color);
     }

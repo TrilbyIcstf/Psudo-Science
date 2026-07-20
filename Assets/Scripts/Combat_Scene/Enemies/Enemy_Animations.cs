@@ -69,19 +69,19 @@ public class Enemy_Animations : MonoBehaviour
         }
     }
 
-    public void PlayAnimation(EnemyAnimation ea)
+    public void PlayAnimation(CombatAnimation ea)
     {
         animController.SetTrigger(ea.ToAnimString());
     }
 
-    public void PlayAnimationRotated(EnemyAnimation ea, float rotation)
+    public void PlayAnimationRotated(CombatAnimation ea, float rotation)
     {
         holderPos.rotation = Quaternion.Euler(0, 0, rotation);
         spritePos.rotation = Quaternion.Euler(0, 0, 0);
         animController.SetTrigger(ea.ToAnimString());
     }
 
-    public void PlayAnimationColor(EnemyAnimation ea, Color color)
+    public void PlayAnimationColor(CombatAnimation ea, Color color)
     {
         overlayColor = color;
         animController.SetTrigger(ea.ToAnimString());

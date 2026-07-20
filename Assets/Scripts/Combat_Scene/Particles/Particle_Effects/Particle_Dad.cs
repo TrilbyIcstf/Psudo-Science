@@ -44,6 +44,7 @@ public abstract class Particle_Dad : MonoBehaviour
     {
         father = papa;
         this.lifeSpan = lifeSpan;
+        inMotion = true;
         father.AddParticle(gameObject);
     }
 
@@ -61,7 +62,6 @@ public abstract class Particle_Dad : MonoBehaviour
         spawnPosition = transform.position;
         goalPosition = goal;
         moveSpeed = startSpeed;
-        inMotion = true;
         ParticleInitialize(lifeSpan, papa);
     }
 

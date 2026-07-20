@@ -140,37 +140,21 @@ public enum Bestiary
     StainedKnight
 }
 
-public enum EnemyAnimation
+public enum CombatAnimation
 {
     SmallRecoil,
     ColorFlash
 }
 
-public enum PlayerAnimation
-{
-    ColorFlash
-}
-
 public static class EnumMapping
 {
-    public static string ToAnimString(this EnemyAnimation ea)
+    public static string ToAnimString(this CombatAnimation ea)
     {
         switch(ea)
         {
-            case EnemyAnimation.SmallRecoil:
+            case CombatAnimation.SmallRecoil:
                 return "SmallRecoil";
-            case EnemyAnimation.ColorFlash:
-                return "ColorFlash";
-            default:
-                return "";
-        }
-    }
-
-    public static string ToAnimString(this PlayerAnimation pa)
-    {
-        switch (pa)
-        {
-            case PlayerAnimation.ColorFlash:
+            case CombatAnimation.ColorFlash:
                 return "ColorFlash";
             default:
                 return "";

@@ -39,21 +39,19 @@ public class Player_Animation_Controller : MonoBehaviour
         }
     }
 
-    public void PlayAnimation(PlayerAnimation ea)
+    public void PlayAnimation(AnimDetails animDetails)
     {
-        animController.SetTrigger(ea.ToAnimString());
-    }
+        if (animDetails.color is Color color)
+        {
+            overlayColor = color;
+        }
 
-    public void PlayAnimationRotated(PlayerAnimation ea, float rotation)
-    {
-        spritePos.rotation = Quaternion.Euler(0, 0, rotation);
-        animController.SetTrigger(ea.ToAnimString());
-    }
+        if (animDetails.rotation is float rotation)
+        {
+            spritePos.rotation = Quaternion.Euler(0, 0, rotation);
+        }
 
-    public void PlayAnimationColor(PlayerAnimation ea, Color color)
-    {
-        overlayColor = color;
-        animController.SetTrigger(ea.ToAnimString());
+        animController.SetTrigger(animDetails.anim.ToAnimString());
     }
 
     public void ResetRotation()

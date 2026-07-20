@@ -246,7 +246,6 @@ public class CombatManager : MonoBehaviour
                 {
                     GameManager.instance.party.GetPlayer(i).Damage(20);
                     Combat_UI_Commands.RefreshHealthBars();
-                    combatUI.PlayerUI[i].Anim.PlayAnimationColor(PlayerAnimation.ColorFlash, Color.red);
                     Debug.Log("Enemy attack");
                 }
                 activeEnemies[move.user].enemyVisuals.SetTurnNumber(activeEnemies[move.user].speed);
@@ -411,22 +410,29 @@ public class CombatManager : MonoBehaviour
         moveCombo = 0;
     }
 
-    public void PlayEnemyAnimation(AnimDetails a)
+    public void PlayActorAnimation(AnimDetails a)
     {
-        if (activeEnemies.Count > a.enemy && activeEnemies[a.enemy] != null)
+        if (a.targetType == Target.ENEMY)
         {
-            if (a.rotation >= 0)
+            if (activeEnemies.Count > a.target && activeEnemies[a.target] != null)
             {
-                activeEnemies[a.enemy].enemyVisuals.PlayAnimationRotated(a.ea, a.rotation);
+                if (a.rotation != null)
+                {
+                    activeEnemies[a.target].enemyVisuals.PlayAnimationRotated(a.anim, (float)a.rotation);
+                }
+                else if (a.color != null)
+                {
+                    activeEnemies[a.target].enemyVisuals.PlayAnimationColor(a.anim, (Color)a.color);
+                }
+                else
+                {
+                    activeEnemies[a.target].enemyVisuals.PlayAnimation(a.anim);
+                }
             }
-            else if (!a.color.Equals(Vector3.zero))
-            {
-                activeEnemies[a.enemy].enemyVisuals.PlayAnimationColor(a.ea, a.color);
-            }
-            else
-            {
-                activeEnemies[a.enemy].enemyVisuals.PlayAnimation(a.ea);
-            }
+        } else
+        {
+            int target = a.target;
+            combatUI.PlayerUI[target].Anim.PlayAnimation(a);
         }
     }
 
@@ -447,41 +453,5 @@ public class CombatManager : MonoBehaviour
             enemyVisuals = obj.GetComponent<Enemy_Visuals>();
             speed = enemyBehavior.BaseSpeed;
         }
-    }
-}
-
-public class AnimDetails
-{
-    public EnemyAnimation ea;
-    public int enemy;
-    public float rotation;
-    public Color color;
-
-    AnimDetails(EnemyAnimation ea, int enemy, float rotation, Color color)
-    {
-        this.ea = ea;
-        this.enemy = enemy;
-        this.rotation = rotation;
-        this.color = color;
-    }
-
-    public static AnimDetails Anim(EnemyAnimation ea, int enemy)
-    {
-        return new AnimDetails(ea, enemy, -99, Color.black);
-    }
-
-    public static AnimDetails Anim(EnemyAnimation ea, int enemy, float rotation)
-    {
-        return new AnimDetails(ea, enemy, rotation, Color.black);
-    }
-
-    public static AnimDetails Anim(EnemyAnimation ea, int enemy, Color color)
-    {
-        return new AnimDetails(ea, enemy, -99, color);
-    }
-
-    public static AnimDetails Anim(EnemyAnimation ea, int enemy, float rotation, Color color)
-    {
-        return new AnimDetails(ea, enemy, rotation, color);
     }
 }

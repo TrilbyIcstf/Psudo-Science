@@ -36,7 +36,7 @@ public abstract class Particle_Controller_Dad : MonoBehaviour
 
     public virtual void SendAnimation(AnimDetails a)
     {
-        GameManager.instance.combat.PlayEnemyAnimation(a);
+        GameManager.instance.combat.PlayActorAnimation(a);
     }
 
     public virtual void SendTempDamage(int damage, int target)
