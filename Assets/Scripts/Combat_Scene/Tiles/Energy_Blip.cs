@@ -80,7 +80,7 @@ public class Energy_Blip : MonoBehaviour
                 {
                     if (blipColor == TColor.BLUE || blipColor == TColor.ORANGE || blipColor == TColor.PINK || blipColor == TColor.PURPLE)
                     {
-                        Combat_UI_Commands.SendEnergy(pointValue, (int)blipColor + 1);
+                        Combat_UI_Commands.SendEnergy(pointValue, (int)blipColor);
                     }
                     else if (blipColor == TColor.GREEN)
                     {
@@ -88,7 +88,7 @@ public class Energy_Blip : MonoBehaviour
                     }
                     else if (blipColor == TColor.BLACK)
                     {
-                        Combat_UI_Commands.SendEnergy(pointValue, PlayerNum);
+                        Combat_UI_Commands.SendEnergy(pointValue, playerNum);
                     }
 
                     Destroy(gameObject);

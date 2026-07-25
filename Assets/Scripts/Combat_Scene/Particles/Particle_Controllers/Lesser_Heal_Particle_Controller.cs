@@ -45,7 +45,7 @@ public class Lesser_Heal_Particle_Controller : Particle_Controller_Dad
         Destroy(gameObject);
     }
 
-    public void Setup(Vector2 spawnPosition, Move_Dad papa, List<MoveResult> targets)
+    public void Setup(Vector2 spawnPosition, Player_Move papa, List<MoveResult> targets)
     {
         this.spawnPosition = spawnPosition;
         base.Setup(papa, targets);

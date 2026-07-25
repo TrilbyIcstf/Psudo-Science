@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1694041874747073356}
   - component: {fileID: 4395316864474519241}
   m_Layer: 0
-  m_Name: Enemy_Basic_Slash
+  m_Name: Enemy_Basic_Slash_Particle_Controller
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

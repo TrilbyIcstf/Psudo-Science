@@ -26,7 +26,8 @@ public abstract class Particle_Dad : MonoBehaviour
     protected bool inMotion = false;
 
     // Marks the time in seconds the particle has been active
-    protected double age = 0;
+    [SerializeField]
+    protected float age = 0;
 
     // Marks how long (in seconds) the particle can live for before despawning
     protected float lifeSpan = 0;

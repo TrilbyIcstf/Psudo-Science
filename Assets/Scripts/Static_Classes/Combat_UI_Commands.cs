@@ -24,80 +24,32 @@ public static class Combat_UI_Commands
 
     public static Transform GetPlayerPosition(PC _player)
     {
-        switch(_player)
-        {
-            case PC.VANESSA:
-                return GameManager.instance.combat.combatUI.player1.transform;
-            case PC.SAMANTHA:
-                return GameManager.instance.combat.combatUI.player2.transform;
-            case PC.GABRIELLE:
-                return GameManager.instance.combat.combatUI.player3.transform;
-            case PC.VALLERY:
-                return GameManager.instance.combat.combatUI.player4.transform;
-            default:
-                return null;
-        }
+        return GetPlayerPosition((int)_player);
     }
 
     public static Transform GetPlayerPosition(int _player)
     {
-        return GetPlayerPosition((PC)_player);
+        return GameManager.instance.combat.combatUI.PlayerUI[_player].PlayerObject.transform;
     }
 
     public static Transform GetEnergyBarPos(TColor _tint)
     {
-        switch (_tint)
-        {
-            case TColor.BLUE:
-                return GameManager.instance.combat.combatUI.player1Energy.transform;
-            case TColor.ORANGE:
-                return GameManager.instance.combat.combatUI.player2Energy.transform;
-            case TColor.PINK:
-                return GameManager.instance.combat.combatUI.player3Energy.transform;
-            case TColor.PURPLE:
-                return GameManager.instance.combat.combatUI.player4Energy.transform;
-            default:
-                return null;
-        }
+        return GetEnergyBarPos(_tint.ToPC());
     }
 
     public static Transform GetEnergyBarPos(PC _player)
     {
-        return GetEnergyBarPos((TColor)_player);
+        return GetEnergyBarPos((int)_player);
     }
 
     public static Transform GetEnergyBarPos(int _player)
     {
-        switch (_player)
-        {
-            case 1:
-                return GameManager.instance.combat.combatUI.player1Energy.transform;
-            case 2:
-                return GameManager.instance.combat.combatUI.player2Energy.transform;
-            case 3:
-                return GameManager.instance.combat.combatUI.player3Energy.transform;
-            case 4:
-                return GameManager.instance.combat.combatUI.player4Energy.transform;
-            default:
-                return null;
-        }
+        return GameManager.instance.combat.combatUI.PlayerUI[_player].EnergyBar.transform;
     }
 
     public static Transform GetHealthBarPos(int _player)
     {
-        switch (_player)
-        {
-            case 1:
-                return GameManager.instance.combat.combatUI.player1Health.transform;
-            case 2:
-                return GameManager.instance.combat.combatUI.player2Health.transform;
-            case 3:
-                return GameManager.instance.combat.combatUI.player3Health.transform;
-            case 4:
-                return GameManager.instance.combat.combatUI.player4Health.transform;
-            default:
-                return null;
-        }
+        return GameManager.instance.combat.combatUI.PlayerUI[_player].HealthBar.transform;
     }
 
     public static Transform GetHealthBarPos(PC _player)
@@ -107,51 +59,19 @@ public static class Combat_UI_Commands
 
     public static void SendEnergy(float _val, int _player)
     {
-        switch (_player)
-        {
-            case 1:
-                GameManager.instance.combat.combatUI.player1Energy.GetComponent<Energy_UI>().RecieveEnergy(_val);
-                break;
-            case 2:
-                GameManager.instance.combat.combatUI.player2Energy.GetComponent<Energy_UI>().RecieveEnergy(_val);
-                break;
-            case 3:
-                GameManager.instance.combat.combatUI.player3Energy.GetComponent<Energy_UI>().RecieveEnergy(_val);
-                break;
-            case 4:
-                GameManager.instance.combat.combatUI.player4Energy.GetComponent<Energy_UI>().RecieveEnergy(_val);
-                break;
-            default:
-                break;
-        }
+        GameManager.instance.combat.combatUI.PlayerUI[_player].EnergyScript.RecieveEnergy(_val);
     }
 
     public static void SendHealth(float _val, int _player)
     {
-        switch (_player)
-        {
-            case 1:
-                GameManager.instance.combat.combatUI.player1Health.GetComponent<Health_UI>().RecieveHealth(_val);
-                break;
-            case 2:
-                GameManager.instance.combat.combatUI.player2Health.GetComponent<Health_UI>().RecieveHealth(_val);
-                break;
-            case 3:
-                GameManager.instance.combat.combatUI.player3Health.GetComponent<Health_UI>().RecieveHealth(_val);
-                break;
-            case 4:
-                GameManager.instance.combat.combatUI.player4Health.GetComponent<Health_UI>().RecieveHealth(_val);
-                break;
-            default:
-                break;
-        }
+        GameManager.instance.combat.combatUI.PlayerUI[_player].HealthScript.RecieveHealth(_val);
     }
 
     public static void RefreshHealthBars()
     {
         foreach (Player_Information player in GameManager.instance.party.Players())
         {
-            GameManager.instance.combat.combatUI.PlayerHealths[player.position].GetComponent<Health_UI>().RefreshHealth();
+            GameManager.instance.combat.combatUI.PlayerUI[player.position].HealthScript.RefreshHealth();
         }
     }
 }

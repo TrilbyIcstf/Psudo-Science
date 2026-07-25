@@ -45,7 +45,7 @@ public class Bullet_Spray_Particle_Controller : Particle_Controller_Dad
         Destroy(gameObject);
     }
 
-    public void Setup(Vector2 sp, Vector2 gp, Move_Dad papa, List<MoveResult> targets, float potency)
+    public void Setup(Vector2 sp, Vector2 gp, Player_Move papa, List<MoveResult> targets, float potency)
     {
         spawnPosition = sp;
         goalPosition = gp;

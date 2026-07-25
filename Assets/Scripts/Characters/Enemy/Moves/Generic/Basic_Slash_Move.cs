@@ -1,17 +1,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Lesser_Frost_Move : Generic_Player_Attack_Move
+public class Basic_Slash_Move : Generic_Enemy_Attack_Move
 {
     private bool attackStarted = false;
-    private BodyPart targetPart = BodyPart.BODY;
 
     // Particles/Animations
     public override void StartMove(int user, List<MoveResult> results)
     {
         GameObject tempParticleController = Instantiate(mainParticleController);
-        tempParticleController.GetComponent<Bullet_Spray_Particle_Controller>().Setup(Combat_UI_Commands.GetPlayerPosition(user).position, (Vector2)Combat_Commands.GetTargetedBodyPart(targetPart), this, results, results[0].potency);
+        tempParticleController.GetComponent<Effect_Overlay_Controller>().Setup(this, results);
         GameManager.instance.fx.AddParticleManager(tempParticleController);
+
         attackStarted = true;
     }
 

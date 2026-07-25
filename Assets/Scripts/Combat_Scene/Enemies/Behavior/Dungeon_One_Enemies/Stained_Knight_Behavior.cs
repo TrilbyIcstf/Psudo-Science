@@ -3,23 +3,30 @@ using UnityEngine;
 
 public class Stained_Knight_Behavior : Behavior_Dad
 {
-    public override (GameObject, List<int>, int) MakeMove()
+    public override (GameObject, TargetingType, int, int) MakeMove()
     {
+        GameObject slashMove = GameManager.instance.ll.enemyMoveRepository.GetValue(EnemyMoveName.BasicSlash);
+
         switch (varient)
         {
-            case 0: return (gameObject, new List<int>() { 1 }, 4);
-            case 1: return (gameObject, new List<int>() { 0, 2 }, 8);
+            case 0:
+                {
+                    return (slashMove, TargetingType.LowestHealth, 1, 3);
+                }
+            case 1:
+                {
+                    return (slashMove, TargetingType.LowestHealth, 2, 6);
+                }
             default: throw new System.NotImplementedException();
         }
-        throw new System.NotImplementedException();
     }
 
     protected override int GetBaseSpeed()
     {
         switch (varient)
         {
-            case 0: return 5;
-            case 1: return 8;
+            case 0: return 3;
+            case 1: return 6;
             default: return 0;
         }
     }

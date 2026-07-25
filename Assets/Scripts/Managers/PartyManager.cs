@@ -24,19 +24,19 @@ public class PartyManager : MonoBehaviour
     {
         if (player1 != null)
         {
-            player1.resetStatus(player1.MaxHealth / 2);
+            player1.ResetStatus(player1.MaxHealth);
         }
         if (player2 != null)
         {
-            player2.resetStatus(player2.MaxHealth / 3);
+            player2.ResetStatus(player2.MaxHealth);
         }
         if (player3 != null)
         {
-            player3.resetStatus(player3.MaxHealth / 4);
+            player3.ResetStatus(player3.MaxHealth);
         }
         if (player4 != null)
         {
-            player4.resetStatus(player4.MaxHealth / 5);
+            player4.ResetStatus(player4.MaxHealth);
         }
     }
 
@@ -113,8 +113,125 @@ public class PartyManager : MonoBehaviour
         return players[_posit];
     }
 
-    public int MostDamaged()
+    public int LivingPlayers()
     {
-        return players.Aggregate((highest, next) => next.CurrentDamage > highest.CurrentDamage ? next : highest).position;
+        return players.Count(p => !p.ShouldDie());
+    }
+
+    public int MostDamaged(bool alive = true, List<int> ignore = null)
+    {
+        ignore ??= new List<int>();
+
+        Player_Information highest = null;
+
+        foreach (Player_Information player in players)
+        {
+            if (ignore.Contains(player.Position))
+            {
+                continue;
+            }
+
+            if (alive && player.ShouldDie())
+            {
+                continue;
+            }
+
+            if (MoreDamaged(player, highest))
+            {
+                highest = player;
+            }
+        }
+
+        return highest?.position ?? -1;
+    }
+
+    private bool MoreDamaged(Player_Information next, Player_Information highest)
+    {
+        int highestDam = highest?.CurrentDamage ?? -1;
+
+        if (next.CurrentDamage == highestDam)
+        {
+            return Random.Range(0, 2) == 0 ? true : false;
+        }
+
+        return next.CurrentDamage > highestDam;
+    }
+
+    public int LowestHealth(bool alive = true, List<int> ignore = null)
+    {
+        ignore ??= new List<int>();
+
+        Player_Information lowest = null;
+
+        foreach (Player_Information player in players)
+        {
+            if (ignore.Contains(player.Position))
+            {
+                continue;
+            }
+
+            if (alive && player.ShouldDie())
+            {
+                continue;
+            }
+
+            if (LowerHealth(player, lowest))
+            {
+                lowest = player;
+            }
+        }
+
+        return lowest?.position ?? -1;
+    }
+
+    private bool LowerHealth(Player_Information next, Player_Information lowest)
+    {
+        int lowestHealth = lowest?.CurrentHealth ?? int.MaxValue;
+
+        if (next.CurrentHealth == lowestHealth)
+        {
+            return Random.Range(0, 2) == 0 ? true : false;
+        }
+
+        return next.CurrentHealth < lowestHealth;
+    }
+
+    public int HighestHealth(bool alive = true, List<int> ignore = null)
+    {
+        ignore ??= new List<int>();
+
+        Player_Information highest = null;
+
+        foreach (Player_Information player in players)
+        {
+            if (ignore.Contains(player.Position))
+            {
+                continue;
+            }
+
+            if (alive && player.ShouldDie())
+            {
+                continue;
+            }
+
+            if (HigherHealth(player, highest))
+            {
+                highest = player;
+            }
+        }
+
+        return highest?.position ?? -1;
+    }
+
+    private bool HigherHealth(Player_Information next, Player_Information highest)
+    {
+        int highestHealth = highest?.CurrentHealth ?? -1;
+
+        if (next.CurrentHealth == highestHealth)
+        {
+            return Random.Range(0, 2) == 0 ? true : false;
+        }
+
+        return next.CurrentHealth > highestHealth;
     }
 }

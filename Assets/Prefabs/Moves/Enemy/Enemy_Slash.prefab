@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2878853242500014437}
+  - component: {fileID: 8137036356440941846}
   m_Layer: 0
   m_Name: Enemy_Slash
   m_TagString: Untagged
@@ -25,9 +26,23 @@ Transform:
   m_GameObject: {fileID: 1622749835243280326}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.90438, y: 0.51527, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8137036356440941846
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1622749835243280326}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e02d05cbda6af7043aaabafc39303d87, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Basic_Slash_Move
+  mainParticleController: {fileID: 3136871712702262555, guid: 5eb26b22a0a31f648b8327262d90d1bd, type: 3}
+  potency: 15

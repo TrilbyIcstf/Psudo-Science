@@ -20,12 +20,14 @@ public struct QueuedEnemyMove
 
     public int user;
 
-    public List<int> targets;
+    public TargetingType targetingType;
+    public int targets;
 
-    public QueuedEnemyMove(GameObject move, int user, List<int> targets)
+    public QueuedEnemyMove(GameObject move, int user, TargetingType targetingType, int targets)
     {
         this.move = move;
         this.user = user;
+        this.targetingType = targetingType;
         this.targets = targets;
     }
 }

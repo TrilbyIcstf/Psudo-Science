@@ -78,7 +78,7 @@ public class Energy_UI : MonoBehaviour
 
         foreach (GameObject b in blips)
         {
-            if (b.GetComponent<Energy_Blip>().PlayerNum == (int)playerColor + 1)
+            if (b.GetComponent<Energy_Blip>().PlayerNum == (int)playerColor)
             {
                 blipsRemain = true;
             }

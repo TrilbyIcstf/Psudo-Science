@@ -69,7 +69,6 @@ MonoBehaviour:
   turnCounter: {fileID: 0}
   board: {fileID: 0}
   combatUI: {fileID: 0}
-  activeEnemies: []
 --- !u!114 &3701883663012883544
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -119,3 +118,11 @@ MonoBehaviour:
       value: {fileID: 7667985208338036994, guid: 4a0cc8d01d026d645b64ff4033a8ba21, type: 3}
     - key: 2
       value: {fileID: 8371054626992783663, guid: 6b1ccf7f0f7c3c249895871c9cbf4dbb, type: 3}
+  enemyMoveRepository:
+    keyValuePairs:
+    - key: 0
+      value: {fileID: 1622749835243280326, guid: f6bab8ca86b39f1449e337b4183c1ad4, type: 3}
+  enemyRepository:
+    keyValuePairs:
+    - key: 2
+      value: {fileID: 6667548592260005386, guid: 97892a498de9c974a88833ac53dcbe87, type: 3}

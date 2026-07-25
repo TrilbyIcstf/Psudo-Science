@@ -50,25 +50,40 @@ public class Player_Information : ScriptableObject
 
     public void Heal(int heal)
     {
-        int newHealth = Mathf.Min(status.CurrentHealth + heal, MaxHealth);
+        RaiseHealth(heal);
+    }
+
+    private void RaiseHealth(int val)
+    {
+        int newHealth = Mathf.Min(status.CurrentHealth + val, MaxHealth);
         status.CurrentHealth = newHealth;
     }
 
     public void Damage(int damage)
     {
-        int newHealth = Mathf.Max(status.CurrentHealth - damage, 0);
+        LowerHealth(damage);
+    }
+
+    private void LowerHealth(int val)
+    {
+        int newHealth = Mathf.Max(status.CurrentHealth - val, 0);
         status.CurrentHealth = newHealth;
     }
 
-    public void resetStatus(int health, bool cleanse = false)
+    public void ResetStatus(int health, bool cleanse = false)
     {
         health = Mathf.Clamp(health, 0, EquipMaxHealth);
         status = new Player_Status(status, health, cleanse);
     }
 
-    public void resetStatus(bool heal = true, bool cleanse = false)
+    public void ResetStatus(bool heal = true, bool cleanse = false)
     {
         status = new Player_Status(status, heal ? EquipMaxHealth : status.CurrentHealth, cleanse);
+    }
+
+    public bool ShouldDie()
+    {
+        return status.CurrentHealth <= 0;
     }
 
     // Get/Set

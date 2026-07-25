@@ -19,9 +19,14 @@ public abstract class Behavior_Dad : MonoBehaviour
     /// List<int>: A list of targets
     /// int: The new cooldown to set the enemy to
     /// </returns>
-    public abstract (GameObject, List<int>, int) MakeMove();
+    public abstract (GameObject, TargetingType, int, int) MakeMove();
 
     protected abstract int GetBaseSpeed();
+
+    public virtual List<int> CustomTargeting()
+    {
+        return new List<int>();
+    }
 
     public void SetVarient(int varient)
     {

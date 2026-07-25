@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Generic_Attack_Move : Move_Dad
+public abstract class Generic_Player_Attack_Move : Player_Move
 {
     // Move Effects
     public override List<MoveResult> ResultsCalc(Player_Information pi, int target, Move_Information mi)

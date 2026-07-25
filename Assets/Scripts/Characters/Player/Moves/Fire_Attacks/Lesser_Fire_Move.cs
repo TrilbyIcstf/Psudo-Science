@@ -1,13 +1,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Lesser_Fire_Move : Generic_Attack_Move
+public class Lesser_Fire_Move : Generic_Player_Attack_Move
 {
     private bool attackStarted = false;
     private BodyPart targetPart = BodyPart.BODY;
 
     // Particles/Animations
-    public override void StartMove(PC user, List<MoveResult> results)
+    public override void StartMove(int user, List<MoveResult> results)
     {
         GameObject tempParticleController = Instantiate(mainParticleController);
         tempParticleController.GetComponent<Bullet_Spray_Particle_Controller>().Setup(Combat_UI_Commands.GetPlayerPosition(user).position, (Vector2)Combat_Commands.GetTargetedBodyPart(targetPart), this, results, results[0].potency);
@@ -15,7 +15,7 @@ public class Lesser_Fire_Move : Generic_Attack_Move
         attackStarted = true;
     }
 
-    public override void EndMove(PC user) { }
+    public override void EndMove(int user) { }
 
     public override bool IsMoveFinished()
     {

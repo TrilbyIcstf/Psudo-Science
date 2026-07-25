@@ -1,7 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Threading;
-using System;
 using UnityEngine;
 using UnityEngine.UI; // REMOVE ME LATER
 
@@ -113,6 +111,19 @@ public class CombatManager : MonoBehaviour
         }
     }
 
+    public void ProcessEnemyAttackDamage(int target, int potency)
+    {
+        Player_Information player = GameManager.instance.party.GetPlayer(target);
+        if (player.CurrentHealth > 0)
+        {
+            GameManager.instance.party.GetPlayer(target).Damage(potency);
+            if (player.ShouldDie())
+            {
+                combatUI.PlayerUI[target].DeathOverlay.SetActive(true);
+            }
+        }
+    }
+
     private void KillEnemy(Combat_Enemy rip)
     {
         if (rip.Die())
@@ -194,14 +205,14 @@ public class CombatManager : MonoBehaviour
             {
                 QueuedMove queuedMove = moveQueue.Dequeue();
                 GameObject controller = Instantiate(queuedMove.move);
-                Move_Dad move = controller.GetComponent<Move_Dad>();
+                Player_Move move = controller.GetComponent<Player_Move>();
 
                 Player_Information user = GameManager.instance.party.GetPlayer(queuedMove.user);
 
                 List<MoveResult> results = move.ResultsCalc(user, targetedEnemy, move.MoveInfo);
-                move.StartMove(queuedMove.user, results);
+                move.StartMove((int)queuedMove.user, results);
                 yield return new WaitUntil(() => move.IsMoveFinished());
-                move.EndMove(queuedMove.user);
+                move.EndMove((int)queuedMove.user);
                 move.ApplyMove(user, results, move.MoveInfo);
                 Destroy(controller);
                 yield return new WaitUntil(() => !this.deathAnimationLock);
@@ -241,14 +252,24 @@ public class CombatManager : MonoBehaviour
 
             while (enemyMoveQueue.Count > 0 && moveQueueActive)
             {
-                QueuedEnemyMove move = enemyMoveQueue.Dequeue();
-                foreach (int i in move.targets)
-                {
-                    GameManager.instance.party.GetPlayer(i).Damage(20);
-                    Combat_UI_Commands.RefreshHealthBars();
-                    Debug.Log("Enemy attack");
-                }
-                activeEnemies[move.user].enemyVisuals.SetTurnNumber(activeEnemies[move.user].speed);
+                QueuedEnemyMove queuedMove = enemyMoveQueue.Dequeue();
+                GameObject controller = Instantiate(queuedMove.move);
+                Enemy_Move move = controller.GetComponent<Enemy_Move>();
+
+                int user = queuedMove.user;
+                Enemy_Information enemy = activeEnemies[user].enemyScript.enemyBase;
+                Behavior_Dad behavior = activeEnemies[user].enemyBehavior;
+
+                List<int> targets = DecideEnemyTargets(queuedMove, behavior);
+                List<MoveResult> results = move.ResultsCalc(enemy, targets);
+                move.StartMove(user, results);
+                yield return new WaitUntil(() => move.IsMoveFinished());
+                move.EndMove(user);
+                move.ApplyMove(enemy, results);
+                Destroy(controller);
+                yield return new WaitUntil(() => !this.deathAnimationLock);
+
+                activeEnemies[user].enemyVisuals.SetTurnNumber(activeEnemies[user].speed);
 
                 if (enemyMoveQueue.Count > 0)
                 {
@@ -259,6 +280,48 @@ public class CombatManager : MonoBehaviour
         }
 
         StopEnemyQueue();
+    }
+
+    private List<int> DecideEnemyTargets(QueuedEnemyMove move, Behavior_Dad behavior)
+    {
+        int livingPlayers = GameManager.instance.party.LivingPlayers();
+        int num = move.targets <= livingPlayers ? move.targets : livingPlayers;
+
+        List<int> targets = new List<int>();
+
+        switch (move.targetingType)
+        {
+            case TargetingType.LowestHealth:
+                for (int i = 0; i < num; i++)
+                {
+                    int target = GameManager.instance.party.LowestHealth(true, targets);
+                    targets.Add(target);
+                }
+                break;
+            case TargetingType.HighestHealth:
+                for (int i = 0; i < num; i++)
+                {
+                    int target = GameManager.instance.party.HighestHealth(true, targets);
+                    targets.Add(target);
+                }
+                break;
+            case TargetingType.Random:
+                for (int i = 0; i < num; i++)
+                {
+                    int target = 0;
+                    do
+                    {
+                        target = Random.Range(0, 4);
+                    } while (targets.Contains(target));
+                    targets.Add(target);
+                }
+                break;
+            case TargetingType.Custom:
+                targets = behavior.CustomTargeting();
+                break;
+        }
+
+        return targets;
     }
 
     public void IncrementEnemyTurn()
@@ -272,9 +335,9 @@ public class CombatManager : MonoBehaviour
 
                 if (activeEnemies[i].speed <= 0)
                 {
-                    (GameObject moveObject, List<int> targets, int cooldown) = activeEnemies[i].enemyBehavior.MakeMove();
+                    (GameObject moveObject, TargetingType targetType, int targets, int cooldown) = activeEnemies[i].enemyBehavior.MakeMove();
                     activeEnemies[i].speed = cooldown;
-                    QueuedEnemyMove queuedMove = new QueuedEnemyMove(moveObject, i, targets);
+                    QueuedEnemyMove queuedMove = new QueuedEnemyMove(moveObject, i, targetType, targets);
                     enemyMoveQueue.Enqueue(queuedMove);
                 }
             }

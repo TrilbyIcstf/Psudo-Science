@@ -103,5 +103,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06432afc32548fa4cb4950424003ac35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  age: 0
   onDestroyParticleSystem: {fileID: 7010146528100942671, guid: e6cf1845a073d2b40849d1a5ffda5391, type: 3}
   damageColor: {r: 0.78431374, g: 0, b: 0, a: 0}

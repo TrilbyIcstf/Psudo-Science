@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Lesser_Heal_Move : Move_Dad
+public class Lesser_Heal_Move : Player_Move
 {
     private bool moveStarted = false;
 
@@ -27,7 +27,7 @@ public class Lesser_Heal_Move : Move_Dad
     }
 
     // Particles/Animations
-    public override void StartMove(PC user, List<MoveResult> results)
+    public override void StartMove(int user, List<MoveResult> results)
     {
         GameObject tempParticleController = Instantiate(mainParticleController);
         Vector2 targetPos = Combat_UI_Commands.GetPlayerPosition(results[0].targetNum).position;
@@ -37,7 +37,7 @@ public class Lesser_Heal_Move : Move_Dad
         moveStarted = true;
     }
 
-    public override void EndMove(PC user) { }
+    public override void EndMove(int user) { }
 
     public override bool IsMoveFinished()
     {

@@ -31,7 +31,8 @@ public enum StatusEffect
 {
     POISONED,
     BURNED,
-    CONFUSED
+    CONFUSED,
+    SLOW
 }
 
 public enum MoveType
@@ -120,17 +121,43 @@ public enum Target
     NULL
 }
 
+public enum TargetingType
+{
+    LowestHealth,
+    HighestHealth,
+    Random,
+    Custom
+}
+
 public enum MoveName
 {
+    // Physical attacks
+    QuickSlash,
+
+    // Fire spells
     LesserSpark,
-    LesserHeal,
+
+    // Frost spells
     LesserFrost,
-    LesserAreo
+
+    // Air spells
+    LesserAreo,
+
+    // Healing spells
+    LesserHeal,
+    LesserHealfield,
+
+    // Debuffs
+    Slow
 }
 
 public enum EnemyMoveName
 {
-    BasicSlash
+    // Physical attacks
+    BasicSlash,
+
+    // Debuffs
+    Slow
 }
 
 public enum Bestiary

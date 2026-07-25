@@ -7,6 +7,7 @@ using System.Linq;
 public class LoreLibrarian : MonoBehaviour
 {
     public MoveNameDictionary moveRepository;
+    public EnemyMoveNameDictionary enemyMoveRepository;
     public BestiaryDictionary enemyRepository;
 }
 
@@ -36,12 +37,15 @@ public class MoveNameDictionary : GenericDictionary<MoveName, GameObject>
         GameObject value = GetValue(key);
         if (value != null)
         {
-            return value.GetComponent<Move_Dad>().MoveInfo;
+            return value.GetComponent<Player_Move>().MoveInfo;
         }
 
         return null;
     }
 }
+
+[Serializable]
+public class EnemyMoveNameDictionary : GenericDictionary<EnemyMoveName, GameObject> { }
 
 [Serializable]
 public class BestiaryDictionary : GenericDictionary<Bestiary, GameObject> { }

@@ -14,7 +14,7 @@ public class Combat_Move_Button_Controller : MonoBehaviour
     private Combat_Move_Button[] activeButtons;
 
     // Convenience var
-    private Player_UI_Info playerInfo { get => GetComponent<Player_UI_Info>(); }
+    private Player_UI_Controller playerInfo { get => GetComponent<Player_UI_Controller>(); }
 
     public void Init(MoveName[] moves)
     {
