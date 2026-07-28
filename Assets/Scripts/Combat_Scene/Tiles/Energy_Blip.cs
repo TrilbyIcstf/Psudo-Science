@@ -78,17 +78,23 @@ public class Energy_Blip : MonoBehaviour
 
                 if (Mathf.Sign(tempPos.x - destination.position.x) != Mathf.Sign(transform.position.x - destination.position.x))
                 {
-                    if (blipColor == TColor.BLUE || blipColor == TColor.ORANGE || blipColor == TColor.PINK || blipColor == TColor.PURPLE)
+                    if (!GameManager.instance.party.GetPlayer(playerNum).Status.IsDead)
                     {
-                        Combat_UI_Commands.SendEnergy(pointValue, (int)blipColor);
-                    }
-                    else if (blipColor == TColor.GREEN)
+                        if (blipColor == TColor.BLUE || blipColor == TColor.ORANGE || blipColor == TColor.PINK || blipColor == TColor.PURPLE)
+                        {
+                            Combat_UI_Commands.SendEnergy(pointValue, playerNum);
+                        }
+                        else if (blipColor == TColor.GREEN)
+                        {
+                            Combat_UI_Commands.SendHealth(pointValue, playerNum);
+                        }
+                        else if (blipColor == TColor.BLACK)
+                        {
+                            Combat_UI_Commands.SendEnergy(pointValue, playerNum);
+                        }
+                    } else
                     {
-                        Combat_UI_Commands.SendHealth(pointValue, playerNum);
-                    }
-                    else if (blipColor == TColor.BLACK)
-                    {
-                        Combat_UI_Commands.SendEnergy(pointValue, playerNum);
+                        Combat_UI_Commands.SendRevive(pointValue, playerNum);
                     }
 
                     Destroy(gameObject);

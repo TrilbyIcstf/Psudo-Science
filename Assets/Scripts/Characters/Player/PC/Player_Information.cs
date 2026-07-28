@@ -70,6 +70,13 @@ public class Player_Information : ScriptableObject
         status.CurrentHealth = newHealth;
     }
 
+    public void AddRevive(float val)
+    {
+        float newRevive = Mathf.Min(status.ReviveProgress + val, Player_Status.REVIVECAP);
+        status.ReviveProgress = newRevive;
+        Debug.Log("Progress: " + status.ReviveProgress);
+    }
+
     public void ResetStatus(int health, bool cleanse = false)
     {
         health = Mathf.Clamp(health, 0, EquipMaxHealth);
@@ -84,6 +91,17 @@ public class Player_Information : ScriptableObject
     public bool ShouldDie()
     {
         return status.CurrentHealth <= 0;
+    }
+
+    public void ThenDie()
+    {
+        status.IsDead = true;
+    }
+
+    public void Revive()
+    {
+        status.IsDead = false;
+        status.CurrentHealth = Mathf.RoundToInt(maxHealthStat / 2);
     }
 
     // Get/Set

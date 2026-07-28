@@ -18,6 +18,39 @@ public enum TColor
     PURPLE = 3
 }
 
+public static class TColorExtensions
+{
+    public static bool CanRevive(this TColor color)
+    {
+        switch (color)
+        {
+            case TColor.BLACK:
+            case TColor.BLUE:
+            case TColor.GREEN:
+            case TColor.ORANGE:
+            case TColor.PINK:
+            case TColor.PURPLE:
+                return true;
+            default:
+                return false;
+        }
+    }
+
+    public static bool IsPlayer(this TColor color)
+    {
+        switch (color)
+        {
+            case TColor.BLUE:
+            case TColor.ORANGE:
+            case TColor.PINK:
+            case TColor.PURPLE:
+                return true;
+            default:
+                return false;
+        }
+    }
+} 
+
 public enum Element
 {
     NULL,

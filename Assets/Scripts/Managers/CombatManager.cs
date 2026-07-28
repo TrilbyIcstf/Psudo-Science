@@ -119,7 +119,8 @@ public class CombatManager : MonoBehaviour
             GameManager.instance.party.GetPlayer(target).Damage(potency);
             if (player.ShouldDie())
             {
-                combatUI.PlayerUI[target].DeathOverlay.SetActive(true);
+                player.ThenDie();
+                combatUI.PlayerUI[target].KILL();
             }
         }
     }

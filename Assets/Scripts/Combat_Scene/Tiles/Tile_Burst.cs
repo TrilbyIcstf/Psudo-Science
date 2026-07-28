@@ -10,7 +10,7 @@ public class Tile_Burst : MonoBehaviour
     // The object's particle system to release sparkles
     private ParticleSystem PS;
 
-    public void Activate(TColor _tint, int _blips, float _totalVal)
+    public void Activate(TColor _tint, int _blips, float _pointVal, float _reviveVal)
     {
         PS = GetComponent<ParticleSystem>();
         ParticleSystem.MainModule tempMain = PS.main;
@@ -19,13 +19,17 @@ public class Tile_Burst : MonoBehaviour
 
         if (Combat_UI_Commands.IsBlipColor(_tint))
         {
-            if (_tint == TColor.BLUE || _tint == TColor.ORANGE || _tint == TColor.PINK || _tint == TColor.PURPLE)
+            if (_tint.IsPlayer())
             {
+                bool isDead = GameManager.instance.party.GetPlayer(_tint).Status.IsDead;
+                Transform barPos = isDead ? Combat_UI_Commands.GetReviveBarPos((int)_tint) : Combat_UI_Commands.GetEnergyBarPos(_tint);
+                float potency = isDead ? _reviveVal : _pointVal;
+
                 // Spawns normal blips equal to the passed in blip value
                 for (int i = 0; i < _blips; i++)
                 {
                     GameObject tempBlip = Instantiate(normalBlip, transform.position, Quaternion.identity);
-                    tempBlip.GetComponent<Energy_Blip>().Activate(_tint, (int)_tint, Combat_UI_Commands.GetEnergyBarPos(_tint), _totalVal / (float)_blips);
+                    tempBlip.GetComponent<Energy_Blip>().Activate(_tint, (int)_tint, barPos, potency / (float)_blips);
                 }
             } 
             else if (_tint == TColor.GREEN)
@@ -33,8 +37,12 @@ public class Tile_Burst : MonoBehaviour
                 // Spawns one blip for each player, regardless of passed in value
                 for (int i = 0; i <= 3; i++)
                 {
+                    bool isDead = GameManager.instance.party.GetPlayer(i).Status.IsDead;
+                    Transform barPos = isDead ? Combat_UI_Commands.GetReviveBarPos(i) : Combat_UI_Commands.GetHealthBarPos(i);
+                    float potency = isDead ? _reviveVal : _pointVal;
+
                     GameObject tempBlip = Instantiate(normalBlip, transform.position, Quaternion.identity);
-                    tempBlip.GetComponent<Energy_Blip>().Activate(_tint, i, Combat_UI_Commands.GetHealthBarPos(i), _totalVal / 4);
+                    tempBlip.GetComponent<Energy_Blip>().Activate(_tint, i, barPos, potency);
                 }
             }
             else if (_tint == TColor.BLACK)
@@ -42,8 +50,12 @@ public class Tile_Burst : MonoBehaviour
                 // Spawns one blip for each player, regardless of passed in value
                 for (int i = 0; i <= 3; i++)
                 {
+                    bool isDead = GameManager.instance.party.GetPlayer(i).Status.IsDead;
+                    Transform barPos = isDead ? Combat_UI_Commands.GetReviveBarPos(i) : Combat_UI_Commands.GetEnergyBarPos(i);
+                    float potency = isDead ? _reviveVal : _pointVal;
+
                     GameObject tempBlip = Instantiate(normalBlip, transform.position, Quaternion.identity);
-                    tempBlip.GetComponent<Energy_Blip>().Activate(_tint, i, Combat_UI_Commands.GetEnergyBarPos(i), _totalVal/5.0f);
+                    tempBlip.GetComponent<Energy_Blip>().Activate(_tint, i, barPos, potency);
                 }
             }
         }

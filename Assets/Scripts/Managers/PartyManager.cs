@@ -45,30 +45,36 @@ public class PartyManager : MonoBehaviour
         players[pos].Heal(potency);
     }
 
-    public void PartyHeal(int heal)
+    public void PartyHeal(int potency)
     {
-        PartyHeal(heal, heal, heal, heal);
+        foreach (Player_Information player in players)
+        {
+            if (!player.Status.IsDead)
+            {
+                player.Heal(potency);
+            }
+        }
     }
 
-    public void PartyHeal(int _heal1, int _heal2, int _heal3, int _heal4)
+    public void SingleRevive(int pos, float potency)
     {
-        if (player1 != null)
+        if (players[pos].Status.IsDead)
         {
-            player1.Heal(_heal1);
-        }
-        if (player2 != null)
-        {
-            player2.Heal(_heal2);
-        }
-        if (player3 != null)
-        {
-            player3.Heal(_heal3);
-        }
-        if (player4 != null)
-        {
-            player4.Heal(_heal4);
+            players[pos].AddRevive(potency);
         }
     }
+
+    public void PartyRevive(float potency)
+    {
+        foreach (Player_Information player in players)
+        {
+            if (player.Status.IsDead)
+            {
+                player.AddRevive(potency);
+            }
+        }
+    }
+
     public List<Player_Information> Players()
     {
         return players;
@@ -131,7 +137,7 @@ public class PartyManager : MonoBehaviour
                 continue;
             }
 
-            if (alive && player.ShouldDie())
+            if (alive && player.Status.IsDead)
             {
                 continue;
             }
@@ -170,7 +176,7 @@ public class PartyManager : MonoBehaviour
                 continue;
             }
 
-            if (alive && player.ShouldDie())
+            if (alive && player.Status.IsDead)
             {
                 continue;
             }
@@ -209,7 +215,7 @@ public class PartyManager : MonoBehaviour
                 continue;
             }
 
-            if (alive && player.ShouldDie())
+            if (alive && player.Status.IsDead)
             {
                 continue;
             }

@@ -36,17 +36,22 @@ public class Player_Energy
     /// </returns>
     public bool GainEnergy(float _val, TColor _eColor)
     {
-        AddColor(_val, _eColor);
-
-        bool triggered = false;
-        while (CheckCap(_eColor))
+        bool isDead = GameManager.instance.party.GetPlayer(_eColor).Status.IsDead;
+        if (!isDead)
         {
-            triggered = true;
+            AddColor(_val, _eColor);
 
-            QueueMove(_eColor);
+            bool triggered = false;
+            while (CheckCap(_eColor))
+            {
+                triggered = true;
+
+                QueueMove(_eColor);
+            }
+
+            return triggered;
         }
-
-        return triggered;
+        return false;
     }
 
     public void QueueMove(TColor _eColor)

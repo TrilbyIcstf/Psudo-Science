@@ -57,6 +57,11 @@ public static class Combat_UI_Commands
         return GetHealthBarPos((int)_player);
     }
 
+    public static Transform GetReviveBarPos(int _player)
+    {
+        return GameManager.instance.combat.combatUI.PlayerUI[_player].ReviveBar.transform;
+    }
+
     public static void SendEnergy(float _val, int _player)
     {
         GameManager.instance.combat.combatUI.PlayerUI[_player].EnergyScript.RecieveEnergy(_val);
@@ -65,6 +70,11 @@ public static class Combat_UI_Commands
     public static void SendHealth(float _val, int _player)
     {
         GameManager.instance.combat.combatUI.PlayerUI[_player].HealthScript.RecieveHealth(_val);
+    }
+
+    public static void SendRevive(float _val, int _player)
+    {
+        GameManager.instance.combat.combatUI.PlayerUI[_player].ReviveScript.RecieveRevive(_val);
     }
 
     public static void RefreshHealthBars()

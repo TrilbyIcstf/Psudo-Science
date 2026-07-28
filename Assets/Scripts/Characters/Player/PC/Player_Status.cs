@@ -7,7 +7,12 @@ using UnityEngine;
 /// </summary>
 public class Player_Status
 {
+    public const float REVIVECAP = 100;
+
     private int currentHealth;
+    private bool isDead = false;
+
+    private float reviveProgress = 0;
 
     private HashSet<StatusEffect> statusEffects = new HashSet<StatusEffect>();
 
@@ -88,6 +93,8 @@ public class Player_Status
 
     // Get/Set
     public int CurrentHealth { get => currentHealth; set => currentHealth = value; }
+    public bool IsDead { get => isDead; set => isDead = value; }
+    public float ReviveProgress { get => reviveProgress; set => reviveProgress = value; }
     public HashSet<StatusEffect> StatusEffects { get => statusEffects; set => statusEffects = value; }
     public bool KO { get => currentHealth > 0; }
     public int HealthBuff { get => healthBuff; set => healthBuff = value; }

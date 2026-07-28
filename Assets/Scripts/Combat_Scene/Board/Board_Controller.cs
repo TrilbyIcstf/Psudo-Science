@@ -46,9 +46,6 @@ public class Board_Controller : MonoBehaviour
     public GameObject[] pieces = new GameObject[7];
     private TColor[] pieceColors = new TColor[] { TColor.BLUE, TColor.ORANGE, TColor.PURPLE, TColor.PINK, TColor.GREEN, TColor.GREY, TColor.BLACK };
 
-    // The amount of each color collected in a match
-    private float[] matchCounter = new float[7];
-
     public GameObject fallingTile;
 
     // Checks if the mouse is currently clicking on a tile
@@ -487,6 +484,8 @@ public class Board_Controller : MonoBehaviour
     // appropriate effect, then populates the board with new tiles
     private void ResolveChains()
     {
+        float[] chainCounter = new float[7];
+
         // Reseting the chain value on each tile
         ChainReset();
 
@@ -514,15 +513,19 @@ public class Board_Controller : MonoBehaviour
                     matched = true;
 
                     TColor tempColor = board[i, j].GetComponent<Tile_Interact>().GetColor();
+                    int chain = board[i, j].GetComponent<Tile_Interact>().GetChain();
+                    float adjustedChain = chain * (1.0f + (0.5f * matchCombo));
 
-                    float pointVal = board[i, j].GetComponent<Tile_Interact>().GetChain() * (1.0f + (0.5f * matchCombo));
+                    // Tracks total chain value
+                    chainCounter[(int)tempColor] += adjustedChain;
 
                     // Determines number of points added to color, based on length of match chain
-                    matchCounter[(int)tempColor] += pointVal;
+                    float pointVal = EvaluatePoints(adjustedChain, tempColor);
+                    float reviveVal = EvaluateRevive(adjustedChain, tempColor);
 
                     // Spawning particles for the destroyed tile
                     GameObject TempParticles = Instantiate(tileBurst, board[i, j].transform.position, Quaternion.identity);
-                    TempParticles.GetComponent<Tile_Burst>().Activate(tempColor, 3, pointVal);
+                    TempParticles.GetComponent<Tile_Burst>().Activate(tempColor, 3, pointVal, reviveVal);
 
                     Destroy(board[i, j]);
                     board[i, j] = null;
@@ -535,13 +538,11 @@ public class Board_Controller : MonoBehaviour
         {
             foreach (TColor c in pieceColors)
             {
-                if (matchCounter[(int)c] > 0)
+                if (chainCounter[(int)c] > 0)
                 {
-                    GainPoints(c, matchCounter[(int)c]);
+                    GainPoints(c, chainCounter[(int)c]);
                 }
             }
-
-            matchCounter = new float[7];
 
             matchCombo++;
             TileFall();
@@ -552,6 +553,49 @@ public class Board_Controller : MonoBehaviour
 
             matchCombo = 0;
         }
+    }
+
+    private float EvaluatePoints(float chain, TColor color)
+    {
+        float adjustedVal = chain;
+        switch (color)
+        {
+            case TColor.GREEN:
+                adjustedVal = adjustedVal / 4;
+                break;
+            case TColor.BLACK:
+                adjustedVal = adjustedVal / 5;
+                break;
+        }
+
+        return adjustedVal;
+    }
+
+    private float EvaluateRevive(float chain, TColor color)
+    {
+        if (!color.CanRevive())
+        {
+            return 0.0f;
+        }
+
+        float adjustedVal = chain;
+        switch (color)
+        {
+            case TColor.BLUE:
+            case TColor.ORANGE:
+            case TColor.PINK:
+            case TColor.PURPLE:
+                adjustedVal = adjustedVal / 2;
+                break;
+            case TColor.GREEN:
+                adjustedVal = adjustedVal / 2;
+                break;
+            case TColor.BLACK:
+                adjustedVal = adjustedVal / 6;
+                break;
+        }
+
+        return adjustedVal;
     }
 
     // Checks for null tiles, and will drop tiles down to fill those spots, as well as spawn new ones in
@@ -641,35 +685,35 @@ public class Board_Controller : MonoBehaviour
     // Assigns points based on both the effects of the passed in color, and the amount of that color matched
     private void GainPoints(TColor _color, float chain)
     {
+        float points = EvaluatePoints(chain, _color);
+        float revive = EvaluateRevive(chain, _color);
+
         switch (_color)
         {
             case TColor.BLUE:
-                GameManager.instance.combat.energy.GainEnergy(chain, _color);
-                break;
             case TColor.ORANGE:
-                GameManager.instance.combat.energy.GainEnergy(chain, _color);
-                break;
             case TColor.PINK:
-                GameManager.instance.combat.energy.GainEnergy(chain, _color);
-                break;
             case TColor.PURPLE:
-                GameManager.instance.combat.energy.GainEnergy(chain, _color);
+                GameManager.instance.combat.energy.GainEnergy(points, _color);
+                GameManager.instance.party.SingleRevive((int)_color, revive);
                 break;
             case TColor.GREEN:
-                int healAmount = Mathf.FloorToInt(chain / 4);
+                int healAmount = Mathf.FloorToInt(points);
                 GameManager.instance.party.PartyHeal(healAmount);
+                GameManager.instance.party.PartyRevive(revive);
                 break;
             case TColor.GREY:
-                GameManager.instance.combat.energy.ExpoPowerUp((chain / 100) + 1, TColor.BLUE);
-                GameManager.instance.combat.energy.ExpoPowerUp((chain / 100) + 1, TColor.ORANGE);
-                GameManager.instance.combat.energy.ExpoPowerUp((chain / 100) + 1, TColor.PINK);
-                GameManager.instance.combat.energy.ExpoPowerUp((chain / 100) + 1, TColor.PURPLE);
+                GameManager.instance.combat.energy.ExpoPowerUp((points / 100) + 1, TColor.BLUE);
+                GameManager.instance.combat.energy.ExpoPowerUp((points / 100) + 1, TColor.ORANGE);
+                GameManager.instance.combat.energy.ExpoPowerUp((points / 100) + 1, TColor.PINK);
+                GameManager.instance.combat.energy.ExpoPowerUp((points / 100) + 1, TColor.PURPLE);
                 break;
             case TColor.BLACK:
-                GameManager.instance.combat.energy.GainEnergy(chain / 5, TColor.BLUE);
-                GameManager.instance.combat.energy.GainEnergy(chain / 5, TColor.ORANGE);
-                GameManager.instance.combat.energy.GainEnergy(chain / 5, TColor.PINK);
-                GameManager.instance.combat.energy.GainEnergy(chain / 5, TColor.PURPLE);
+                GameManager.instance.combat.energy.GainEnergy(points, TColor.BLUE);
+                GameManager.instance.combat.energy.GainEnergy(points, TColor.ORANGE);
+                GameManager.instance.combat.energy.GainEnergy(points, TColor.PINK);
+                GameManager.instance.combat.energy.GainEnergy(points, TColor.PURPLE);
+                GameManager.instance.party.PartyRevive(revive);
                 break;
             default:
                 break;

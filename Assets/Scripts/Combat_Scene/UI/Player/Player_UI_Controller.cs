@@ -21,6 +21,12 @@ public class Player_UI_Controller : MonoBehaviour
     public Energy_UI EnergyScript { get => energyScript; }
 
     [SerializeField]
+    private GameObject reviveBar;
+    public GameObject ReviveBar { get => reviveBar; }
+    private Revive_UI reviveScript;
+    public Revive_UI ReviveScript { get => reviveScript; }
+
+    [SerializeField]
     private GameObject deathOverlay;
     public GameObject DeathOverlay { get => deathOverlay; }
 
@@ -34,7 +40,24 @@ public class Player_UI_Controller : MonoBehaviour
     private void Awake()
     {
         healthScript = healthBar.GetComponent<Health_UI>();
-        energyScript = EnergyBar.GetComponent<Energy_UI>();
+        energyScript = energyBar.GetComponent<Energy_UI>();
+        reviveScript = reviveBar.GetComponent<Revive_UI>();
         buttons = GetComponent<Combat_Move_Button_Controller>();
+    }
+
+    public void KILL()
+    {
+        deathOverlay.SetActive(true);
+        reviveBar.SetActive(true);
+        healthBar.SetActive(false);
+        energyBar.SetActive(false);
+    }
+
+    public void LIVE()
+    {
+        deathOverlay.SetActive(false);
+        reviveBar.SetActive(false);
+        healthBar.SetActive(true);
+        energyBar.SetActive(true);
     }
 }
