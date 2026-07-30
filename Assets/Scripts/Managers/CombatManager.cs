@@ -185,11 +185,17 @@ public class CombatManager : MonoBehaviour
         StartCoroutine(RunQueue());
     }
 
-    public void StopQueue()
+    public IEnumerator StopQueue()
     {
         moveQueueLock = false;
         moveQueueActive = false;
         board.SetMouseLock(false);
+
+        if (CheckForRevives())
+        {
+            Debug.Log("Revive");
+            yield return new WaitForSeconds(1.0f);
+        }
 
         IncrementEnemyTurn();
     }
@@ -225,7 +231,7 @@ public class CombatManager : MonoBehaviour
             yield return new WaitForSeconds(0.5f);
         }
 
-        StopQueue();
+        StartCoroutine(StopQueue());
     }
 
     private void StartEnemyQueue()
@@ -351,6 +357,21 @@ public class CombatManager : MonoBehaviour
 
         turnCount++;
         turnCounter.text = "Turn: " + turnCount;
+    }
+
+    private bool CheckForRevives()
+    {
+        bool revive = false;
+        foreach (Player_Information player in GameManager.instance.party.Players())
+        {
+            if (player.ShouldLive())
+            {
+                player.LifeIsLifegem();
+                revive = true;
+            }
+        }
+
+        return revive;
     }
 
     public bool TargetEnemy(int enemy, bool stealth = false)

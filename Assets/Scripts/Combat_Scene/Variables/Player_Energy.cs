@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Player_Energy
 {
+    public const int BASECAP = 20;
+
     // The points towards each color's next move
     private float bluePoints = 0;
     private float orangePoints = 0;
@@ -127,6 +129,27 @@ public class Player_Energy
                 return purplePoints;
             default:
                 return -8675309;
+        }
+    }
+
+    public void DrainColor(TColor _eColor)
+    {
+        switch (_eColor)
+        {
+            case TColor.BLUE:
+                bluePoints = 0;
+                break;
+            case TColor.ORANGE:
+                orangePoints = 0;
+                break;
+            case TColor.PINK:
+                pinkPoints = 0;
+                break;
+            case TColor.PURPLE:
+                purplePoints = 0;
+                break;
+            default:
+                break;
         }
     }
 

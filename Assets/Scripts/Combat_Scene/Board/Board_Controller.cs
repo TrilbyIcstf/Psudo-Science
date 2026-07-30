@@ -588,7 +588,7 @@ public class Board_Controller : MonoBehaviour
                 adjustedVal = adjustedVal / 2;
                 break;
             case TColor.GREEN:
-                adjustedVal = adjustedVal / 2;
+                adjustedVal = adjustedVal / 3;
                 break;
             case TColor.BLACK:
                 adjustedVal = adjustedVal / 6;

@@ -49,6 +49,11 @@ public static class TColorExtensions
                 return false;
         }
     }
+
+    public static TColor FromPos(int pos)
+    {
+        return (TColor)pos;
+    }
 } 
 
 public enum Element

@@ -55,4 +55,12 @@ public class Combat_Move_Button_Controller : MonoBehaviour
         tempButton.transform.position = spawnPos;
         activeButtons[pos] = tempButton.GetComponent<Combat_Move_Button>();
     }
+
+    public void SetVisible(bool val)
+    {
+        foreach (Combat_Move_Button button in activeButtons)
+        {
+            button.gameObject.SetActive(val);
+        }
+    }
 }

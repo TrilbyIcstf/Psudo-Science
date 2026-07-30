@@ -74,7 +74,6 @@ public class Player_Information : ScriptableObject
     {
         float newRevive = Mathf.Min(status.ReviveProgress + val, Player_Status.REVIVECAP);
         status.ReviveProgress = newRevive;
-        Debug.Log("Progress: " + status.ReviveProgress);
     }
 
     public void ResetStatus(int health, bool cleanse = false)
@@ -90,18 +89,28 @@ public class Player_Information : ScriptableObject
 
     public bool ShouldDie()
     {
-        return status.CurrentHealth <= 0;
+        return !status.IsDead && status.CurrentHealth <= 0;
     }
 
     public void ThenDie()
     {
+        status.ReviveProgress = 0;
         status.IsDead = true;
+        GameManager.instance.combat.energy.DrainColor(TColorExtensions.FromPos(position));
+        GameManager.instance.combat.energy.SetColorCap(TColorExtensions.FromPos(position), Player_Energy.BASECAP);
     }
 
-    public void Revive()
+    public bool ShouldLive()
+    {
+        return status.IsDead && status.ReviveProgress >= Player_Status.REVIVECAP;
+    }
+
+    public void LifeIsLifegem()
     {
         status.IsDead = false;
         status.CurrentHealth = Mathf.RoundToInt(maxHealthStat / 2);
+        GameManager.instance.combat.combatUI.PlayerUI[position].LIVE();
+        Combat_UI_Commands.RefreshHealthBars();
     }
 
     // Get/Set

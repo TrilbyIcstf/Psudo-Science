@@ -51,6 +51,7 @@ public class Player_UI_Controller : MonoBehaviour
         reviveBar.SetActive(true);
         healthBar.SetActive(false);
         energyBar.SetActive(false);
+        buttons.SetVisible(false);
     }
 
     public void LIVE()
@@ -59,5 +60,6 @@ public class Player_UI_Controller : MonoBehaviour
         reviveBar.SetActive(false);
         healthBar.SetActive(true);
         energyBar.SetActive(true);
+        buttons.SetVisible(true);
     }
 }

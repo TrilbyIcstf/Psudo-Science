@@ -57,7 +57,7 @@ public class Revive_UI : MonoBehaviour
 
     private void UpdateBar()
     {
-        slider.value = Mathf.Clamp(trackedProgressCounter / Player_Status.REVIVECAP, 0, 0.98f);
+        slider.value = Mathf.Clamp(trackedProgressCounter / Player_Status.REVIVECAP, 0, 1.0f);
         reviveBar.color = reviveColor.Evaluate(Mathf.Clamp(trackedProgressCounter / Player_Status.REVIVECAP, 0, 1));
     }
 
@@ -80,15 +80,5 @@ public class Revive_UI : MonoBehaviour
         {
             SetBar(GameManager.instance.party.GetPlayer(playerColor).Status.ReviveProgress);
         }
-    }
-
-    [ContextMenu("Test Fill")]
-    public void TestFill()
-    {
-        float amount = 10.0f;
-        trackedProgressCounter += amount;
-
-        slider.value = Mathf.Clamp(trackedProgressCounter / Player_Status.REVIVECAP, 0, 0.98f);
-        reviveBar.color = reviveColor.Evaluate(Mathf.Clamp(trackedProgressCounter / Player_Status.REVIVECAP, 0, 1));
     }
 }
