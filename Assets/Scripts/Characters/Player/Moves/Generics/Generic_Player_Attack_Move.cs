@@ -13,7 +13,8 @@ public abstract class Generic_Player_Attack_Move : Player_Move
 
     public override MoveResult PotencyCalc(Player_Information pi, int target, Move_Information mi)
     {
-        return new MoveResult(mi.Potency, Target.ENEMY, target);
+        float potency = mi.Potency * Combat_Commands.GetBoost();
+        return new MoveResult(potency, Target.ENEMY, target);
     }
 
     public override bool ApplyMove(Player_Information pi, List<MoveResult> results, Move_Information mi)

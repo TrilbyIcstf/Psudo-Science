@@ -23,7 +23,8 @@ public class Lesser_Heal_Move : Player_Move
 
     public override MoveResult PotencyCalc(Player_Information pi, int target, Move_Information mi)
     {
-        return new MoveResult(mi.Potency, Target.PC, target);
+        float potency = mi.Potency * Combat_Commands.GetBoost();
+        return new MoveResult(potency, Target.PC, target);
     }
 
     // Particles/Animations

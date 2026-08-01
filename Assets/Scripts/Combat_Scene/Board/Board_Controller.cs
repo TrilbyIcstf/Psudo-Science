@@ -563,6 +563,9 @@ public class Board_Controller : MonoBehaviour
             case TColor.GREEN:
                 adjustedVal = adjustedVal / 4;
                 break;
+            case TColor.GREY:
+                adjustedVal = adjustedVal / 100;
+                break;
             case TColor.BLACK:
                 adjustedVal = adjustedVal / 5;
                 break;
@@ -703,10 +706,7 @@ public class Board_Controller : MonoBehaviour
                 GameManager.instance.party.PartyRevive(revive);
                 break;
             case TColor.GREY:
-                GameManager.instance.combat.energy.ExpoPowerUp((points / 100) + 1, TColor.BLUE);
-                GameManager.instance.combat.energy.ExpoPowerUp((points / 100) + 1, TColor.ORANGE);
-                GameManager.instance.combat.energy.ExpoPowerUp((points / 100) + 1, TColor.PINK);
-                GameManager.instance.combat.energy.ExpoPowerUp((points / 100) + 1, TColor.PURPLE);
+                GameManager.instance.combat.AddBoost(points);
                 break;
             case TColor.BLACK:
                 GameManager.instance.combat.energy.GainEnergy(points, TColor.BLUE);

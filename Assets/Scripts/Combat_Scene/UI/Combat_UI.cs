@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,6 +9,10 @@ public class Combat_UI : MonoBehaviour
     [Header("Crosshair")]
     public Enemy_Crosshair crosshairScript;
     public Hover_Crosshair hoverScript;
+
+    [Header("Text")]
+    [SerializeField]
+    private Text boostText;
 
     [Header("Players")]
     [SerializeField]
@@ -58,5 +63,10 @@ public class Combat_UI : MonoBehaviour
     public void HighlightMoveButton(PC pc, int pos)
     {
         moveButtonControllers[(int)pc].SetHighlight(pos);
+    }
+
+    public void SetBoostAmount(float val)
+    {
+        boostText.text = "Boost: x" + Math.Round(val, 2);
     }
 }

@@ -7,14 +7,11 @@ public class CombatManager : MonoBehaviour
 {
     private const float MOVEQUEUEDELAY = 1.0f;
 
-    // Testing vars
-    public Text comboCounter;
-    [SerializeField]
-    private Text turnCounter;
-
     public Board_Controller board;
     public Combat_UI combatUI;
     public Player_Energy energy = new Player_Energy();
+
+    private float boost = 1.0f;
 
     // The enemies in the current encounter
     [SerializeField]
@@ -229,6 +226,8 @@ public class CombatManager : MonoBehaviour
                 }
             }
             yield return new WaitForSeconds(0.5f);
+
+            ResetBoost();
         }
 
         StartCoroutine(StopQueue());
@@ -356,7 +355,6 @@ public class CombatManager : MonoBehaviour
         }
 
         turnCount++;
-        turnCounter.text = "Turn: " + turnCount;
     }
 
     private bool CheckForRevives()
@@ -417,6 +415,18 @@ public class CombatManager : MonoBehaviour
         return false;
     }
 
+    public void AddBoost(float val)
+    {
+        boost += val;
+        combatUI.SetBoostAmount(boost);
+    }
+
+    public void ResetBoost()
+    {
+        boost = 1.0f;
+        combatUI.SetBoostAmount(boost);
+    }
+
     public MoveName GetSelectedMove(PC player)
     {
         return selectedMoves[player];
@@ -459,6 +469,11 @@ public class CombatManager : MonoBehaviour
         return hoveredEnemy;
     }
 
+    public float GetBoost()
+    {
+        return boost;
+    }
+
     public void SetBoard(Board_Controller _val)
     {
         board = _val;
@@ -480,11 +495,6 @@ public class CombatManager : MonoBehaviour
         if (moveCombo > highestMoveCombo)
         {
             highestMoveCombo = moveCombo;
-            comboCounter.text = "Highest Combo: " + highestMoveCombo;
-            if (highestMoveCombo >= 4)
-            {
-                comboCounter.text += " Good Job!";
-            }
             return true;
         }
         return false;

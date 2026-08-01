@@ -18,12 +18,6 @@ public class Player_Energy
     private float pinkCap = 20;
     private float purpleCap = 20;
 
-    // The power multiplier for each color's next move
-    private float bluePower = 1;
-    private float orangePower = 1;
-    private float pinkPower = 1;
-    private float purplePower = 1;
-
     /// <summary>
     /// Add points to designated color, then execute attack if cap has been reached.
     /// </summary>
@@ -209,36 +203,11 @@ public class Player_Energy
         }
     }
 
-    public float ExpoPowerUp(float _val, TColor _pColor)
-    {
-        switch (_pColor)
-        {
-            case TColor.BLUE:
-                bluePower *= _val;
-                return bluePower;
-            case TColor.ORANGE:
-                orangePower *= _val;
-                return orangePower;
-            case TColor.PINK:
-                pinkPower *= _val;
-                return pinkPower;
-            case TColor.PURPLE:
-                purplePower *= _val;
-                return purplePower;
-            default:
-                return -1;
-        }
-    }
-
     // Get/Set
     public float BluePoints { get => bluePoints; set => bluePoints = value; }
     public float OrangePoints { get => orangePoints; set => orangePoints = value; }
     public float PinkPoints { get => pinkPoints; set => pinkPoints = value; }
     public float PurplePoints { get => purplePoints; set => purplePoints = value; }
-    public float BluePower { get => bluePower; set => bluePower = value; }
-    public float OrangePower { get => orangePower; set => orangePower = value; }
-    public float PinkPower { get => pinkPower; set => pinkPower = value; }
-    public float PurplePower { get => purplePower; set => purplePower = value; }
     public float BlueCap { get => blueCap; set => blueCap = value; }
     public float OrangeCap { get => orangeCap; set => orangeCap = value; }
     public float PinkCap { get => pinkCap; set => pinkCap = value; }
@@ -303,10 +272,5 @@ public class Player_Energy
         Debug.Log("Orange points: " + orangePoints);
         Debug.Log("Pink points: " + pinkPoints);
         Debug.Log("Purple points: " + purplePoints);
-        Debug.Log("");
-        Debug.Log("Blue power: " + bluePower);
-        Debug.Log("Orange power: " + orangePower);
-        Debug.Log("Pink power: " + pinkPower);
-        Debug.Log("Purple power: " + purplePower);
     }
 }

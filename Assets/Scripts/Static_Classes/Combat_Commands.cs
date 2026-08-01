@@ -4,6 +4,11 @@ using UnityEngine;
 
 public static class Combat_Commands
 {
+    public static float GetBoost()
+    {
+        return GameManager.instance.combat.GetBoost();
+    }
+
     public static bool GetMoveQueueLock()
     {
         return GameManager.instance.combat.GetMoveQueueLock();
