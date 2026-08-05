@@ -49,12 +49,6 @@ public class Tile_Interact : MonoBehaviour
         boardController = GameManager.instance.combat.board;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     void OnMouseDown()
     {
         boardController.ClickTile(posX, posY);
@@ -217,15 +211,24 @@ public class Tile_Interact : MonoBehaviour
     {
         return color;
     }
+
     public void SetColor(TColor inp)
     {
         color = inp;
+        colorPos = (int)inp;
+        SetVisualColor(inp);
+    }
+
+    public void SetVisualColor(TColor inp)
+    {
+        GetComponent<SpriteRenderer>().sprite = GameManager.instance.ll.tileSprites.GetValue(inp);
     }
 
     public bool GetVisited()
     {
         return visited;
     }
+
     public void SetVisited(bool inp)
     {
         visited = inp;
@@ -235,10 +238,12 @@ public class Tile_Interact : MonoBehaviour
     {
         return chain;
     }
+
     public void SetChain(int inp)
     {
         chain = inp;
     }
+
     public void AddChain(int inp)
     {
         chain += inp;

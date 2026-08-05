@@ -6,9 +6,13 @@ using System.Linq;
 
 public class LoreLibrarian : MonoBehaviour
 {
+    [Header("Prefabs")]
     public MoveNameDictionary moveRepository;
     public EnemyMoveNameDictionary enemyMoveRepository;
     public BestiaryDictionary enemyRepository;
+
+    [Header("Sprites")]
+    public TileSpriteDictionary tileSprites;
 }
 
 public class GenericDictionary<K, V>
@@ -49,3 +53,6 @@ public class EnemyMoveNameDictionary : GenericDictionary<EnemyMoveName, GameObje
 
 [Serializable]
 public class BestiaryDictionary : GenericDictionary<Bestiary, GameObject> { }
+
+[Serializable]
+public class TileSpriteDictionary : GenericDictionary<TColor, Sprite> { }

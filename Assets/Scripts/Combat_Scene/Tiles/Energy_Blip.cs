@@ -31,6 +31,8 @@ public class Energy_Blip : MonoBehaviour
     // The value in points the blip is carrying
     private float pointValue = 0.0f;
 
+    private float lifespan = 0.0f;
+
     public void Activate(TColor _tileColor, int _player, Transform _goal, float _points)
     {
         blipColor = _tileColor;
@@ -60,6 +62,8 @@ public class Energy_Blip : MonoBehaviour
     {
         if (activated)
         {
+            lifespan += Time.deltaTime;
+
             if (!startApproach)
             {
                 Vector3 tempPos = transform.position;
@@ -76,7 +80,7 @@ public class Energy_Blip : MonoBehaviour
                 currentSpeed = Mathf.Min(currentSpeed + (0.004f * speedMultiplier), 0.9f);
                 tempPos = new Vector3(tempPos.x + (direction.x * currentSpeed), tempPos.y + (direction.y * currentSpeed), tempPos.z);
 
-                if (Mathf.Sign(tempPos.x - destination.position.x) != Mathf.Sign(transform.position.x - destination.position.x))
+                if (Mathf.Sign(tempPos.x - destination.position.x) != Mathf.Sign(transform.position.x - destination.position.x) || lifespan >= 2.5f)
                 {
                     if (!GameManager.instance.party.GetPlayer(playerNum).Status.IsDead)
                     {

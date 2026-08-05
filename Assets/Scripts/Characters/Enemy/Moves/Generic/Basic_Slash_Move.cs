@@ -3,8 +3,6 @@ using UnityEngine;
 
 public class Basic_Slash_Move : Generic_Enemy_Attack_Move
 {
-    private bool attackStarted = false;
-
     // Particles/Animations
     public override void StartMove(int user, List<MoveResult> results)
     {
@@ -12,13 +10,13 @@ public class Basic_Slash_Move : Generic_Enemy_Attack_Move
         tempParticleController.GetComponent<Effect_Overlay_Controller>().Setup(this, results);
         GameManager.instance.fx.AddParticleManager(tempParticleController);
 
-        attackStarted = true;
+        moveStarted = true;
     }
 
     public override void EndMove(int user) { }
 
     public override bool IsMoveFinished()
     {
-        return attackStarted && particleControllerList.Count <= 0;
+        return moveStarted && particleControllerList.Count <= 0;
     }
 }

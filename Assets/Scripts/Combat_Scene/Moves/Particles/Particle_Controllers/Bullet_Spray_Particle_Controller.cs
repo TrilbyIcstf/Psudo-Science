@@ -33,7 +33,7 @@ public class Bullet_Spray_Particle_Controller : Particle_Controller_Dad
         {
             int tempDamage = damage + (i < remainder ? 1 : 0);
             GameObject tempParticle = Instantiate(bulletParticle, spawnPosition, Quaternion.identity);
-            tempParticle.GetComponent<Particle_Chaser>().ParticleInitialize(goalPosition, targets[0].targetNum, 0.2f, 1.001f, directions[i], 0.05f, 0.7f, tempDamage, lifeSpan, this);
+            tempParticle.GetComponent<Particle_Chaser_Damage>().ParticleInitialize(goalPosition, targets[0].targetNum, 0.2f, 1.001f, directions[i], 0.05f, 0.7f, tempDamage, lifeSpan, this);
             yield return new WaitForSeconds(spawnDelay);
         }
     }

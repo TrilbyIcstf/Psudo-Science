@@ -153,16 +153,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc25b01bff0fad14e9181b886db33603, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boardWidth: 8
-  boardHeight: 8
   centerPos: {fileID: 454045411}
   tileDad: {fileID: 179383375}
   tileBurst: {fileID: 6600457387628833191, guid: 5a2d31e2523fa3543a21dc773e316d7d, type: 3}
   pieces:
   - {fileID: 376365194858952013, guid: 213042008ad9a0a4bae718505cf92971, type: 3}
   - {fileID: 310263081440317279, guid: 1ec78573b618a7744ab72bed77141ae4, type: 3}
-  - {fileID: 2841701708184892217, guid: b249802a6ce73914388418957f805c4c, type: 3}
   - {fileID: 5095294353994621128, guid: a8a174f843c845146af9f514efcd5701, type: 3}
+  - {fileID: 2841701708184892217, guid: b249802a6ce73914388418957f805c4c, type: 3}
   - {fileID: 5292931781526762603, guid: d9a695ca42f75134e91e45ba163ad43a, type: 3}
   - {fileID: 4735513821708137813, guid: 40122b95f7366b44794ac2e81a32c7f3, type: 3}
   - {fileID: 9094150279318028259, guid: 76ebd974a0f359045813c0a61566f610, type: 3}
@@ -1818,14 +1816,6 @@ PrefabInstance:
     - target: {fileID: -4281742319440733727, guid: dcdcb9fa99ad22f42b24e15844db1ddb, type: 3}
       propertyPath: currentState
       value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 1257611719747398932, guid: dcdcb9fa99ad22f42b24e15844db1ddb, type: 3}
-      propertyPath: moveRepository.keyValuePairs.Array.data[0].key
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1257611719747398932, guid: dcdcb9fa99ad22f42b24e15844db1ddb, type: 3}
-      propertyPath: moveRepository.keyValuePairs.Array.data[1].key
-      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2685144069103173904, guid: dcdcb9fa99ad22f42b24e15844db1ddb, type: 3}
       propertyPath: m_RootOrder

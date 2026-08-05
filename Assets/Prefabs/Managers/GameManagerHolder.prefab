@@ -65,8 +65,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e2babd9103382f49b5a538c7125b653, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  comboCounter: {fileID: 0}
-  turnCounter: {fileID: 0}
   board: {fileID: 0}
   combatUI: {fileID: 0}
 --- !u!114 &3701883663012883544
@@ -112,12 +110,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveRepository:
     keyValuePairs:
-    - key: 0
-      value: {fileID: 1489994068259963331, guid: 09787f3096f0e074ca71d165d06ebd42, type: 3}
     - key: 1
+      value: {fileID: 1489994068259963331, guid: 09787f3096f0e074ca71d165d06ebd42, type: 3}
+    - key: 4
       value: {fileID: 7667985208338036994, guid: 4a0cc8d01d026d645b64ff4033a8ba21, type: 3}
     - key: 2
       value: {fileID: 8371054626992783663, guid: 6b1ccf7f0f7c3c249895871c9cbf4dbb, type: 3}
+    - key: 7
+      value: {fileID: 3369328139897638950, guid: 959ff5bad71c8df428d24d81e7b4022d, type: 3}
   enemyMoveRepository:
     keyValuePairs:
     - key: 0
@@ -126,3 +126,21 @@ MonoBehaviour:
     keyValuePairs:
     - key: 2
       value: {fileID: 6667548592260005386, guid: 97892a498de9c974a88833ac53dcbe87, type: 3}
+  tileSprites:
+    keyValuePairs:
+    - key: 99
+      value: {fileID: 21300000, guid: 50bc28053a6284649adc1fb4c9724b26, type: 3}
+    - key: 6
+      value: {fileID: 21300000, guid: 17e57f8208f7bb847b8a09c08e1ea191, type: 3}
+    - key: 0
+      value: {fileID: 21300000, guid: d7fbf48566c53e54d8fb35a02aef105b, type: 3}
+    - key: 4
+      value: {fileID: 21300000, guid: 6c10195d75e7c174d8ba692ce4c26eaa, type: 3}
+    - key: 5
+      value: {fileID: 21300000, guid: 2d4bfcf9b69d3d342b61eb9c241e3d1b, type: 3}
+    - key: 1
+      value: {fileID: 21300000, guid: 30aca6f5cc8644f4f8f1d71389d6a842, type: 3}
+    - key: 2
+      value: {fileID: 21300000, guid: 8b2ec384589c9bc4ba9b51513c78d401, type: 3}
+    - key: 3
+      value: {fileID: 21300000, guid: 6428062af6332dc4390ff65c39c845aa, type: 3}

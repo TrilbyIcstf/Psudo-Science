@@ -79,7 +79,8 @@ public enum MoveType
     PHYSICAL,
     MAGICAL,
     HEALING,
-    STATUS
+    STATUS,
+    BOARD
 }
 
 public enum PlayerClass
@@ -186,7 +187,10 @@ public enum MoveName
     LesserHealfield,
 
     // Debuffs
-    Slow
+    Slow,
+
+    // Board spells
+    ShareEnergy,
 }
 
 public enum EnemyMoveName

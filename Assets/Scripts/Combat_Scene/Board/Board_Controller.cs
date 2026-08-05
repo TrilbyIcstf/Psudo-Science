@@ -18,8 +18,8 @@ public class Board_Controller : MonoBehaviour
     private static float bottomMost = -3.7f;
 
     // Size of the board
-    public int boardWidth = 8;
-    public int boardHeight = 8;
+    private const int boardWidth = 8;
+    private const int boardHeight = 8;
 
     // An array of each tile on the board. X = Column, Y = Row
     private GameObject[,] board;
@@ -53,6 +53,8 @@ public class Board_Controller : MonoBehaviour
 
     // Locks to prevent to player from interacting with the board
     private bool mouseLock = false;
+    private bool boardLock = false;
+    public bool BoardLock { get => boardLock; }
     private int fallingTileLock = 0;
 
     // Number of matches made in a row
@@ -81,9 +83,9 @@ public class Board_Controller : MonoBehaviour
         startingPos = new Vector3(centerPos.position.x - (((boardWidth / 2) - 0.5f) * xGap), centerPos.position.y + (((boardHeight / 2) - 0.5f) * yGap), 0.0f);
 
         // Loops through each spot in the board array
-        for (int i = 0; i < 8; i++)
+        for (int i = 0; i < board.GetLength(0); i++)
         {
-            for (int j = 0; j < 8; j++)
+            for (int j = 0; j < board.GetLength(1); j++)
             {
                 // Uses a random number to determine which piece should be chosen
                 int randomPiece = Random.Range(0, 7);
@@ -482,7 +484,7 @@ public class Board_Controller : MonoBehaviour
 
     // Starts a chain check on each tile, then finds each tile with a chain of 4+ and destroys it to resolve its color's
     // appropriate effect, then populates the board with new tiles
-    private void ResolveChains()
+    public void ResolveChains()
     {
         float[] chainCounter = new float[7];
 
@@ -510,6 +512,7 @@ public class Board_Controller : MonoBehaviour
                 if (board[i, j] != null & board[i, j].GetComponent<Tile_Interact>().GetChain() >= 4)
                 {
                     mouseLock = true;
+                    boardLock = true;
                     matched = true;
 
                     TColor tempColor = board[i, j].GetComponent<Tile_Interact>().GetColor();
@@ -549,6 +552,7 @@ public class Board_Controller : MonoBehaviour
         }
         else
         {
+            boardLock = false;
             StartCoroutine(GameManager.instance.combat.WaitToStartQueue());
 
             matchCombo = 0;
@@ -718,6 +722,37 @@ public class Board_Controller : MonoBehaviour
             default:
                 break;
         }
+    }
+
+    public GameObject GetTile(Vector2Int pos)
+    {
+        return board[pos.x, pos.y];
+    }
+
+    public Tile_Interact GetTileScript(Vector2Int pos)
+    {
+        return GetTile(pos).GetComponent<Tile_Interact>();
+    }
+
+    public List<Vector2Int> GetAllTilePosOfColor(TColor color)
+    {
+        List<Vector2Int> posList = new List<Vector2Int>();
+
+        // Loops through each spot in the board array
+        for (int i = 0; i < board.GetLength(0); i++)
+        {
+            for (int j = 0; j < board.GetLength(1); j++)
+            {
+                GameObject tile = board[i, j];
+                Tile_Interact tileScript = tile.GetComponent<Tile_Interact>();
+                if (tileScript.GetColor() == color)
+                {
+                    posList.Add(new Vector2Int(i, j));
+                }
+            }
+        }
+
+        return posList;
     }
 
     // Getters for the on screen position of the edges of the board

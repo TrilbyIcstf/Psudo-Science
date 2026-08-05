@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 129141330125305256}
   - component: {fileID: 5284817968659821939}
-  - component: {fileID: 7739992113682845902}
+  - component: {fileID: 6163837790283356165}
   m_Layer: 0
   m_Name: Small_Magic_Chaser_Particle
   m_TagString: ParticleEffect
@@ -91,7 +91,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &7739992113682845902
+--- !u!114 &6163837790283356165
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -100,9 +100,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1764702927482841226}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 06432afc32548fa4cb4950424003ac35, type: 3}
+  m_Script: {fileID: 11500000, guid: f51f3df3b908fb14a9914e629e94b4ca, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assembly-CSharp::Particle_Chaser_Damage
   age: 0
   onDestroyParticleSystem: {fileID: 7010146528100942671, guid: e6cf1845a073d2b40849d1a5ffda5391, type: 3}
-  damageColor: {r: 0.78431374, g: 0, b: 0, a: 0}
+  damageColor: {r: 1, g: 0.2901961, b: 0.17254902, a: 1}

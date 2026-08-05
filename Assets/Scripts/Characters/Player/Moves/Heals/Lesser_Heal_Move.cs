@@ -3,8 +3,6 @@ using UnityEngine;
 
 public class Lesser_Heal_Move : Player_Move
 {
-    private bool moveStarted = false;
-
     // Move Effects
     public override bool ApplyMove(Player_Information pi, List<MoveResult> results, Move_Information mi)
     {

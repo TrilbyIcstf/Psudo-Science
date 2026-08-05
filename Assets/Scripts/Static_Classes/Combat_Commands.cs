@@ -4,6 +4,11 @@ using UnityEngine;
 
 public static class Combat_Commands
 {
+    public static void BoardChanged()
+    {
+        GameManager.instance.combat.BoardChanged();
+    }
+
     public static float GetBoost()
     {
         return GameManager.instance.combat.GetBoost();

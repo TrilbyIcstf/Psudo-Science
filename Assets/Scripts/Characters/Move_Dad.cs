@@ -8,6 +8,10 @@ public abstract class Move_Dad : MonoBehaviour
     [SerializeField]
     protected GameObject mainParticleController;
 
+    protected bool moveStarted = false;
+
+    public virtual float? DelayOverride { get; } = null;
+
     // Section for handling animations and particles
     public abstract void StartMove(int user, List<MoveResult> results);
     public abstract void EndMove(int user);

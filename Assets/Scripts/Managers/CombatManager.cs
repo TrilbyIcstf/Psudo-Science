@@ -5,11 +5,13 @@ using UnityEngine.UI; // REMOVE ME LATER
 
 public class CombatManager : MonoBehaviour
 {
-    private const float MOVEQUEUEDELAY = 1.0f;
+    private const float MOVEQUEUEDEFAULTDELAY = 1.0f;
 
     public Board_Controller board;
     public Combat_UI combatUI;
     public Player_Energy energy = new Player_Energy();
+
+    private Coroutine queueRunner;
 
     private float boost = 1.0f;
 
@@ -32,6 +34,10 @@ public class CombatManager : MonoBehaviour
 
     private bool moveQueueActive = false;
     private bool moveQueueLock = false;
+
+    private float queueDelay = MOVEQUEUEDEFAULTDELAY;
+
+    private bool boardChanged = false;
 
     // Lock for enemy death animation
     private bool deathAnimationLock = false;
@@ -68,7 +74,7 @@ public class CombatManager : MonoBehaviour
     {
         // TODO: In future, have this check how many players are in the battle.
 
-        MoveName[] test1 = { MoveName.LesserSpark, MoveName.LesserHeal, MoveName.LesserFrost };
+        MoveName[] test1 = { MoveName.LesserSpark, MoveName.LesserHeal, MoveName.ShareEnergy };
         MoveName[][] test2 = { test1, test1, test1, test1 };
         combatUI.SetupMoveButtons(test2);
 
@@ -179,7 +185,7 @@ public class CombatManager : MonoBehaviour
         moveQueueActive = true;
         board.SetMouseLock(true);
 
-        StartCoroutine(RunQueue());
+        queueRunner = StartCoroutine(RunQueue());
     }
 
     public IEnumerator StopQueue()
@@ -187,10 +193,10 @@ public class CombatManager : MonoBehaviour
         moveQueueLock = false;
         moveQueueActive = false;
         board.SetMouseLock(false);
+        queueRunner = null;
 
         if (CheckForRevives())
         {
-            Debug.Log("Revive");
             yield return new WaitForSeconds(1.0f);
         }
 
@@ -207,22 +213,18 @@ public class CombatManager : MonoBehaviour
 
             while (moveQueue.Count > 0 && moveQueueActive)
             {
-                QueuedMove queuedMove = moveQueue.Dequeue();
-                GameObject controller = Instantiate(queuedMove.move);
-                Player_Move move = controller.GetComponent<Player_Move>();
-
-                Player_Information user = GameManager.instance.party.GetPlayer(queuedMove.user);
-
-                List<MoveResult> results = move.ResultsCalc(user, targetedEnemy, move.MoveInfo);
-                move.StartMove((int)queuedMove.user, results);
-                yield return new WaitUntil(() => move.IsMoveFinished());
-                move.EndMove((int)queuedMove.user);
-                move.ApplyMove(user, results, move.MoveInfo);
-                Destroy(controller);
+                yield return StartCoroutine(NextQueue());
                 yield return new WaitUntil(() => !this.deathAnimationLock);
-                if (moveQueue.Count > 0)
+                if (boardChanged)
                 {
-                    yield return new WaitForSeconds(MOVEQUEUEDELAY);
+                    yield return new WaitForSeconds(queueDelay);
+                    queueRunner = null;
+                    boardChanged = false;
+                    board.ResolveChains();
+                    yield break;
+                } else if (moveQueue.Count > 0)
+                {
+                    yield return new WaitForSeconds(queueDelay);
                 }
             }
             yield return new WaitForSeconds(0.5f);
@@ -231,6 +233,24 @@ public class CombatManager : MonoBehaviour
         }
 
         StartCoroutine(StopQueue());
+    }
+
+    private IEnumerator NextQueue()
+    {
+        QueuedMove queuedMove = moveQueue.Dequeue();
+        GameObject controller = Instantiate(queuedMove.move);
+        Player_Move move = controller.GetComponent<Player_Move>();
+
+        Player_Information user = GameManager.instance.party.GetPlayer(queuedMove.user);
+
+        List<MoveResult> results = move.ResultsCalc(user, targetedEnemy, move.MoveInfo);
+        move.StartMove((int)queuedMove.user, results);
+        yield return new WaitUntil(() => move.IsMoveFinished());
+        move.EndMove((int)queuedMove.user);
+        move.ApplyMove(user, results, move.MoveInfo);
+
+        queueDelay = move.DelayOverride ?? MOVEQUEUEDEFAULTDELAY;
+        Destroy(controller);
     }
 
     private void StartEnemyQueue()
@@ -279,7 +299,7 @@ public class CombatManager : MonoBehaviour
 
                 if (enemyMoveQueue.Count > 0)
                 {
-                    yield return new WaitForSeconds(MOVEQUEUEDELAY);
+                    yield return new WaitForSeconds(MOVEQUEUEDEFAULTDELAY);
                 }
             }
             yield return new WaitForSeconds(0.5f);
@@ -503,6 +523,11 @@ public class CombatManager : MonoBehaviour
     public void ResetCombo()
     {
         moveCombo = 0;
+    }
+
+    public void BoardChanged()
+    {
+        boardChanged = true;
     }
 
     public void PlayActorAnimation(AnimDetails a)
