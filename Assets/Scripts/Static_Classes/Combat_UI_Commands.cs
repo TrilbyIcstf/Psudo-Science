@@ -62,26 +62,36 @@ public static class Combat_UI_Commands
         return GameManager.instance.combat.combatUI.PlayerUI[_player].ReviveBar.transform;
     }
 
-    public static void SendEnergy(float _val, int _player)
+    public static void RegisterHealth(int _player, GameObject _messenger, int _amount)
     {
-        GameManager.instance.combat.combatUI.PlayerUI[_player].EnergyScript.RecieveEnergy(_val);
+        GameManager.instance.combat.combatUI.PlayerUI[_player].HealthScript.RegisterChange(_messenger, _amount);
     }
 
-    public static void SendHealth(float _val, int _player)
+    public static void ApplyHealth(int _player, GameObject _messenger)
     {
-        GameManager.instance.combat.combatUI.PlayerUI[_player].HealthScript.RecieveHealth(_val);
+        GameManager.instance.combat.combatUI.PlayerUI[_player].HealthScript.ApplyChange(_messenger);
+    }
+
+    public static void RegisterEnergy(int _player, GameObject _messenger, int _amount)
+    {
+        GameManager.instance.combat.combatUI.PlayerUI[_player].EnergyScript.RegisterChange(_messenger, _amount);
+    }
+
+    public static void ApplyEnergy(int _player, GameObject _messenger)
+    {
+        GameManager.instance.combat.combatUI.PlayerUI[_player].EnergyScript.ApplyChange(_messenger);
     }
 
     public static void SendRevive(float _val, int _player)
     {
-        GameManager.instance.combat.combatUI.PlayerUI[_player].ReviveScript.RecieveRevive(_val);
+        GameManager.instance.combat.combatUI.PlayerUI[_player].ReviveScript.AddToBar((int)_val);
     }
 
     public static void RefreshHealthBars()
     {
         foreach (Player_Information player in GameManager.instance.party.Players())
         {
-            GameManager.instance.combat.combatUI.PlayerUI[player.position].HealthScript.RefreshHealth();
+            GameManager.instance.combat.combatUI.PlayerUI[player.position].HealthScript.RefreshBarFromSource();
         }
     }
 }

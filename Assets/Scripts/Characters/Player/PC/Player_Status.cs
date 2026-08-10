@@ -7,7 +7,7 @@ using UnityEngine;
 /// </summary>
 public class Player_Status
 {
-    public const float REVIVECAP = 100;
+    public const int REVIVECAP = 100;
 
     private int currentHealth;
     private bool isDead = false;

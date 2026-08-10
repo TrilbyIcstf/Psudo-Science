@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI; // REMOVE ME LATER
 
 public class CombatManager : MonoBehaviour
 {
@@ -33,7 +32,6 @@ public class CombatManager : MonoBehaviour
     private Queue<QueuedEnemyMove> enemyMoveQueue = new Queue<QueuedEnemyMove>();
 
     private bool moveQueueActive = false;
-    private bool moveQueueLock = false;
 
     private float queueDelay = MOVEQUEUEDEFAULTDELAY;
 
@@ -155,8 +153,11 @@ public class CombatManager : MonoBehaviour
 
     public void SelectMove(PC pc, MoveName move, int pos)
     {
-        selectedMoves[pc] = move;
-        combatUI.HighlightMoveButton(pc, pos);
+        if (!Combat_Commands.InteractionLocked())
+        {
+            selectedMoves[pc] = move;
+            combatUI.HighlightMoveButton(pc, pos);
+        }
     }
 
     public bool AddMoveToQueue(QueuedMove move)
@@ -181,7 +182,6 @@ public class CombatManager : MonoBehaviour
 
     public void StartQueue()
     {
-        moveQueueLock = true;
         moveQueueActive = true;
         board.SetMouseLock(true);
 
@@ -190,7 +190,6 @@ public class CombatManager : MonoBehaviour
 
     public IEnumerator StopQueue()
     {
-        moveQueueLock = false;
         moveQueueActive = false;
         board.SetMouseLock(false);
         queueRunner = null;
@@ -255,7 +254,6 @@ public class CombatManager : MonoBehaviour
 
     private void StartEnemyQueue()
     {
-        moveQueueLock = true;
         moveQueueActive = true;
         board.SetMouseLock(true);
 
@@ -264,7 +262,6 @@ public class CombatManager : MonoBehaviour
 
     private void StopEnemyQueue()
     {
-        moveQueueLock = false;
         moveQueueActive = false;
         board.SetMouseLock(false);
     }
@@ -504,9 +501,9 @@ public class CombatManager : MonoBehaviour
         combatUI = _val;
     }
 
-    public bool GetMoveQueueLock()
+    public bool MoveQueueRunning()
     {
-        return moveQueueLock;
+        return moveQueueActive;
     }
 
     public bool AddToMoveCombo()

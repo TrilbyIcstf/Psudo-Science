@@ -29,11 +29,11 @@ public class Energy_Blip : MonoBehaviour
     private bool startApproach = false;
 
     // The value in points the blip is carrying
-    private float pointValue = 0.0f;
+    private int pointValue = 0;
 
     private float lifespan = 0.0f;
 
-    public void Activate(TColor _tileColor, int _player, Transform _goal, float _points)
+    public void Activate(TColor _tileColor, int _player, Transform _goal, int _points)
     {
         blipColor = _tileColor;
         GetComponent<SpriteRenderer>().color = Color_Vals.GetColorVal(blipColor);
@@ -55,6 +55,8 @@ public class Energy_Blip : MonoBehaviour
         StartCoroutine(ApproachCountdown());
 
         activated = true;
+
+        RegisterDelivery();
     }
 
     // Update is called once per frame
@@ -84,17 +86,12 @@ public class Energy_Blip : MonoBehaviour
                 {
                     if (!GameManager.instance.party.GetPlayer(playerNum).Status.IsDead)
                     {
-                        if (blipColor == TColor.BLUE || blipColor == TColor.ORANGE || blipColor == TColor.PINK || blipColor == TColor.PURPLE)
+                        if (blipColor == TColor.BLUE || blipColor == TColor.ORANGE || blipColor == TColor.PINK || blipColor == TColor.PURPLE || blipColor == TColor.BLACK)
                         {
-                            Combat_UI_Commands.SendEnergy(pointValue, playerNum);
-                        }
-                        else if (blipColor == TColor.GREEN)
+                            Combat_UI_Commands.ApplyEnergy(playerNum, gameObject);
+                        } else if (blipColor == TColor.GREEN)
                         {
-                            Combat_UI_Commands.SendHealth(pointValue, playerNum);
-                        }
-                        else if (blipColor == TColor.BLACK)
-                        {
-                            Combat_UI_Commands.SendEnergy(pointValue, playerNum);
+                            Combat_UI_Commands.ApplyHealth(playerNum, gameObject);
                         }
                     } else
                     {
@@ -106,6 +103,29 @@ public class Energy_Blip : MonoBehaviour
 
                 transform.position = tempPos;
             }
+        }
+    }
+
+    private void RegisterDelivery()
+    {
+        if (!GameManager.instance.party.GetPlayer(playerNum).Status.IsDead)
+        {
+            switch (blipColor)
+            {
+                case TColor.BLUE:
+                case TColor.ORANGE:
+                case TColor.PINK:
+                case TColor.PURPLE:
+                case TColor.BLACK:
+                    Combat_UI_Commands.RegisterEnergy(playerNum, gameObject, (int)pointValue);
+                    break;
+                case TColor.GREEN:
+                    Combat_UI_Commands.RegisterHealth(playerNum, gameObject, (int)pointValue);
+                    break;
+            }
+        } else
+        {
+            // Register Revive
         }
     }
 

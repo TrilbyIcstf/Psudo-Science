@@ -8,6 +8,13 @@ public class Combat_Energy_Hover : MonoBehaviour
     public Text energyText;
     public TColor playerColor;
 
+    private Energy_UI energyScript;
+
+    private void Awake()
+    {
+        energyScript = GetComponent<Energy_UI>();
+    }
+
     /// <summary>
     /// Updates the energy total if bar is hovered over.
     /// </summary>
@@ -15,7 +22,7 @@ public class Combat_Energy_Hover : MonoBehaviour
     {
         if (energyText.enabled)
         {
-            string tempText = GetComponent<Energy_UI>().EnergyCounter.ToString("F0") + "/" + GetComponent<Energy_UI>().EnergyCap.ToString("F0");
+            string tempText = energyScript.Progress.ToString("F0") + "/" + energyScript.Max.ToString("F0");
             energyText.text = tempText;
         }
     }

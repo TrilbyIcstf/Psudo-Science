@@ -8,6 +8,13 @@ public class Combat_Health_Hover : MonoBehaviour
     public Text healthText;
     public TColor playerColor;
 
+    private Health_UI healthScript;
+
+    private void Awake()
+    {
+        healthScript = GetComponent<Health_UI>();
+    }
+
     /// <summary>
     /// Updates the health total if bar is hovered over.
     /// </summary>
@@ -15,7 +22,7 @@ public class Combat_Health_Hover : MonoBehaviour
     {
         if (healthText.enabled)
         {
-            string tempText = GameManager.instance.party.GetPlayer(playerColor).Status.CurrentHealth + "/" + GameManager.instance.party.GetPlayer(playerColor).MaxHealth;
+            string tempText = healthScript.Progress.ToString("F0") + "/" + healthScript.Max.ToString("F0");
             healthText.text = tempText;
         }
     }

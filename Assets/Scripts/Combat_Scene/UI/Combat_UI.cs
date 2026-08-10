@@ -22,7 +22,7 @@ public class Combat_UI : MonoBehaviour
     private List<Combat_Move_Button_Controller> moveButtonControllers = new List<Combat_Move_Button_Controller>();
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         GameManager.instance.combat.SetCombatUI(this);
 

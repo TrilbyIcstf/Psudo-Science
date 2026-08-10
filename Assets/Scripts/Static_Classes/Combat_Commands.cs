@@ -14,9 +14,14 @@ public static class Combat_Commands
         return GameManager.instance.combat.GetBoost();
     }
 
-    public static bool GetMoveQueueLock()
+    public static bool MoveQueueRunning()
     {
-        return GameManager.instance.combat.GetMoveQueueLock();
+        return GameManager.instance.combat.MoveQueueRunning();
+    }
+
+    public static bool InteractionLocked()
+    {
+        return MoveQueueRunning() || GameManager.instance.combat.board.MouseLock;
     }
 
     public static GameObject GetTargetedEnemy()

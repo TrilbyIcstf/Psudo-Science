@@ -10,7 +10,7 @@ public class Tile_Burst : MonoBehaviour
     // The object's particle system to release sparkles
     private ParticleSystem PS;
 
-    public void Activate(TColor _tint, int _blips, float _pointVal, float _reviveVal)
+    public void Activate(TColor _tint, int _blips, int _pointVal, int _reviveVal)
     {
         PS = GetComponent<ParticleSystem>();
         ParticleSystem.MainModule tempMain = PS.main;
@@ -23,13 +23,17 @@ public class Tile_Burst : MonoBehaviour
             {
                 bool isDead = GameManager.instance.party.GetPlayer(_tint).Status.IsDead;
                 Transform barPos = isDead ? Combat_UI_Commands.GetReviveBarPos((int)_tint) : Combat_UI_Commands.GetEnergyBarPos(_tint);
-                float potency = isDead ? _reviveVal : _pointVal;
+                int potency = isDead ? _reviveVal : _pointVal;
+                
+                int remainder = potency % _blips;
+                int blipPotency = Mathf.FloorToInt(potency / _blips);
 
                 // Spawns normal blips equal to the passed in blip value
                 for (int i = 0; i < _blips; i++)
                 {
+                    int tempPotency = i >= remainder ? blipPotency : blipPotency + 1;
                     GameObject tempBlip = Instantiate(normalBlip, transform.position, Quaternion.identity);
-                    tempBlip.GetComponent<Energy_Blip>().Activate(_tint, (int)_tint, barPos, potency / (float)_blips);
+                    tempBlip.GetComponent<Energy_Blip>().Activate(_tint, (int)_tint, barPos, tempPotency);
                 }
             } 
             else if (_tint == TColor.GREEN)
@@ -39,7 +43,7 @@ public class Tile_Burst : MonoBehaviour
                 {
                     bool isDead = GameManager.instance.party.GetPlayer(i).Status.IsDead;
                     Transform barPos = isDead ? Combat_UI_Commands.GetReviveBarPos(i) : Combat_UI_Commands.GetHealthBarPos(i);
-                    float potency = isDead ? _reviveVal : _pointVal;
+                    int potency = isDead ? _reviveVal : _pointVal;
 
                     GameObject tempBlip = Instantiate(normalBlip, transform.position, Quaternion.identity);
                     tempBlip.GetComponent<Energy_Blip>().Activate(_tint, i, barPos, potency);
@@ -52,7 +56,7 @@ public class Tile_Burst : MonoBehaviour
                 {
                     bool isDead = GameManager.instance.party.GetPlayer(i).Status.IsDead;
                     Transform barPos = isDead ? Combat_UI_Commands.GetReviveBarPos(i) : Combat_UI_Commands.GetEnergyBarPos(i);
-                    float potency = isDead ? _reviveVal : _pointVal;
+                    int potency = isDead ? _reviveVal : _pointVal;
 
                     GameObject tempBlip = Instantiate(normalBlip, transform.position, Quaternion.identity);
                     tempBlip.GetComponent<Energy_Blip>().Activate(_tint, i, barPos, potency);

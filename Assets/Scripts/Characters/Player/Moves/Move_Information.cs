@@ -19,12 +19,12 @@ public class Move_Information : ScriptableObject
 
     [Header("Stats")]
     [SerializeField] private float potency;
-    [SerializeField] private float manaCost;
+    [SerializeField] private int manaCost;
 
     public string MoveName { get => moveName; set => moveName = value; }
     public MoveName MoveEnum { get => moveEnum; set => moveEnum = value; }
     public MoveType Type { get => type; set => type = value; }
     public Element Element { get => element; set => element = value; }
     public float Potency { get => potency; set => potency = value; }
-    public float ManaCost { get => manaCost; set => manaCost = value; }
+    public int ManaCost { get => manaCost; set => manaCost = value; }
 }

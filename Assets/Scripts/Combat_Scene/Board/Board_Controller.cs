@@ -53,8 +53,7 @@ public class Board_Controller : MonoBehaviour
 
     // Locks to prevent to player from interacting with the board
     private bool mouseLock = false;
-    private bool boardLock = false;
-    public bool BoardLock { get => boardLock; }
+    public bool MouseLock { get => mouseLock; }
     private int fallingTileLock = 0;
 
     // Number of matches made in a row
@@ -305,7 +304,7 @@ public class Board_Controller : MonoBehaviour
     public void ClickTile(int posX, int posY)
     {
         // Prevents a tile from being clicked if their is a lock on mouse controls
-        if (!mouseLock && !Combat_Commands.GetMoveQueueLock())
+        if (!Combat_Commands.InteractionLocked())
         {
             mouseDown = true;
             mousePos = Input.mousePosition;
@@ -512,19 +511,18 @@ public class Board_Controller : MonoBehaviour
                 if (board[i, j] != null & board[i, j].GetComponent<Tile_Interact>().GetChain() >= 4)
                 {
                     mouseLock = true;
-                    boardLock = true;
                     matched = true;
 
                     TColor tempColor = board[i, j].GetComponent<Tile_Interact>().GetColor();
                     int chain = board[i, j].GetComponent<Tile_Interact>().GetChain();
-                    float adjustedChain = chain * (1.0f + (0.5f * matchCombo));
+                    int adjustedChain = Mathf.FloorToInt(chain * (1.0f + (0.5f * matchCombo)));
 
                     // Tracks total chain value
                     chainCounter[(int)tempColor] += adjustedChain;
 
                     // Determines number of points added to color, based on length of match chain
-                    float pointVal = EvaluatePoints(adjustedChain, tempColor);
-                    float reviveVal = EvaluateRevive(adjustedChain, tempColor);
+                    int pointVal = EvaluatePoints(adjustedChain, tempColor);
+                    int reviveVal = EvaluateRevive(adjustedChain, tempColor);
 
                     // Spawning particles for the destroyed tile
                     GameObject TempParticles = Instantiate(tileBurst, board[i, j].transform.position, Quaternion.identity);
@@ -552,14 +550,13 @@ public class Board_Controller : MonoBehaviour
         }
         else
         {
-            boardLock = false;
             StartCoroutine(GameManager.instance.combat.WaitToStartQueue());
 
             matchCombo = 0;
         }
     }
 
-    private float EvaluatePoints(float chain, TColor color)
+    private int EvaluatePoints(float chain, TColor color)
     {
         float adjustedVal = chain;
         switch (color)
@@ -575,14 +572,14 @@ public class Board_Controller : MonoBehaviour
                 break;
         }
 
-        return adjustedVal;
+        return Mathf.FloorToInt(adjustedVal);
     }
 
-    private float EvaluateRevive(float chain, TColor color)
+    private int EvaluateRevive(float chain, TColor color)
     {
         if (!color.CanRevive())
         {
-            return 0.0f;
+            return 0;
         }
 
         float adjustedVal = chain;
@@ -602,7 +599,7 @@ public class Board_Controller : MonoBehaviour
                 break;
         }
 
-        return adjustedVal;
+        return Mathf.FloorToInt(adjustedVal);
     }
 
     // Checks for null tiles, and will drop tiles down to fill those spots, as well as spawn new ones in

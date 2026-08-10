@@ -36,7 +36,7 @@ public class Player_Information : ScriptableObject
     [SerializeField] private Equip_Information eqAcc2;
 
     [Header("Status")]
-    [SerializeField] private Player_Status status = new Player_Status(1);
+    [SerializeField] private Player_Status status = new Player_Status(0);
 
     public void LevelUp(int _LVL, int _MHP, int _ATK, int _DEF, int _MAT, int _MDF)
     {

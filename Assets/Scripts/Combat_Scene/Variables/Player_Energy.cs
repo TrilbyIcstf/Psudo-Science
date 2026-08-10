@@ -13,10 +13,10 @@ public class Player_Energy
     private float purplePoints = 0;
 
     // The point cap needed to execute the next move
-    private float blueCap = 20;
-    private float orangeCap = 20;
-    private float pinkCap = 20;
-    private float purpleCap = 20;
+    private int blueCap = 20;
+    private int orangeCap = 20;
+    private int pinkCap = 20;
+    private int purpleCap = 20;
 
     /// <summary>
     /// Add points to designated color, then execute attack if cap has been reached.
@@ -156,7 +156,7 @@ public class Player_Energy
     /// <param name="cap">
     /// The new cap.
     /// </param>
-    public void SetColorCap(TColor _eColor, float cap)
+    public void SetColorCap(TColor _eColor, int cap)
     {
         switch (_eColor)
         {
@@ -208,10 +208,10 @@ public class Player_Energy
     public float OrangePoints { get => orangePoints; set => orangePoints = value; }
     public float PinkPoints { get => pinkPoints; set => pinkPoints = value; }
     public float PurplePoints { get => purplePoints; set => purplePoints = value; }
-    public float BlueCap { get => blueCap; set => blueCap = value; }
-    public float OrangeCap { get => orangeCap; set => orangeCap = value; }
-    public float PinkCap { get => pinkCap; set => pinkCap = value; }
-    public float PurpleCap { get => purpleCap; set => purpleCap = value; }
+    public int BlueCap { get => blueCap; set => blueCap = value; }
+    public int OrangeCap { get => orangeCap; set => orangeCap = value; }
+    public int PinkCap { get => pinkCap; set => pinkCap = value; }
+    public int PurpleCap { get => purpleCap; set => purpleCap = value; }
 
     /// <summary>
     /// Returns the specified color's cap.
@@ -222,7 +222,7 @@ public class Player_Energy
     /// <returns>
     /// The passed in color's cap.
     /// </returns>
-    public float GetCap(TColor _eColor)
+    public int GetCap(TColor _eColor)
     {
         switch (_eColor)
         {
