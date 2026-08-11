@@ -525,6 +525,7 @@ public class Board_Controller : MonoBehaviour
                     int reviveVal = EvaluateRevive(adjustedChain, tempColor);
 
                     // Spawning particles for the destroyed tile
+                    // REWORK TO KEEP TRACK OF PIPS AND THEN ASSIGN POINTS DURING GAIN POINT METHOD
                     GameObject TempParticles = Instantiate(tileBurst, board[i, j].transform.position, Quaternion.identity);
                     TempParticles.GetComponent<Tile_Burst>().Activate(tempColor, 3, pointVal, reviveVal);
 
@@ -571,6 +572,7 @@ public class Board_Controller : MonoBehaviour
                 adjustedVal = adjustedVal / 5;
                 break;
         }
+        adjustedVal = Mathf.Max(adjustedVal, 1); // Has to give at least 1 point
 
         return Mathf.FloorToInt(adjustedVal);
     }
@@ -598,6 +600,7 @@ public class Board_Controller : MonoBehaviour
                 adjustedVal = adjustedVal / 6;
                 break;
         }
+        adjustedVal = Mathf.Max(adjustedVal, 1); // Has to give at least 1 point
 
         return Mathf.FloorToInt(adjustedVal);
     }
