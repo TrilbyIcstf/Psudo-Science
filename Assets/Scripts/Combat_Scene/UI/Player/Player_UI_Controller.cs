@@ -37,12 +37,17 @@ public class Player_UI_Controller : MonoBehaviour
     private Combat_Move_Button_Controller buttons;
     public Combat_Move_Button_Controller Buttons { get => buttons; }
 
+    // TESTING! REMOVE LATER!
+    [SerializeField]
+    private Combat_UI combatUI;
+
     private void Awake()
     {
         healthScript = healthBar.GetComponent<Health_UI>();
         energyScript = energyBar.GetComponent<Energy_UI>();
         reviveScript = reviveBar.GetComponent<Revive_UI>();
         buttons = GetComponent<Combat_Move_Button_Controller>();
+        combatUI.SetButtonController(player, buttons);
     }
 
     public void KILL()

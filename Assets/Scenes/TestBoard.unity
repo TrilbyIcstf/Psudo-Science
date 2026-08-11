@@ -521,6 +521,50 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 278763627, guid: f0963e863c3eb15468392ed8b9be611a, type: 3}
+      propertyPath: barColor.ctime1
+      value: 13878
+      objectReference: {fileID: 0}
+    - target: {fileID: 278763627, guid: f0963e863c3eb15468392ed8b9be611a, type: 3}
+      propertyPath: barColor.ctime2
+      value: 65535
+      objectReference: {fileID: 0}
+    - target: {fileID: 278763627, guid: f0963e863c3eb15468392ed8b9be611a, type: 3}
+      propertyPath: barColor.key0.b
+      value: 0.8784314
+      objectReference: {fileID: 0}
+    - target: {fileID: 278763627, guid: f0963e863c3eb15468392ed8b9be611a, type: 3}
+      propertyPath: barColor.key0.g
+      value: 0.6392157
+      objectReference: {fileID: 0}
+    - target: {fileID: 278763627, guid: f0963e863c3eb15468392ed8b9be611a, type: 3}
+      propertyPath: barColor.key0.r
+      value: 0.8177674
+      objectReference: {fileID: 0}
+    - target: {fileID: 278763627, guid: f0963e863c3eb15468392ed8b9be611a, type: 3}
+      propertyPath: barColor.key1.b
+      value: 0.85882354
+      objectReference: {fileID: 0}
+    - target: {fileID: 278763627, guid: f0963e863c3eb15468392ed8b9be611a, type: 3}
+      propertyPath: barColor.key1.g
+      value: 0.5058824
+      objectReference: {fileID: 0}
+    - target: {fileID: 278763627, guid: f0963e863c3eb15468392ed8b9be611a, type: 3}
+      propertyPath: barColor.key1.r
+      value: 0.8234494
+      objectReference: {fileID: 0}
+    - target: {fileID: 278763627, guid: f0963e863c3eb15468392ed8b9be611a, type: 3}
+      propertyPath: barColor.key2.b
+      value: 0.6901961
+      objectReference: {fileID: 0}
+    - target: {fileID: 278763627, guid: f0963e863c3eb15468392ed8b9be611a, type: 3}
+      propertyPath: barColor.key2.g
+      value: 0.15686275
+      objectReference: {fileID: 0}
+    - target: {fileID: 278763627, guid: f0963e863c3eb15468392ed8b9be611a, type: 3}
+      propertyPath: barColor.key2.r
+      value: 0.6117647
+      objectReference: {fileID: 0}
+    - target: {fileID: 278763627, guid: f0963e863c3eb15468392ed8b9be611a, type: 3}
       propertyPath: energyColor.ctime1
       value: 13878
       objectReference: {fileID: 0}
@@ -561,6 +605,10 @@ PrefabInstance:
       value: 0.6117647
       objectReference: {fileID: 0}
     - target: {fileID: 278763627, guid: f0963e863c3eb15468392ed8b9be611a, type: 3}
+      propertyPath: barColor.m_NumColorKeys
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 278763627, guid: f0963e863c3eb15468392ed8b9be611a, type: 3}
       propertyPath: energyColor.m_NumColorKeys
       value: 3
       objectReference: {fileID: 0}
@@ -592,6 +640,10 @@ PrefabInstance:
       propertyPath: player
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 2791331533857205771, guid: f0963e863c3eb15468392ed8b9be611a, type: 3}
+      propertyPath: combatUI
+      value: 
+      objectReference: {fileID: 1669564798}
     - target: {fileID: 3182359514467787031, guid: f0963e863c3eb15468392ed8b9be611a, type: 3}
       propertyPath: m_FontData.m_Alignment
       value: 3
@@ -1192,6 +1244,50 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 278763627, guid: f0963e863c3eb15468392ed8b9be611a, type: 3}
+      propertyPath: barColor.ctime1
+      value: 13878
+      objectReference: {fileID: 0}
+    - target: {fileID: 278763627, guid: f0963e863c3eb15468392ed8b9be611a, type: 3}
+      propertyPath: barColor.ctime2
+      value: 65535
+      objectReference: {fileID: 0}
+    - target: {fileID: 278763627, guid: f0963e863c3eb15468392ed8b9be611a, type: 3}
+      propertyPath: barColor.key0.b
+      value: 0.6392157
+      objectReference: {fileID: 0}
+    - target: {fileID: 278763627, guid: f0963e863c3eb15468392ed8b9be611a, type: 3}
+      propertyPath: barColor.key0.g
+      value: 0.80316406
+      objectReference: {fileID: 0}
+    - target: {fileID: 278763627, guid: f0963e863c3eb15468392ed8b9be611a, type: 3}
+      propertyPath: barColor.key0.r
+      value: 0.8784314
+      objectReference: {fileID: 0}
+    - target: {fileID: 278763627, guid: f0963e863c3eb15468392ed8b9be611a, type: 3}
+      propertyPath: barColor.key1.b
+      value: 0.4729797
+      objectReference: {fileID: 0}
+    - target: {fileID: 278763627, guid: f0963e863c3eb15468392ed8b9be611a, type: 3}
+      propertyPath: barColor.key1.g
+      value: 0.64264333
+      objectReference: {fileID: 0}
+    - target: {fileID: 278763627, guid: f0963e863c3eb15468392ed8b9be611a, type: 3}
+      propertyPath: barColor.key1.r
+      value: 0.8584906
+      objectReference: {fileID: 0}
+    - target: {fileID: 278763627, guid: f0963e863c3eb15468392ed8b9be611a, type: 3}
+      propertyPath: barColor.key2.b
+      value: 0.12941177
+      objectReference: {fileID: 0}
+    - target: {fileID: 278763627, guid: f0963e863c3eb15468392ed8b9be611a, type: 3}
+      propertyPath: barColor.key2.g
+      value: 0.34509805
+      objectReference: {fileID: 0}
+    - target: {fileID: 278763627, guid: f0963e863c3eb15468392ed8b9be611a, type: 3}
+      propertyPath: barColor.key2.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 278763627, guid: f0963e863c3eb15468392ed8b9be611a, type: 3}
       propertyPath: energyColor.ctime1
       value: 13878
       objectReference: {fileID: 0}
@@ -1236,6 +1332,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 278763627, guid: f0963e863c3eb15468392ed8b9be611a, type: 3}
+      propertyPath: barColor.m_NumColorKeys
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 278763627, guid: f0963e863c3eb15468392ed8b9be611a, type: 3}
       propertyPath: energyColor.m_NumColorKeys
       value: 3
       objectReference: {fileID: 0}
@@ -1250,10 +1350,6 @@ PrefabInstance:
     - target: {fileID: 1854667556239275908, guid: f0963e863c3eb15468392ed8b9be611a, type: 3}
       propertyPath: m_FontData.m_Alignment
       value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 1928350962685664402, guid: f0963e863c3eb15468392ed8b9be611a, type: 3}
-      propertyPath: m_Value
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1928350962685664402, guid: f0963e863c3eb15468392ed8b9be611a, type: 3}
       propertyPath: m_Direction
@@ -1271,6 +1367,10 @@ PrefabInstance:
       propertyPath: player
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2791331533857205771, guid: f0963e863c3eb15468392ed8b9be611a, type: 3}
+      propertyPath: combatUI
+      value: 
+      objectReference: {fileID: 1669564798}
     - target: {fileID: 3182359514467787031, guid: f0963e863c3eb15468392ed8b9be611a, type: 3}
       propertyPath: m_FontData.m_Alignment
       value: 3
@@ -1597,6 +1697,46 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 278763627, guid: f0963e863c3eb15468392ed8b9be611a, type: 3}
+      propertyPath: barColor.ctime1
+      value: 13878
+      objectReference: {fileID: 0}
+    - target: {fileID: 278763627, guid: f0963e863c3eb15468392ed8b9be611a, type: 3}
+      propertyPath: barColor.ctime2
+      value: 65535
+      objectReference: {fileID: 0}
+    - target: {fileID: 278763627, guid: f0963e863c3eb15468392ed8b9be611a, type: 3}
+      propertyPath: barColor.key0.b
+      value: 0.960389
+      objectReference: {fileID: 0}
+    - target: {fileID: 278763627, guid: f0963e863c3eb15468392ed8b9be611a, type: 3}
+      propertyPath: barColor.key0.g
+      value: 0.84788185
+      objectReference: {fileID: 0}
+    - target: {fileID: 278763627, guid: f0963e863c3eb15468392ed8b9be611a, type: 3}
+      propertyPath: barColor.key0.r
+      value: 0.9622642
+      objectReference: {fileID: 0}
+    - target: {fileID: 278763627, guid: f0963e863c3eb15468392ed8b9be611a, type: 3}
+      propertyPath: barColor.key1.b
+      value: 0.9838994
+      objectReference: {fileID: 0}
+    - target: {fileID: 278763627, guid: f0963e863c3eb15468392ed8b9be611a, type: 3}
+      propertyPath: barColor.key1.g
+      value: 0.75849056
+      objectReference: {fileID: 0}
+    - target: {fileID: 278763627, guid: f0963e863c3eb15468392ed8b9be611a, type: 3}
+      propertyPath: barColor.key2.b
+      value: 0.75665754
+      objectReference: {fileID: 0}
+    - target: {fileID: 278763627, guid: f0963e863c3eb15468392ed8b9be611a, type: 3}
+      propertyPath: barColor.key2.g
+      value: 0.5019608
+      objectReference: {fileID: 0}
+    - target: {fileID: 278763627, guid: f0963e863c3eb15468392ed8b9be611a, type: 3}
+      propertyPath: barColor.key2.r
+      value: 0.99215686
+      objectReference: {fileID: 0}
+    - target: {fileID: 278763627, guid: f0963e863c3eb15468392ed8b9be611a, type: 3}
       propertyPath: energyColor.ctime1
       value: 13878
       objectReference: {fileID: 0}
@@ -1637,6 +1777,10 @@ PrefabInstance:
       value: 0.99215686
       objectReference: {fileID: 0}
     - target: {fileID: 278763627, guid: f0963e863c3eb15468392ed8b9be611a, type: 3}
+      propertyPath: barColor.m_NumColorKeys
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 278763627, guid: f0963e863c3eb15468392ed8b9be611a, type: 3}
       propertyPath: energyColor.m_NumColorKeys
       value: 3
       objectReference: {fileID: 0}
@@ -1648,6 +1792,10 @@ PrefabInstance:
       propertyPath: player
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 2791331533857205771, guid: f0963e863c3eb15468392ed8b9be611a, type: 3}
+      propertyPath: combatUI
+      value: 
+      objectReference: {fileID: 1669564798}
     - target: {fileID: 5299094095311368363, guid: f0963e863c3eb15468392ed8b9be611a, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -0.000005722046
@@ -1662,6 +1810,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6023766720457472354, guid: f0963e863c3eb15468392ed8b9be611a, type: 3}
       propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6023766720457472354, guid: f0963e863c3eb15468392ed8b9be611a, type: 3}
+      propertyPath: m_AnchorMin.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6023766720729312347, guid: f0963e863c3eb15468392ed8b9be611a, type: 3}
@@ -2564,6 +2716,46 @@ PrefabInstance:
     m_TransformParent: {fileID: 1673768794}
     m_Modifications:
     - target: {fileID: 278763627, guid: f0963e863c3eb15468392ed8b9be611a, type: 3}
+      propertyPath: barColor.ctime1
+      value: 13878
+      objectReference: {fileID: 0}
+    - target: {fileID: 278763627, guid: f0963e863c3eb15468392ed8b9be611a, type: 3}
+      propertyPath: barColor.ctime2
+      value: 65535
+      objectReference: {fileID: 0}
+    - target: {fileID: 278763627, guid: f0963e863c3eb15468392ed8b9be611a, type: 3}
+      propertyPath: barColor.key0.b
+      value: 0.8773585
+      objectReference: {fileID: 0}
+    - target: {fileID: 278763627, guid: f0963e863c3eb15468392ed8b9be611a, type: 3}
+      propertyPath: barColor.key0.g
+      value: 0.80972385
+      objectReference: {fileID: 0}
+    - target: {fileID: 278763627, guid: f0963e863c3eb15468392ed8b9be611a, type: 3}
+      propertyPath: barColor.key0.r
+      value: 0.6406372
+      objectReference: {fileID: 0}
+    - target: {fileID: 278763627, guid: f0963e863c3eb15468392ed8b9be611a, type: 3}
+      propertyPath: barColor.key1.b
+      value: 0.8584906
+      objectReference: {fileID: 0}
+    - target: {fileID: 278763627, guid: f0963e863c3eb15468392ed8b9be611a, type: 3}
+      propertyPath: barColor.key1.g
+      value: 0.75429267
+      objectReference: {fileID: 0}
+    - target: {fileID: 278763627, guid: f0963e863c3eb15468392ed8b9be611a, type: 3}
+      propertyPath: barColor.key1.r
+      value: 0.50537556
+      objectReference: {fileID: 0}
+    - target: {fileID: 278763627, guid: f0963e863c3eb15468392ed8b9be611a, type: 3}
+      propertyPath: barColor.key2.b
+      value: 0.93725497
+      objectReference: {fileID: 0}
+    - target: {fileID: 278763627, guid: f0963e863c3eb15468392ed8b9be611a, type: 3}
+      propertyPath: barColor.key2.g
+      value: 0.6627451
+      objectReference: {fileID: 0}
+    - target: {fileID: 278763627, guid: f0963e863c3eb15468392ed8b9be611a, type: 3}
       propertyPath: energyColor.ctime1
       value: 13878
       objectReference: {fileID: 0}
@@ -2592,9 +2784,17 @@ PrefabInstance:
       value: 0.50537556
       objectReference: {fileID: 0}
     - target: {fileID: 278763627, guid: f0963e863c3eb15468392ed8b9be611a, type: 3}
+      propertyPath: barColor.m_NumColorKeys
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 278763627, guid: f0963e863c3eb15468392ed8b9be611a, type: 3}
       propertyPath: energyColor.m_NumColorKeys
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 2791331533857205771, guid: f0963e863c3eb15468392ed8b9be611a, type: 3}
+      propertyPath: combatUI
+      value: 
+      objectReference: {fileID: 1669564798}
     - target: {fileID: 5299094095311368363, guid: f0963e863c3eb15468392ed8b9be611a, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -0.000005722046
@@ -2605,6 +2805,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6023766720457472354, guid: f0963e863c3eb15468392ed8b9be611a, type: 3}
       propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6023766720457472354, guid: f0963e863c3eb15468392ed8b9be611a, type: 3}
+      propertyPath: m_AnchorMin.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6023766720729312347, guid: f0963e863c3eb15468392ed8b9be611a, type: 3}
