@@ -72,11 +72,14 @@ public class Board_Controller : MonoBehaviour
     // Random numbers used to determine the fall speed rng of each row
     private float[] rowSpeedBonus;
 
-    // Start is called before the first frame update
-    void Start()
+    // Tracks the spawned pips from matched tiles
+    private Dictionary<TColor, List<Tile_Burst>> pipTracker = new Dictionary<TColor, List<Tile_Burst>>();
+
+    public void Setup()
     {
         GameManager.instance.combat.SetBoard(this);
         mainCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+        ResetPipTracker();
 
         board = new GameObject[boardWidth, boardHeight];
         startingPos = new Vector3(centerPos.position.x - (((boardWidth / 2) - 0.5f) * xGap), centerPos.position.y + (((boardHeight / 2) - 0.5f) * yGap), 0.0f);
@@ -521,13 +524,16 @@ public class Board_Controller : MonoBehaviour
                     chainCounter[(int)tempColor] += adjustedChain;
 
                     // Determines number of points added to color, based on length of match chain
-                    int pointVal = EvaluatePoints(adjustedChain, tempColor);
-                    int reviveVal = EvaluateRevive(adjustedChain, tempColor);
+                    //int pointVal = EvaluatePoints(adjustedChain, tempColor);
+                    //int reviveVal = EvaluateRevive(adjustedChain, tempColor);
 
                     // Spawning particles for the destroyed tile
                     // REWORK TO KEEP TRACK OF PIPS AND THEN ASSIGN POINTS DURING GAIN POINT METHOD
-                    GameObject TempParticles = Instantiate(tileBurst, board[i, j].transform.position, Quaternion.identity);
-                    TempParticles.GetComponent<Tile_Burst>().Activate(tempColor, 3, pointVal, reviveVal);
+                    GameObject tempParticles = Instantiate(tileBurst, board[i, j].transform.position, Quaternion.identity);
+                    Tile_Burst tileScript = tempParticles.GetComponent<Tile_Burst>();
+                    pipTracker[tempColor].Add(tileScript);
+                    //tempParticles.GetComponent<Tile_Burst>().Activate(tempColor, 3, pointVal, reviveVal);
+
 
                     Destroy(board[i, j]);
                     board[i, j] = null;
@@ -546,6 +552,7 @@ public class Board_Controller : MonoBehaviour
                 }
             }
 
+            ResetPipTracker();
             matchCombo++;
             TileFall();
         }
@@ -557,7 +564,7 @@ public class Board_Controller : MonoBehaviour
         }
     }
 
-    private int EvaluatePoints(float chain, TColor color)
+    private float EvaluatePoints(float chain, TColor color)
     {
         float adjustedVal = chain;
         switch (color)
@@ -572,9 +579,14 @@ public class Board_Controller : MonoBehaviour
                 adjustedVal = adjustedVal / 5;
                 break;
         }
-        adjustedVal = Mathf.Max(adjustedVal, 1); // Has to give at least 1 point
 
-        return Mathf.FloorToInt(adjustedVal);
+        if (color.ForceInt())
+        {
+            adjustedVal = Mathf.Max(adjustedVal, 1); // Has to give at least 1 point
+            adjustedVal = Mathf.FloorToInt(adjustedVal);
+        }
+
+        return adjustedVal;
     }
 
     private int EvaluateRevive(float chain, TColor color)
@@ -705,8 +717,7 @@ public class Board_Controller : MonoBehaviour
                 GameManager.instance.party.SingleRevive((int)_color, revive);
                 break;
             case TColor.GREEN:
-                int healAmount = Mathf.FloorToInt(points);
-                GameManager.instance.party.PartyHeal(healAmount);
+                GameManager.instance.party.PartyHeal((int)points);
                 GameManager.instance.party.PartyRevive(revive);
                 break;
             case TColor.GREY:
@@ -721,6 +732,40 @@ public class Board_Controller : MonoBehaviour
                 break;
             default:
                 break;
+        }
+
+        List<Tile_Burst> tileList = pipTracker[_color];
+        int tileCount = tileList.Count;
+        float pointRemainder = points % tileCount;
+        float reviveRemainder = revive % tileCount;
+
+        for (int i = 0; i <  tileList.Count; i++)
+        {
+            float pointVal = 0;
+            float reviveVal = 0;
+
+            if (_color.ForceInt())
+            {
+                pointVal = Mathf.FloorToInt(points / tileCount);
+                reviveVal = Mathf.FloorToInt(revive / tileCount);
+
+                if (i < pointRemainder) { pointVal++; }
+                if (i < reviveRemainder) { reviveVal++; }
+            } else
+            {
+                pointVal = points / tileCount;
+                reviveVal = revive / tileCount;
+            }
+
+            tileList[i].Activate(_color, 3, pointVal, reviveVal);
+        }
+    }
+
+    private void ResetPipTracker() {
+        pipTracker = new Dictionary<TColor, List<Tile_Burst>>();
+        foreach (TColor color in System.Enum.GetValues(typeof(TColor)))
+        {
+            pipTracker[color] = new List<Tile_Burst>();
         }
     }
 

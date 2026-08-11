@@ -2303,7 +2303,7 @@ GameObject:
   - component: {fileID: 1813739739}
   - component: {fileID: 1813739738}
   m_Layer: 0
-  m_Name: TESTINGPLACEHOLDER
+  m_Name: Combat_Startup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2323,6 +2323,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   testEnemies: {fileID: 11400000, guid: 7a6ce94ebfe6cb3469ff69bed9b073c7, type: 2}
   testAttack: {fileID: 1489994068259963331, guid: 09787f3096f0e074ca71d165d06ebd42, type: 3}
+  combatUI: {fileID: 1669564798}
+  boardController: {fileID: 38620143}
 --- !u!4 &1813739739
 Transform:
   m_ObjectHideFlags: 0

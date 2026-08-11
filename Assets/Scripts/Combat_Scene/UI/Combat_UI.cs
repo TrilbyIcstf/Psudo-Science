@@ -21,10 +21,13 @@ public class Combat_UI : MonoBehaviour
 
     private Dictionary<PC, Combat_Move_Button_Controller> moveButtonControllers = new Dictionary<PC, Combat_Move_Button_Controller>();
 
-    // Start is called before the first frame update
-    void Awake()
+    public void Setup()
     {
         GameManager.instance.combat.SetCombatUI(this);
+        foreach (Player_UI_Controller controller in playerUI)
+        {
+            moveButtonControllers.Add(controller.Player, controller.Buttons);
+        }
     }
 
     public void TargetCrosshair(Vector2 target)

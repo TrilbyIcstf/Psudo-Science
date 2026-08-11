@@ -8,7 +8,7 @@ public class Bar_Test : MonoBehaviour
     private Slider slide;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         slide = GetComponent<Slider>();
     }
