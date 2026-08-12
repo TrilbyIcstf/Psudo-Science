@@ -12,6 +12,11 @@ public class Revive_UI : Fill_Bar
     [SerializeField]
     private Gradient reviveColor;
 
+    private void Start()
+    {
+        RefreshBarFromSource();
+    }
+
     public override void RefreshBarFromSource()
     {
         progress = GameManager.instance.party.GetPlayer(playerColor).Status.ReviveProgress;

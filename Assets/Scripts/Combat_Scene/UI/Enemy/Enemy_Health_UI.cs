@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Enemy_Health_UI : MonoBehaviour
+public class Enemy_Health_UI : Fill_Bar
 {
     private const float baseHeight = 60;
 
@@ -13,23 +13,12 @@ public class Enemy_Health_UI : MonoBehaviour
     // A timer for having the health appear for a certain amount of time
     private float healthTimer = 0;
 
-    // The slider UI being controlled
-    private Slider _slider;
-
     // The images of the health bar
-    public Image healthFront;
-    public Image healthBack;
+    [SerializeField]
+    private Image backBar;
 
-    private Slider slider
-    {
-        get {
-            if (_slider == null)
-            {
-                _slider = GetComponent<Slider>();
-            }
-            return _slider;
-        }
-    }
+    // Enemy number in combat
+    private int enemyNum;
 
     private void FixedUpdate()
     {
@@ -47,10 +36,16 @@ public class Enemy_Health_UI : MonoBehaviour
         }
     }
 
-    public void SetHealth(float current, float max)
+    public void Setup(int enemyNum)
     {
-        slider.value = Mathf.Clamp(current / max, 0, 1);
-        healthText.text = current + "/" + max;
+        this.enemyNum = enemyNum;
+        RefreshBarFromSource();
+    }
+
+    public void SetHealth(float val)
+    {
+        progress = val;
+        UpdateBar();
     }
 
     public void SetEnabled(bool enabled)
@@ -68,22 +63,22 @@ public class Enemy_Health_UI : MonoBehaviour
         healthTimer = 0;
 
         healthText.enabled = enabled;
-        healthFront.enabled = enabled;
-        healthBack.enabled = enabled;
+        frontBar.enabled = enabled;
+        backBar.enabled = enabled;
     }
 
     public void SetOpacity(float opacity)
     {
-        Color frontColor = healthFront.color;
-        Color backColor = healthBack.color;
+        Color frontColor = frontBar.color;
+        Color backColor = backBar.color;
         Color textColor = healthText.color;
 
         frontColor.a = opacity;
         backColor.a = opacity;
         textColor.a = opacity;
 
-        healthFront.color = frontColor;
-        healthBack.color = backColor;
+        frontBar.color = frontColor;
+        backBar.color = backColor;
         healthText.color = textColor;
     }
 
@@ -96,5 +91,33 @@ public class Enemy_Health_UI : MonoBehaviour
     public void SetHeight(float height)
     {
         GetComponent<RectTransform>().anchoredPosition = new Vector3(0, baseHeight + height, 0);
+    }
+
+    protected override void DisplayChange(int amount)
+    {
+        if (amount < 0)
+        {
+            float posOffset = Random.Range(-0.75f, 0.75f);
+
+            GameObject damageNum = Instantiate(damageTextObject, transform);
+            damageNum.GetComponent<Floating_Number_Combat>().SetText(Mathf.Abs(amount).ToString());
+            Vector3 spawnPos = damageNum.transform.position;
+            spawnPos.x += posOffset;
+            damageNum.transform.position = spawnPos;
+        }
+    }
+
+    public override void RefreshBarFromSource()
+    {
+        max = GameManager.instance.combat.GetEnemy(enemyNum).GetStats().MaxHealth;
+        progress = GameManager.instance.combat.GetEnemy(enemyNum).GetStats().CurrentHealth;
+
+        UpdateBar();
+    }
+
+    protected override void UpdateBar()
+    {
+        base.UpdateBar();
+        healthText.text = progress + "/" + max;
     }
 }

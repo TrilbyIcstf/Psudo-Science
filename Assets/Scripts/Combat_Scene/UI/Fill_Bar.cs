@@ -10,7 +10,11 @@ public abstract class Fill_Bar : MonoBehaviour
 
     // The bar of the slider
     [SerializeField]
-    protected Image bar;
+    protected Image frontBar;
+
+    // Damage Text
+    [SerializeField]
+    protected GameObject damageTextObject;
 
     // The slider UI being controlled
     protected Slider slider;
@@ -24,10 +28,9 @@ public abstract class Fill_Bar : MonoBehaviour
 
     Dictionary<GameObject, int> incomingChanges = new Dictionary<GameObject, int>();
 
-    private void Start()
+    private void Awake()
     {
         slider = GetComponent<Slider>();
-        RefreshBarFromSource();
     }
 
     public void ApplyChange(GameObject messenger)
@@ -37,16 +40,9 @@ public abstract class Fill_Bar : MonoBehaviour
             int amount = incomingChanges[messenger];
             incomingChanges.Remove(messenger);
 
-            if (amount >= 0)
-            {
-                AddToBar(amount);
-            }
-            else
-            {
-                RemoveFromBar(amount);
-            }
+            AddToBar(amount);
 
-            UpdateBar();
+            DisplayChange(amount);
 
             if (incomingChanges.Count == 0)
             {
@@ -55,7 +51,7 @@ public abstract class Fill_Bar : MonoBehaviour
         }
         else
         {
-            Debug.LogError("Unregistered messenger sent to health bar!");
+            Debug.LogError("Unregistered messenger sent to bar!");
         }
     }
 
@@ -66,14 +62,13 @@ public abstract class Fill_Bar : MonoBehaviour
 
     public virtual void AddToBar(int amount)
     {
-        progress = Mathf.Min(progress + amount, max);
+        progress = Mathf.Clamp(progress + amount, 0, max);
         UpdateBar();
     }
 
     public void RemoveFromBar(int amount)
     {
-        progress = Mathf.Max(progress - amount, 0);
-        UpdateBar();
+        AddToBar(-amount);
     }
 
     public void SetBar(float amount)
@@ -82,11 +77,11 @@ public abstract class Fill_Bar : MonoBehaviour
         UpdateBar();
     }
 
-    protected void UpdateBar()
+    protected virtual void UpdateBar()
     {
         float fillAmount = FillAmount();
         slider.value = fillAmount;
-        bar.color = barColor.Evaluate(fillAmount);
+        frontBar.color = barColor.Evaluate(fillAmount);
     }
 
     protected float FillAmount()
@@ -94,5 +89,6 @@ public abstract class Fill_Bar : MonoBehaviour
         return Mathf.Clamp(progress / max, 0, 1);
     }
 
+    protected virtual void DisplayChange(int amount) { }
     public abstract void RefreshBarFromSource();
 }

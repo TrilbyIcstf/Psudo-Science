@@ -20,10 +20,6 @@ public class Combat_Startup_Controller : MonoBehaviour
         }
         combatUI.Setup();
         boardController.Setup();
-    }
-
-    private void Start()
-    {
         GameManager.instance.combat.CombatSetup(testEnemies);
     }
 

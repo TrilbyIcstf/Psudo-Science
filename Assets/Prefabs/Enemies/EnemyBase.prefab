@@ -120,7 +120,6 @@ GameObject:
   m_Component:
   - component: {fileID: 638200650739277430}
   - component: {fileID: 8774225421294376248}
-  - component: {fileID: 4014663148932929891}
   - component: {fileID: 6601966573731229869}
   - component: {fileID: 5910685540129541445}
   - component: {fileID: 6116266955699441060}
@@ -167,19 +166,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyBase: {fileID: 0}
---- !u!114 &4014663148932929891
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2427537215997513041}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9521c9c719e44444a8d71e397ee3b270, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  baseSpeed: 0
 --- !u!114 &6601966573731229869
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -658,9 +644,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7d682173680f9846ab0ba43687b793a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  barColor:
+    serializedVersion: 2
+    key0: {r: 0.21568629, g: 0.6784314, b: 0.25490198, a: 1}
+    key1: {r: 0.21568629, g: 0.6784314, b: 0.25490198, a: 1}
+    key2: {r: 0, g: 0, b: 0, a: 1}
+    key3: {r: 0, g: 0, b: 0, a: 0}
+    key4: {r: 0, g: 0, b: 0, a: 0}
+    key5: {r: 0, g: 0, b: 0, a: 0}
+    key6: {r: 0, g: 0, b: 0, a: 0}
+    key7: {r: 0, g: 0, b: 0, a: 0}
+    ctime0: 0
+    ctime1: 65535
+    ctime2: 0
+    ctime3: 0
+    ctime4: 0
+    ctime5: 0
+    ctime6: 0
+    ctime7: 0
+    atime0: 0
+    atime1: 32960
+    atime2: 65535
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 0
+    m_ColorSpace: -1
+    m_NumColorKeys: 2
+    m_NumAlphaKeys: 3
+  frontBar: {fileID: 8374792745253923679}
+  damageTextObject: {fileID: 2206342091481053641, guid: bc586b7f678785049b154e6122ca75a0, type: 3}
   healthText: {fileID: 9035875846429467976}
-  healthFront: {fileID: 8374792745253923679}
-  healthBack: {fileID: 845061184531398022}
+  backBar: {fileID: 845061184531398022}
 --- !u!1 &7937427533963125405
 GameObject:
   m_ObjectHideFlags: 0

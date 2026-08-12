@@ -95,7 +95,7 @@ public class Energy_Blip : MonoBehaviour
                         }
                     } else
                     {
-                        Combat_UI_Commands.SendRevive(pointValue, playerNum);
+                        Combat_UI_Commands.ApplyRevive(playerNum, gameObject);
                     }
 
                     Destroy(gameObject);
@@ -123,9 +123,9 @@ public class Energy_Blip : MonoBehaviour
                     Combat_UI_Commands.RegisterHealth(playerNum, gameObject, (int)pointValue);
                     break;
             }
-        } else
+        } else if (blipColor.CanRevive())
         {
-            // Register Revive
+            Combat_UI_Commands.RegisterRevive(playerNum, gameObject, (int)pointValue);
         }
     }
 

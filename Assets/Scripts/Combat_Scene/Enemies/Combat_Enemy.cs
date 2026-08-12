@@ -11,10 +11,9 @@ public class Combat_Enemy : MonoBehaviour
     private Enemy_Stats stats;
 
     // Position of this enemy in the enemy array
-    private int enemyPosition;
+    private int enemyNum;
 
     // The enemy's current stats
-    private int displayHealth;
     private bool alive = true;
 
     // The behavior script which decides how the enemy attacks
@@ -25,28 +24,35 @@ public class Combat_Enemy : MonoBehaviour
 
     public void Setup(int position, int varient)
     {
+        stats = new Enemy_Stats(enemyBase);
+        enemyNum = position;
         behavior = GetComponent<Behavior_Dad>();
         behavior.SetVarient(varient);
         visuals = GetComponent<Enemy_Visuals>();
-        visuals.Startup(enemyBase);
+        visuals.Startup(enemyBase, position);
         visuals.SetBehavior(behavior);
-        stats = new Enemy_Stats(enemyBase);
-        displayHealth = stats.MaxHealth;
-        enemyPosition = position;
     }
 
     public void TakeDamage(int amount)
     {
         stats.CurrentHealth = Mathf.Max(0, stats.CurrentHealth - amount);
-        displayHealth = stats.CurrentHealth;
-        visuals.UpdateHealthBar(displayHealth, stats.MaxHealth);
+        visuals.HealthBar.SetBar(stats.CurrentHealth);
     }
 
     // Visually displays damage without actually reducing the enemy's health
     public void TakeDisplayDamage(int amount)
     {
-        displayHealth = Mathf.Max(0, displayHealth - amount);
-        visuals.UpdateHealthBar(displayHealth, stats.MaxHealth);
+        visuals.HealthBar.RemoveFromBar(amount);
+    }
+
+    public void RegisterDisplayDamage(GameObject messenger, int amount)
+    {
+        visuals.HealthBar.RegisterChange(messenger, -amount);
+    }
+
+    public void ApplyDisplayDamage(GameObject messenger)
+    {
+        visuals.HealthBar.ApplyChange(messenger);
     }
 
     public bool ShouldDie()
@@ -64,7 +70,7 @@ public class Combat_Enemy : MonoBehaviour
     {
         if (alive && !GameManager.instance.fx.CheckAllFXLock())
         {
-            GameManager.instance.combat.TargetEnemy(enemyPosition);
+            GameManager.instance.combat.TargetEnemy(enemyNum);
         }
     }
 
@@ -72,14 +78,14 @@ public class Combat_Enemy : MonoBehaviour
     {
         if (alive && !GameManager.instance.fx.CheckAllFXLock())
         {
-            GameManager.instance.combat.HoverEnemy(enemyPosition);
+            GameManager.instance.combat.HoverEnemy(enemyNum);
         }
         visuals.SetHealthBarEnabled(true);
     }
 
     private void OnMouseExit()
     {
-        GameManager.instance.combat.UnhoverEnemy(enemyPosition);
+        GameManager.instance.combat.UnhoverEnemy(enemyNum);
 
         visuals.SetHealthBarEnabled(false);
     }

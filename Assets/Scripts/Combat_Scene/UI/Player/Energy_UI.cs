@@ -11,9 +11,13 @@ public class Energy_UI : Fill_Bar
     // The color of the player using the script
     public TColor playerColor;
 
+    private void Start()
+    {
+        RefreshBarFromSource();
+    }
     public override void AddToBar(int amount)
     {
-        progress += amount;
+        progress = Mathf.Max(progress + amount, 0);
         while (progress >= max)
         {
             progress -= max;

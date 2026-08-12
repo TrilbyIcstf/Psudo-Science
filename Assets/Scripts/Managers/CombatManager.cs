@@ -56,8 +56,9 @@ public class CombatManager : MonoBehaviour
             Bestiary enemyType = _enc.EncounterEnemies[i];
             int enemyVarient = _enc.EnemyVarients[i];
             GameObject enemyObject = GameManager.instance.ll.enemyRepository.GetValue(enemyType);
-            activeEnemies.Add(new ActiveEnemy(Instantiate(enemyObject, enemyHolderPos), i, enemyVarient));
+            activeEnemies.Add(new ActiveEnemy(Instantiate(enemyObject, enemyHolderPos)));
             activeEnemies[i].enemyObject.transform.position += _enc.EnemyPositions[i];
+            activeEnemies[i].EnemySetup(i, enemyVarient);
         }
 
         if (activeEnemies.Count > 0)
@@ -561,13 +562,18 @@ public class CombatManager : MonoBehaviour
         public Enemy_Visuals enemyVisuals;
         public int speed;
 
-        public ActiveEnemy(GameObject obj, int position, int varient)
+        public ActiveEnemy(GameObject obj)
         {
             enemyObject = obj;
             enemyScript = obj.GetComponent<Combat_Enemy>();
-            enemyScript.Setup(position, varient);
             enemyBehavior = obj.GetComponent<Behavior_Dad>();
             enemyVisuals = obj.GetComponent<Enemy_Visuals>();
+        }
+
+        public void EnemySetup(int position, int varient)
+        {
+            enemyScript.Setup(position, varient);
+
             speed = enemyBehavior.BaseSpeed;
         }
     }

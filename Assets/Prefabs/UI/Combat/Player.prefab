@@ -135,7 +135,8 @@ MonoBehaviour:
     m_ColorSpace: -1
     m_NumColorKeys: 2
     m_NumAlphaKeys: 3
-  bar: {fileID: 6023766720457472357}
+  frontBar: {fileID: 6023766720457472357}
+  damageTextObject: {fileID: 2206342091481053641, guid: bc586b7f678785049b154e6122ca75a0, type: 3}
   playerColor: 0
 --- !u!114 &7153700558348350019
 MonoBehaviour:
@@ -486,7 +487,8 @@ MonoBehaviour:
     m_ColorSpace: -1
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
-  bar: {fileID: 6175176551337423583}
+  frontBar: {fileID: 6175176551337423583}
+  damageTextObject: {fileID: 0}
   playerColor: 0
   reviveColor:
     serializedVersion: 2
@@ -791,7 +793,8 @@ MonoBehaviour:
     m_ColorSpace: -1
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
-  bar: {fileID: 6023766720729312346}
+  frontBar: {fileID: 6023766720729312346}
+  damageTextObject: {fileID: 0}
   playerColor: 0
 --- !u!114 &6991665059685352724
 MonoBehaviour:

@@ -70,6 +70,6 @@ public class Combat_UI : MonoBehaviour
 
     public void SetBoostAmount(float val)
     {
-        boostText.text = "Boost: x" + Math.Round(val, 2);
+        boostText.text = "Boost: x" + $"{val:0.0#}";
     }
 }

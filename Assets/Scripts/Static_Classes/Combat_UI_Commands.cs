@@ -82,9 +82,14 @@ public static class Combat_UI_Commands
         GameManager.instance.combat.combatUI.PlayerUI[_player].EnergyScript.ApplyChange(_messenger);
     }
 
-    public static void SendRevive(float _val, int _player)
+    public static void RegisterRevive(int _player, GameObject _messenger, int _amount)
     {
-        GameManager.instance.combat.combatUI.PlayerUI[_player].ReviveScript.AddToBar((int)_val);
+        GameManager.instance.combat.combatUI.PlayerUI[_player].ReviveScript.RegisterChange(_messenger, _amount);
+    }
+
+    public static void ApplyRevive(int _player, GameObject _messenger)
+    {
+        GameManager.instance.combat.combatUI.PlayerUI[_player].ReviveScript.ApplyChange(_messenger);
     }
 
     public static void RefreshHealthBars()

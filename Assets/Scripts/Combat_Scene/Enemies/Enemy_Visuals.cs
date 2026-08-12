@@ -16,6 +16,7 @@ public class Enemy_Visuals : MonoBehaviour
     // Link to the enemy's health bar
     [SerializeField]
     private Enemy_Health_UI healthBar;
+    public Enemy_Health_UI HealthBar { get => healthBar; }
 
     // Link to the enemy's turn number
     [SerializeField]
@@ -36,7 +37,7 @@ public class Enemy_Visuals : MonoBehaviour
     // Visuals used for the death animation
     public GameObject deathMask;
 
-    public void Startup(Enemy_Information enemyBase)
+    public void Startup(Enemy_Information enemyBase, int enemyNum)
     {
         enemyImage = spriteObject.GetComponent<Image>();
         imageTransform = spriteObject.GetComponent<RectTransform>();
@@ -49,8 +50,10 @@ public class Enemy_Visuals : MonoBehaviour
         }
 
         gameObject.GetComponent<BoxCollider2D>().size = imageTransform.sizeDelta;
+        
+        healthBar.Setup(enemyNum);
 
-        UpdateHealthBar(enemyBase.MaxHealth, enemyBase.MaxHealth);
+        healthBar.SetBar(enemyBase.MaxHealth);
         SetHealthBarHeight(enemyBase.HealthBarHeight);
         SetTurnNumberHeight(enemyBase.HealthBarHeight);
     }
@@ -123,11 +126,6 @@ public class Enemy_Visuals : MonoBehaviour
     public void SetHealthBarTimer(float time)
     {
         healthBar.SetTimer(time);
-    }
-
-    public void UpdateHealthBar(float current, float max)
-    {
-        healthBar.SetHealth(current, max);
     }
 
     public void SetTurnNumber(int val)

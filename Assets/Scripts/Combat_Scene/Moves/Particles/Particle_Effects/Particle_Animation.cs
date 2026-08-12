@@ -9,7 +9,7 @@ public class Particle_Animation : Particle_Dad
 
     private MoveResult moveResult;
     private Animator anim;
-    private List<float> flashTimes;
+    private List<(float time, int potency)> flashTimes;
 
     private AnimatorOverrideController overrideController;
 
@@ -20,11 +20,12 @@ public class Particle_Animation : Particle_Dad
         anim.runtimeAnimatorController = overrideController;
     }
 
-    public void ParticleInitialize(AnimationClip overrideAnim, List<float> flashTimes, MoveResult moveResult, float lifeSpan, Particle_Controller_Dad papa)
+    public void ParticleInitialize(AnimationClip overrideAnim, List<(float time, int potency)> flashTimes, MoveResult moveResult, float lifeSpan, Particle_Controller_Dad papa)
     {
         this.moveResult = moveResult;
         anim = GetComponent<Animator>();
         this.flashTimes = flashTimes;
+        RegisterNextDamage();
         overrideController["Placeholder_Anim"] = overrideAnim;
         base.ParticleInitialize(lifeSpan, papa);
         anim.SetTrigger("Play");
@@ -43,11 +44,22 @@ public class Particle_Animation : Particle_Dad
     }
 
     protected override void ParticleUpdate() {
-        if (flashTimes.Any(n => n <= age))
+        if (flashTimes.Any(n => n.time <= age))
         {
             father.SendAnimation(new AnimDetails(CombatAnimation.ColorFlash, moveResult.targetType, moveResult.targetNum, null, damageColor));
+            GameManager.instance.combat.combatUI.PlayerUI[moveResult.targetNum].HealthScript.ApplyChange(gameObject);
 
-            flashTimes.RemoveAll(n => n <= age);
+            flashTimes.RemoveAll(n => n.time <= age);
+            RegisterNextDamage();
+        }
+    }
+
+    private void RegisterNextDamage()
+    {
+        if (flashTimes.Count > 0)
+        {
+            int nextDamage = -flashTimes.OrderBy(t => t.time).FirstOrDefault().potency;
+            GameManager.instance.combat.combatUI.PlayerUI[moveResult.targetNum].HealthScript.RegisterChange(gameObject, nextDamage);
         }
     }
 }
