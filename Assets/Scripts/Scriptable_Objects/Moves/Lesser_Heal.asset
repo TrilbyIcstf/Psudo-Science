@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: Lesser_Heal
   m_EditorClassIdentifier: 
   moveName: Lesser Heal
-  moveEnum: 1
+  moveEnum: 1701
   type: 3
-  element: 0
-  potency: 20
+  element: 8
+  potency: 40
   manaCost: 20
+  description: Restores a minor amount of health to the lowest health ally.

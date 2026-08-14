@@ -13,14 +13,13 @@ MonoBehaviour:
   m_Name: Test_Enemy
   m_EditorClassIdentifier: 
   enemyName: Stained Knight
-  enemyType: 2
+  enemyType: 1003
   levelStat: 1
   maxHealthStat: 100
   attackStat: 10
   defenseStat: 10
   magicStat: 10
   magDefenseStat: 10
-  actSpeedStat: 4
   enemySprite: {fileID: 21300000, guid: 5572c4dd663d395469ee2315f7330140, type: 3}
   spriteSize: {x: 125, y: 201}
   healthBarHeight: 40

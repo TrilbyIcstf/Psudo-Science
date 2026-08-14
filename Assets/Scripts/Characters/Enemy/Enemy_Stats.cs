@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy_Stats
+public class Enemy_Stats : Character_Status
 {
     // The enemy's basic stats
     private int levelStat;
@@ -12,13 +12,6 @@ public class Enemy_Stats
     private int defenseStat;
     private int magicStat;
     private int magDefenseStat;
-
-    private int maxHealthBoost = 0;
-    private int attackBoost = 0;
-    private int defenseBoost = 0;
-    private int magicBoost = 0;
-    private int magDefenseBoost = 0;
-    private int actSpeedBoost = 0;
 
     public Enemy_Stats(Enemy_Information baseStats)
     {
@@ -39,9 +32,10 @@ public class Enemy_Stats
 
     public int Level { get => levelStat; set => levelStat = value; }
     public int MaxHealth { get => maxHealthStat; set => maxHealthStat = value; }
-    public int CurrentHealth { get => currentHealthStat; set => currentHealthStat = Mathf.Min(value, maxHealthStat + maxHealthBoost); }
-    public int Attack { get => attackStat; set => attackStat = value; }
+    public int CurrentHealth { get => currentHealthStat; set => currentHealthStat = Mathf.Min(value, maxHealthStat); }
+    public int Power { get => GetAdjustedPower(attackStat); set => attackStat = value; }
     public int Defense { get => defenseStat; set => defenseStat = value; }
-    public int Magic { get => magicStat; set => magicStat = value; }
+    public int Intelligence { get => GetAdjustedInt(magicStat); set => magicStat = value; }
     public int MagDefense { get => magDefenseStat; set => magDefenseStat = value; }
+    public Dictionary<StatusEffect, int> StatusEffects { get => statusEffects; }
 }

@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: Lesser_Frost
   m_EditorClassIdentifier: Assembly-CSharp::Move_Information
   moveName: Lesser Frost
-  moveEnum: 2
+  moveEnum: 1401
   type: 2
-  element: 1
-  potency: 50
+  element: 4
+  potency: 85
   manaCost: 30
+  description: Deals minor fire damage to target enemy.

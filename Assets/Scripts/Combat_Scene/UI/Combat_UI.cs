@@ -27,6 +27,7 @@ public class Combat_UI : MonoBehaviour
         foreach (Player_UI_Controller controller in playerUI)
         {
             moveButtonControllers.Add(controller.Player, controller.Buttons);
+            controller.StatusIcons.SetStatusList(GameManager.instance.party.GetPlayer(controller.Player).Status.StatusEffects);
         }
     }
 

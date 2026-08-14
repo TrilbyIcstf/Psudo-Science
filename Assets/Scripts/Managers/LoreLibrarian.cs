@@ -13,6 +13,7 @@ public class LoreLibrarian : MonoBehaviour
 
     [Header("Sprites")]
     public TileSpriteDictionary tileSprites;
+    public StatusIconDictionary statusIcons;
 }
 
 public class GenericDictionary<K, V>
@@ -56,3 +57,6 @@ public class BestiaryDictionary : GenericDictionary<Bestiary, GameObject> { }
 
 [Serializable]
 public class TileSpriteDictionary : GenericDictionary<TColor, Sprite> { }
+
+[Serializable]
+public class StatusIconDictionary : GenericDictionary<StatusEffect, Sprite> { }

@@ -133,10 +133,10 @@ public class Player_Information : ScriptableObject
     public int MaxHealth { get => Mathf.CeilToInt((EquipMaxHealth + status.HealthBuff) * status.HealthMult); }
     public int CurrentHealth { get => status.CurrentHealth; }
     public int CurrentDamage { get => MaxHealth - status.CurrentHealth; }
-    public int Attack { get => Mathf.CeilToInt((EquipAttack + status.AttackBuff) * status.AttackMult); }
+    public int Power { get => status.GetAdjustedPower(attackStat); }
     public int Defense { get => Mathf.CeilToInt((EquipDefense + status.DefenseBuff) * status.DefenseMult); }
-    public int Magic { get => Mathf.CeilToInt((EquipMagic + status.MagicBuff) * status.MagicMult); }
-    public int MagDefense { get => Mathf.CeilToInt((EquipMagDefense + status.MagDefenseBuff) * status.MagDefenseMult); }
+    public int Intelligence { get => status.GetAdjustedInt(magicStat); }
+    public int Resistance { get => Mathf.CeilToInt((EquipMagDefense + status.MagDefenseBuff) * status.MagDefenseMult); }
     public Equip_Information Weapon { get => eqWeapon; set => eqWeapon = value; }
     public Equip_Information Helmet { get => eqHelmet; set => eqHelmet = value; }
     public Equip_Information Armor { get => eqArmor; set => eqArmor = value; }

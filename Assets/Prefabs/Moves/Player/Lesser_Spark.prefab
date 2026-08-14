@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6054804856646247659}
   - component: {fileID: 3836566979644246833}
   m_Layer: 0
-  m_Name: Lesser_Fire
+  m_Name: Lesser_Spark
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -44,5 +44,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e88a31d297710c4d8d12ac3234af3f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveInfo: {fileID: 11400000, guid: 113300fb2958299409fd8d8cded8f5cf, type: 2}
   mainParticleController: {fileID: 1758204172408961474, guid: 32818ce1b5fd99c43a5ba780fbd75233, type: 3}
+  moveInfo: {fileID: 11400000, guid: 113300fb2958299409fd8d8cded8f5cf, type: 2}

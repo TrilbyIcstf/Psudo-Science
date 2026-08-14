@@ -31,6 +31,7 @@ public class Combat_Enemy : MonoBehaviour
         visuals = GetComponent<Enemy_Visuals>();
         visuals.Startup(enemyBase, position);
         visuals.SetBehavior(behavior);
+        visuals.StatusIcons.SetStatusList(stats.StatusEffects);
     }
 
     public void TakeDamage(int amount)
@@ -55,7 +56,15 @@ public class Combat_Enemy : MonoBehaviour
         visuals.HealthBar.ApplyChange(messenger);
     }
 
-    public bool ShouldDie()
+    public bool AddStatusEffect(StatusEffect se, int duration)
+    {
+        bool overriden = stats.AddStatusEffect(se, duration);
+        visuals.StatusIcons.SetStatusList(stats.StatusEffects);
+
+        return overriden;
+    }
+
+        public bool ShouldDie()
     {
         return stats.CurrentHealth <= 0;
     }

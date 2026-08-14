@@ -34,6 +34,10 @@ public class Player_UI_Controller : MonoBehaviour
     private Player_Animation_Controller anim;
     public Player_Animation_Controller Anim { get => anim; }
 
+    [SerializeField]
+    private Status_Icon_Holder statusIcons;
+    public Status_Icon_Holder StatusIcons { get => statusIcons; }
+
     private Combat_Move_Button_Controller buttons;
     public Combat_Move_Button_Controller Buttons { get => buttons; }
 

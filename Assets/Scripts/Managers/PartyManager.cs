@@ -12,9 +12,12 @@ public class PartyManager : MonoBehaviour
 
     private List<Player_Information> players => new List<Player_Information> { player1, player2, player3, player4 };
 
-    void Awake()
+    private void Awake()
     {
-        ResetStatus();
+        player1 = Instantiate(player1);
+        player2 = Instantiate(player2);
+        player3 = Instantiate(player3);
+        player4 = Instantiate(player4);
     }
 
     /// <summary>
@@ -82,36 +85,12 @@ public class PartyManager : MonoBehaviour
 
     public Player_Information GetPlayer(TColor _tint)
     {
-        switch(_tint)
-        {
-            case TColor.BLUE:
-                return player1;
-            case TColor.ORANGE:
-                return player2;
-            case TColor.PINK:
-                return player3;
-            case TColor.PURPLE:
-                return player4;
-            default:
-                return null;
-        }
+        return GetPlayer((int)_tint);
     }
 
     public Player_Information GetPlayer(PC _pc)
     {
-        switch(_pc)
-        {
-            case PC.VANESSA:
-                return player1;
-            case PC.SAMANTHA:
-                return player2;
-            case PC.GABRIELLE:
-                return player3;
-            case PC.VALLERY:
-                return player4;
-            default:
-                return null;
-        }
+        return GetPlayer((int)_pc);
     }
 
     public Player_Information GetPlayer(int _posit)

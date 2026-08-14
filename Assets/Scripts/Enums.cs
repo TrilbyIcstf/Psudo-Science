@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 public enum GameState
 {
     DUNGEON,
@@ -74,19 +76,69 @@ public static class TColorExtensions
 
 public enum Element
 {
-    NULL,
+    VOID,
+    BLUNT,
+    SLASH,
+    PIERCE,
     WATER,
     EARTH,
     FIRE,
-    AIR
+    AIR,
+    LIGHT,
+    DARK,
 }
 
 public enum StatusEffect
 {
-    POISONED,
-    BURNED,
-    CONFUSED,
-    SLOW
+    POISONED = 1,
+    BURNED = 2,
+    CONFUSED = 3,
+    SLOW = 4,
+    MINORPOWERUP = 1001,
+    MIDPOWERUP = 1002,
+    MAJORPOWERUP = 1003,
+    WARMUP = 9901,
+}
+
+public static class StatusEffectExtensions
+{
+    public static bool IsBuff(this StatusEffect se)
+    {
+        switch(se)
+        {
+            case StatusEffect.MINORPOWERUP:
+            case StatusEffect.MIDPOWERUP:
+            case StatusEffect.MAJORPOWERUP:
+            case StatusEffect.WARMUP:
+                return true;
+            default:
+                return false;
+        }
+    }
+
+    public static bool IsDebuff(this StatusEffect se)
+    {
+        return !se.IsBuff();
+    }
+
+    public static (Dictionary<StatusEffect, int>, Dictionary<StatusEffect, int>) SplitStatusEffects(this Dictionary<StatusEffect, int> combinedList)
+    {
+        Dictionary<StatusEffect, int> buffs = new Dictionary<StatusEffect, int>();
+        Dictionary<StatusEffect, int> debuffs = new Dictionary<StatusEffect, int>();
+
+        foreach (var se in combinedList)
+        {
+            if (se.Key.IsBuff())
+            {
+                buffs.Add(se.Key, se.Value);
+            } else
+            {
+                debuffs.Add(se.Key, se.Value);
+            }
+        }
+
+        return (buffs, debuffs);
+    }
 }
 
 public enum MoveType
@@ -186,43 +238,81 @@ public enum TargetingType
 
 public enum MoveName
 {
-    // Physical attacks
-    QuickSlash,
+    // Slash attacks
+    QuickSlash = 1001,
+
+    // Blunt attacks
+    GlancingBlow = 1101,
+    Shatter = 1102,
+
+    // Pierce attacks
 
     // Fire spells
-    LesserSpark,
+    LesserSpark = 1301,
+    LesserSparkfield = 1302,
 
     // Frost spells
-    LesserFrost,
+    LesserFrost = 1401,
+    LesserFrostField = 1402,
 
     // Air spells
-    LesserAreo,
+    LesserAreo = 1501,
+    ConcentratedAreo = 1502,
+
+    // Earth spells
+    LesserTremor = 1601,
+    ConcentratedTremor = 1602,
 
     // Healing spells
-    LesserHeal,
-    LesserHealfield,
+    LesserHeal = 1701,
+    LesserHealfield = 1702,
+
+    // Buffs
+    WarmUp = 1801,
+    ValientStrength = 1802,
 
     // Debuffs
-    Slow,
+    Slow = 1901,
 
     // Board spells
-    ShareEnergy,
+    ShareEnergy = 2001,
+
+    // Misc
 }
 
 public enum EnemyMoveName
 {
-    // Physical attacks
-    BasicSlash,
+    // Slash attacks
+    BasicSlash = 1001,
+
+    // Blunt attacks
+
+    // Pierce attacks
+
+    // Fire spells
+
+    // Frost spells
+
+    // Air spells
+
+    // Earth spells
+
+    // Healing spells
+
+    // Buffs
 
     // Debuffs
-    Slow
+
+    // Board spells
+
+    // Misc
 }
 
 public enum Bestiary
 {
-    BookRat,
-    KnickedSkeleton,
-    StainedKnight
+    BookRat = 1001,
+    KnickedSkeleton = 1002,
+    StainedKnight = 1003,
 }
 
 public enum CombatAnimation

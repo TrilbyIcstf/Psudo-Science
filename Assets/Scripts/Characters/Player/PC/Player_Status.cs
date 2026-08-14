@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// Tracks variables of the player that will often change during combat.
 /// </summary>
-public class Player_Status
+public class Player_Status : Character_Status
 {
     public const int REVIVECAP = 100;
 
@@ -13,8 +13,6 @@ public class Player_Status
     private bool isDead = false;
 
     private float reviveProgress = 0;
-
-    private HashSet<StatusEffect> statusEffects = new HashSet<StatusEffect>();
 
     private int healthBuff = 0;
     private int attackBuff = 0;
@@ -49,53 +47,35 @@ public class Player_Status
         }
     }
 
-    /// <summary>
-    /// Adds the passed status effect to the character.
-    /// </summary>
-    /// <param name="se">
-    /// The status effect to add.
-    /// </param>
-    /// <returns>
-    /// True if the status effect was not already present, false otherwise.
-    /// </returns>
-    public bool AddStatusEffect(StatusEffect se)
+    public int GetAdjustedPower(int initial)
     {
-        return statusEffects.Add(se);
-    }
+        float flatBoost = 0;
+        float mult = 1.0f;
 
-    /// <summary>
-    /// Removes the passed status effect from the character.
-    /// </summary>
-    /// <param name="se">
-    /// The status effect to remove.
-    /// </param>
-    /// <returns>
-    /// True if status effect was present, false otherwise.
-    /// </returns>
-    public bool RemoveStatusEffect(StatusEffect se)
-    {
-        return statusEffects.Remove(se);
-    }
+        foreach (var se in statusEffects)
+        {
+            switch(se.Key)
+            {
+                case StatusEffect.MINORPOWERUP:
+                    mult += 0.25f;
+                    break;
+                case StatusEffect.MIDPOWERUP:
+                    mult += 0.5f;
+                    break;
+                case StatusEffect.MAJORPOWERUP:
+                    mult += 0.75f;
+                    break;
+            }
+        }
 
-    /// <summary>
-    /// Checks if passed in status effect is present.
-    /// </summary>
-    /// <param name="se">
-    /// The status effect to check for.
-    /// </param>
-    /// <returns>
-    /// True if status effect was present, false otherwise.
-    /// </returns>
-    public bool HasStatusEffect(StatusEffect se)
-    {
-        return statusEffects.Contains(se);
+        return Mathf.CeilToInt((initial * mult) + flatBoost);
     }
 
     // Get/Set
     public int CurrentHealth { get => currentHealth; set => currentHealth = value; }
     public bool IsDead { get => isDead; set => isDead = value; }
     public float ReviveProgress { get => reviveProgress; set => reviveProgress = value; }
-    public HashSet<StatusEffect> StatusEffects { get => statusEffects; set => statusEffects = value; }
+    public Dictionary<StatusEffect, int> StatusEffects { get => statusEffects; set => statusEffects = value; }
     public bool KO { get => currentHealth > 0; }
     public int HealthBuff { get => healthBuff; set => healthBuff = value; }
     public int AttackBuff { get => attackBuff; set => attackBuff = value; }

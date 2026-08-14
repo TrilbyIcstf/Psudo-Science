@@ -22,6 +22,10 @@ public class Enemy_Visuals : MonoBehaviour
     [SerializeField]
     private Enemy_Turn_UI turnNumber;
 
+    [SerializeField]
+    private Status_Icon_Holder statusIcons;
+    public Status_Icon_Holder StatusIcons { get => statusIcons; }
+
     // The position element of the enemy's body parts
     [SerializeField]
     private RectTransform center;

@@ -13,7 +13,12 @@ public abstract class Generic_Player_Attack_Move : Player_Move
 
     public override MoveResult PotencyCalc(Player_Information pi, int target, Move_Information mi)
     {
-        float potency = mi.Potency * Combat_Commands.GetBoost();
+        float potency = mi.AdjustedPotency * (pi.Intelligence * 2);
+        Enemy_Stats targetStats = GameManager.instance.combat.GetEnemy(target).GetStats();
+        potency = potency - (targetStats.MagDefense / 2);
+        potency = potency * Combat_Commands.GetBoost();
+        potency = Mathf.Max(1, potency);
+
         return new MoveResult(potency, Target.ENEMY, target);
     }
 

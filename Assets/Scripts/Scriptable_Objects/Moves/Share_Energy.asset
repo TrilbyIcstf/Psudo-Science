@@ -13,8 +13,10 @@ MonoBehaviour:
   m_Name: Share_Energy
   m_EditorClassIdentifier: Assembly-CSharp::Move_Information
   moveName: Share Energy
-  moveEnum: 7
+  moveEnum: 2001
   type: 5
   element: 0
   potency: 0
   manaCost: 30
+  description: Randomly transforms the character's tiles on the board to the other
+    characters' colors.

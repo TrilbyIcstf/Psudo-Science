@@ -14,6 +14,12 @@ public class Combat_Startup_Controller : MonoBehaviour
 
     private void Awake()
     {
+        GameManager.instance.party.ResetStatus(); // FOR TESTING
+        GameManager.instance.party.GetPlayer(PC.VANESSA).Status.AddStatusEffect(StatusEffect.MIDPOWERUP, 2);
+        GameManager.instance.party.GetPlayer(PC.VANESSA).Status.AddStatusEffect(StatusEffect.MINORPOWERUP, 2);
+        GameManager.instance.party.GetPlayer(PC.SAMANTHA).Status.AddStatusEffect(StatusEffect.MIDPOWERUP, 2);
+        GameManager.instance.party.GetPlayer(PC.VANESSA).Status.AddStatusEffect(StatusEffect.WARMUP, 3);
+
         foreach (Player_UI_Controller playerUI in combatUI.PlayerUI)
         {
             playerUI.Setup();
@@ -21,6 +27,8 @@ public class Combat_Startup_Controller : MonoBehaviour
         combatUI.Setup();
         boardController.Setup();
         GameManager.instance.combat.CombatSetup(testEnemies);
+        GameManager.instance.combat.GetEnemy(0).AddStatusEffect(StatusEffect.MIDPOWERUP, 10);
+        GameManager.instance.combat.GetEnemy(0).AddStatusEffect(StatusEffect.MAJORPOWERUP, 99);
     }
 
     private void OnDrawGizmosSelected()

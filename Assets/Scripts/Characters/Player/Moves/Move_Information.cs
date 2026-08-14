@@ -21,10 +21,15 @@ public class Move_Information : ScriptableObject
     [SerializeField] private float potency;
     [SerializeField] private int manaCost;
 
-    public string MoveName { get => moveName; set => moveName = value; }
-    public MoveName MoveEnum { get => moveEnum; set => moveEnum = value; }
-    public MoveType Type { get => type; set => type = value; }
-    public Element Element { get => element; set => element = value; }
-    public float Potency { get => potency; set => potency = value; }
-    public int ManaCost { get => manaCost; set => manaCost = value; }
+    [Header("Description")]
+    [SerializeField, TextArea(3, 10)] private string description;
+
+    public string MoveName { get => moveName; }
+    public MoveName MoveEnum { get => moveEnum; }
+    public MoveType Type { get => type; }
+    public Element Element { get => element; }
+    public float Potency { get => potency; }
+    public float AdjustedPotency { get => potency / 100; }
+    public int ManaCost { get => manaCost; }
+    public string Description { get => description; }
 }

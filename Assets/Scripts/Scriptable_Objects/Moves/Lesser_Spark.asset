@@ -10,11 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 169c2950a62f74d4a93a656a6df40742, type: 3}
-  m_Name: Lesser_Fire
+  m_Name: Lesser_Spark
   m_EditorClassIdentifier: 
-  moveName: Lesser Fire
-  moveEnum: 0
+  moveName: Lesser Spark
+  moveEnum: 1301
   type: 2
-  element: 3
-  potency: 50
+  element: 6
+  potency: 85
   manaCost: 30
+  description: Deals minor fire damage to target enemy.

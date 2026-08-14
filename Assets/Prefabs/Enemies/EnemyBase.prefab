@@ -110,6 +110,57 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &1543736381469261202
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6848055042591899719}
+  - component: {fileID: 1786730168506583742}
+  m_Layer: 0
+  m_Name: StatusIconHolder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &6848055042591899719
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1543736381469261202}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 638200650739277430}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -46.7, y: -47.7}
+  m_SizeDelta: {x: 1, y: 1}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1786730168506583742
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1543736381469261202}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81d39b1cdb824ed43875e288b7832cfc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Status_Icon_Holder
+  type: 1
+  statusIcon: {fileID: 8787534688842294588, guid: 7496f717a5685f94f91083775645f9c0, type: 3}
+  facing: 0
 --- !u!1 &2427537215997513041
 GameObject:
   m_ObjectHideFlags: 0
@@ -145,6 +196,7 @@ RectTransform:
   - {fileID: 4479367676952228655}
   - {fileID: 7178545275951810799}
   - {fileID: 2767945125645904486}
+  - {fileID: 6848055042591899719}
   - {fileID: 1036370027951401579}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -182,6 +234,7 @@ MonoBehaviour:
   animController: {fileID: 7923924682464282098}
   healthBar: {fileID: 9184083101385836505}
   turnNumber: {fileID: 5190842310298155042}
+  statusIcons: {fileID: 1786730168506583742}
   center: {fileID: 7800765217216172514}
   head: {fileID: 1917830263758842182}
   body: {fileID: 8217357777624408194}

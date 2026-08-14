@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: Encounter
   m_EditorClassIdentifier: 
   encounterContents:
-  - enemy: 2
+  - enemy: 1003
     varient: 0
-  - enemy: 2
+  - enemy: 1003
     varient: 1
-  - enemy: 2
+  - enemy: 1003
     varient: 0
   enemyPositions:
   - {x: -3.8, y: 3.6, z: 0}
