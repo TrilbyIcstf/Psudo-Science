@@ -99,4 +99,23 @@ public static class Combat_UI_Commands
             GameManager.instance.combat.combatUI.PlayerUI[player.position].HealthScript.RefreshBarFromSource();
         }
     }
+
+    public static void UpdateStatusIcons()
+    {
+        foreach (Player_Information player in GameManager.instance.party.Players())
+        {
+            if (player.Status.IsAlive)
+            {
+                GameManager.instance.combat.combatUI.PlayerUI[player.position].StatusIcons.SetStatusList(player.Status.StatusEffects);
+            }
+        }
+
+        foreach (Combat_Enemy enemy in GameManager.instance.combat.GetEnemies())
+        {
+            if (enemy.IsAlive())
+            {
+                enemy.UpdateStatusList();
+            }
+        }
+    }
 }

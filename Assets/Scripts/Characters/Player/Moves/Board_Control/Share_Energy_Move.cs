@@ -31,7 +31,7 @@ public class Share_Energy_Move : Player_Move
         return moveStarted && particleControllerList.Count <= 0;
     }
 
-    public override MoveResult PotencyCalc(Player_Information pi, int target, Move_Information mi)
+    public override MoveResult TargetCalc(Player_Information pi, int target, Move_Information mi)
     {
         return new MoveResult(0, Target.NULL, pi.position);
     }
@@ -52,7 +52,7 @@ public class Share_Energy_Move : Player_Move
             resultList.Add((pos, newColor));
         }
 
-        return new List<MoveResult> { PotencyCalc(pi, target, mi) };
+        return new List<MoveResult> { TargetCalc(pi, target, mi) };
     }
 
     public override void StartMove(int user, List<MoveResult> results)

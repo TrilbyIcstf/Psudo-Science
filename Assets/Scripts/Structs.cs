@@ -23,12 +23,15 @@ public struct QueuedEnemyMove
     public TargetingType targetingType;
     public int targets;
 
-    public QueuedEnemyMove(GameObject move, int user, TargetingType targetingType, int targets)
+    public float potency;
+
+    public QueuedEnemyMove(GameObject move, int user, TargetingType targetingType, int targets, float potency)
     {
         this.move = move;
         this.user = user;
         this.targetingType = targetingType;
         this.targets = targets;
+        this.potency = potency;
     }
 }
 

@@ -95,13 +95,13 @@ public class Enemy_Health_UI : Fill_Bar
 
     protected override void DisplayChange(int amount)
     {
-        if (amount < 0)
+        if (amount <= 0)
         {
             float posOffset = Random.Range(-0.75f, 0.75f);
 
-            GameObject damageNum = Instantiate(damageTextObject, transform);
+            GameObject damageNum = Instantiate(damageTextObject, transform.parent);
             damageNum.GetComponent<Floating_Number_Combat>().SetText(Mathf.Abs(amount).ToString());
-            Vector3 spawnPos = damageNum.transform.position;
+            Vector3 spawnPos = transform.position;
             spawnPos.x += posOffset;
             damageNum.transform.position = spawnPos;
         }

@@ -15,14 +15,15 @@ public class Lesser_Heal_Move : Player_Move
     public override List<MoveResult> ResultsCalc(Player_Information pi, int target, Move_Information mi)
     {
         List<MoveResult> results = new List<MoveResult>();
-        results.Add(PotencyCalc(pi, GameManager.instance.party.MostDamaged(), mi));
+        results.Add(TargetCalc(pi, GameManager.instance.party.MostDamaged(), mi));
         return results;
     }
 
-    public override MoveResult PotencyCalc(Player_Information pi, int target, Move_Information mi)
+    public override MoveResult TargetCalc(Player_Information pi, int target, Move_Information mi)
     {
-        float potency = mi.Potency * Combat_Commands.GetBoost();
-        return new MoveResult(potency, Target.PC, target);
+        float result = mi.AdjustedPotency * ((pi.Intelligence + pi.Resistance) / 2);
+        result = result * Combat_Commands.GetBoost();
+        return new MoveResult(result, Target.PC, target);
     }
 
     // Particles/Animations

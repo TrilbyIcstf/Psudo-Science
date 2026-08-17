@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Stained_Knight_Behavior : Behavior_Dad
 {
-    public override (GameObject, TargetingType, int, int) MakeMove()
+    public override (GameObject, TargetingType, int, int, float) MakeMove()
     {
         GameObject slashMove = GameManager.instance.ll.enemyMoveRepository.GetValue(EnemyMoveName.BasicSlash);
 
@@ -11,11 +11,11 @@ public class Stained_Knight_Behavior : Behavior_Dad
         {
             case 0:
                 {
-                    return (slashMove, TargetingType.LowestHealth, 1, 3);
+                    return (slashMove, TargetingType.LowestHealth, 1, 3, 125);
                 }
             case 1:
                 {
-                    return (slashMove, TargetingType.LowestHealth, 2, 6);
+                    return (slashMove, TargetingType.LowestHealth, 2, 6, 85);
                 }
             default: throw new System.NotImplementedException();
         }

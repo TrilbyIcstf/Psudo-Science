@@ -73,6 +73,19 @@ public class Character_Status
         }
     }
 
+    public void CountDownStatus()
+    {
+        List<StatusEffect> tempList = new List<StatusEffect>(statusEffects.Keys);
+        foreach (StatusEffect se in tempList)
+        {
+            statusEffects[se] -= 1;
+            if (statusEffects[se] <= 0)
+            {
+                RemoveStatusEffect(se);
+            }
+        }
+    }
+
     /// <summary>
     /// Removes the passed status effect from the character.
     /// </summary>

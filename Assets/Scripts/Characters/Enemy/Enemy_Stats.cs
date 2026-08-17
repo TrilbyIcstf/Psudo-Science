@@ -18,10 +18,10 @@ public class Enemy_Stats : Character_Status
         this.levelStat = baseStats.Level;
         this.maxHealthStat = baseStats.MaxHealth;
         this.currentHealthStat = baseStats.MaxHealth;
-        this.attackStat = baseStats.Attack;
+        this.attackStat = baseStats.Power;
         this.defenseStat = baseStats.Defense;
-        this.magicStat = baseStats.Magic;
-        this.magDefenseStat = baseStats.MagDefense;
+        this.magicStat = baseStats.Intelligence;
+        this.magDefenseStat = baseStats.Resistance;
     }
 
     public int DealDamage(int amount)

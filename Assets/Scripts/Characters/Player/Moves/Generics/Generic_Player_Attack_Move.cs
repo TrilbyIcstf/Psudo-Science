@@ -7,19 +7,19 @@ public abstract class Generic_Player_Attack_Move : Player_Move
     public override List<MoveResult> ResultsCalc(Player_Information pi, int target, Move_Information mi)
     {
         List<MoveResult> results = new List<MoveResult>();
-        results.Add(PotencyCalc(pi, target, mi));
+        results.Add(TargetCalc(pi, target, mi));
         return results;
     }
 
-    public override MoveResult PotencyCalc(Player_Information pi, int target, Move_Information mi)
+    public override MoveResult TargetCalc(Player_Information pi, int target, Move_Information mi)
     {
-        float potency = mi.AdjustedPotency * (pi.Intelligence * 2);
         Enemy_Stats targetStats = GameManager.instance.combat.GetEnemy(target).GetStats();
-        potency = potency - (targetStats.MagDefense / 2);
-        potency = potency * Combat_Commands.GetBoost();
-        potency = Mathf.Max(1, potency);
+        float result = mi.AdjustedPotency * (pi.Intelligence * 2);
+        result = result - (targetStats.MagDefense / 2);
+        result = result * Combat_Commands.GetBoost();
+        result = Mathf.Max(1, result);
 
-        return new MoveResult(potency, Target.ENEMY, target);
+        return new MoveResult(result, Target.ENEMY, target);
     }
 
     public override bool ApplyMove(Player_Information pi, List<MoveResult> results, Move_Information mi)

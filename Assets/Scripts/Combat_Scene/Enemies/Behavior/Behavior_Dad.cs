@@ -16,10 +16,12 @@ public abstract class Behavior_Dad : MonoBehaviour
     /// </summary>
     /// <returns>
     /// GameObject: The move prefab
-    /// List<int>: A list of targets
+    /// TargetingType: The logic used for targeting
+    /// int: The number of targets
     /// int: The new cooldown to set the enemy to
+    /// float: The potency of the move
     /// </returns>
-    public abstract (GameObject, TargetingType, int, int) MakeMove();
+    public abstract (GameObject, TargetingType, int, int, float) MakeMove();
 
     protected abstract int GetBaseSpeed();
 

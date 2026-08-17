@@ -59,12 +59,17 @@ public class Combat_Enemy : MonoBehaviour
     public bool AddStatusEffect(StatusEffect se, int duration)
     {
         bool overriden = stats.AddStatusEffect(se, duration);
-        visuals.StatusIcons.SetStatusList(stats.StatusEffects);
+        UpdateStatusList();
 
         return overriden;
     }
 
-        public bool ShouldDie()
+    public void UpdateStatusList()
+    {
+        visuals.StatusIcons.SetStatusList(stats.StatusEffects);
+    }
+
+    public bool ShouldDie()
     {
         return stats.CurrentHealth <= 0;
     }

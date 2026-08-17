@@ -4,22 +4,28 @@ using UnityEngine;
 public abstract class Generic_Enemy_Attack_Move : Enemy_Move
 {
     // Move Effects
-    public override List<MoveResult> ResultsCalc(Enemy_Information ei, List<int> targets)
+    public override List<MoveResult> ResultsCalc(Enemy_Stats ei, List<int> targets, float potency)
     {
         List<MoveResult> results = new List<MoveResult>();
         foreach (int target in targets)
         {
-            results.Add(PotencyCalc(ei, target));
+            results.Add(TargetCalc(ei, target, potency));
         }
         return results;
     }
 
-    public override MoveResult PotencyCalc(Enemy_Information ei, int target)
+    public override MoveResult TargetCalc(Enemy_Stats ei, int target, float potency)
     {
-        return new MoveResult(potency, Target.PC, target);
+        float adjustedPotency = potency / 100;
+        Player_Information pi = GameManager.instance.party.GetPlayer(target);
+        float result = adjustedPotency * (ei.Power * 2);
+        result = result - (pi.Defense / 2);
+        result = Mathf.Max(1, result);
+
+        return new MoveResult(result, Target.PC, target);
     }
 
-    public override bool ApplyMove(Enemy_Information ei, List<MoveResult> results)
+    public override bool ApplyMove(Enemy_Stats ei, List<MoveResult> results)
     {
         foreach (MoveResult result in results)
         {

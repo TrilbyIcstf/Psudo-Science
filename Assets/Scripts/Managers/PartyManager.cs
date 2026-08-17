@@ -100,7 +100,7 @@ public class PartyManager : MonoBehaviour
 
     public int LivingPlayers()
     {
-        return players.Count(p => !p.ShouldDie());
+        return players.Count(p => !p.Status.IsDead);
     }
 
     public int MostDamaged(bool alive = true, List<int> ignore = null)

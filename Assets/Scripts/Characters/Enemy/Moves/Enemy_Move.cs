@@ -7,7 +7,7 @@ public abstract class Enemy_Move : Move_Dad
     protected float potency;
 
     // Section for handling move effects
-    public abstract List<MoveResult> ResultsCalc(Enemy_Information ei, List<int> targets);
-    public abstract MoveResult PotencyCalc(Enemy_Information ei, int target);
-    public abstract bool ApplyMove(Enemy_Information ei, List<MoveResult> results);
+    public abstract List<MoveResult> ResultsCalc(Enemy_Stats ei, List<int> targets, float potency);
+    public abstract MoveResult TargetCalc(Enemy_Stats ei, int target, float potency);
+    public abstract bool ApplyMove(Enemy_Stats ei, List<MoveResult> results);
 }

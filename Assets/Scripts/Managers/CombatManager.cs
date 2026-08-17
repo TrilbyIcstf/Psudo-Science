@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class CombatManager : MonoBehaviour
@@ -200,7 +201,14 @@ public class CombatManager : MonoBehaviour
             yield return new WaitForSeconds(1.0f);
         }
 
+        EndTurn();
+    }
+
+    private void EndTurn()
+    {
         IncrementEnemyTurn();
+        CountDownStatus();
+        turnCount++;
     }
 
     private IEnumerator RunQueue()
@@ -281,11 +289,11 @@ public class CombatManager : MonoBehaviour
                 Enemy_Move move = controller.GetComponent<Enemy_Move>();
 
                 int user = queuedMove.user;
-                Enemy_Information enemy = activeEnemies[user].enemyScript.enemyBase;
+                Enemy_Stats enemy = activeEnemies[user].enemyScript.GetStats();
                 Behavior_Dad behavior = activeEnemies[user].enemyBehavior;
 
                 List<int> targets = DecideEnemyTargets(queuedMove, behavior);
-                List<MoveResult> results = move.ResultsCalc(enemy, targets);
+                List<MoveResult> results = move.ResultsCalc(enemy, targets, queuedMove.potency);
                 move.StartMove(user, results);
                 yield return new WaitUntil(() => move.IsMoveFinished());
                 move.EndMove(user);
@@ -332,7 +340,7 @@ public class CombatManager : MonoBehaviour
             case TargetingType.Random:
                 for (int i = 0; i < num; i++)
                 {
-                    int target = 0;
+                    int target;
                     do
                     {
                         target = Random.Range(0, 4);
@@ -359,9 +367,9 @@ public class CombatManager : MonoBehaviour
 
                 if (activeEnemies[i].speed <= 0)
                 {
-                    (GameObject moveObject, TargetingType targetType, int targets, int cooldown) = activeEnemies[i].enemyBehavior.MakeMove();
+                    (GameObject moveObject, TargetingType targetType, int targets, int cooldown, float potency) = activeEnemies[i].enemyBehavior.MakeMove();
                     activeEnemies[i].speed = cooldown;
-                    QueuedEnemyMove queuedMove = new QueuedEnemyMove(moveObject, i, targetType, targets);
+                    QueuedEnemyMove queuedMove = new QueuedEnemyMove(moveObject, i, targetType, targets, potency);
                     enemyMoveQueue.Enqueue(queuedMove);
                 }
             }
@@ -371,8 +379,27 @@ public class CombatManager : MonoBehaviour
         {
             StartEnemyQueue();
         }
+    }
 
-        turnCount++;
+    private void CountDownStatus()
+    {
+        foreach(Player_Information pi in GameManager.instance.party.Players())
+        {
+            if (pi.Status.IsAlive)
+            {
+                pi.Status.CountDownStatus();
+            }
+        }
+
+        foreach(Combat_Enemy ce in GameManager.instance.combat.GetEnemies())
+        {
+            if (ce.IsAlive())
+            {
+                ce.GetStats().CountDownStatus();
+            }
+        }
+
+        Combat_UI_Commands.UpdateStatusIcons();
     }
 
     private bool CheckForRevives()
@@ -457,6 +484,11 @@ public class CombatManager : MonoBehaviour
             return activeEnemies[target].enemyScript;
         }
         return null;
+    }
+
+    public List<Combat_Enemy> GetEnemies()
+    {
+        return activeEnemies.Select(e => e.enemyScript).ToList();
     }
 
     public GameObject GetTargetedEnemyObject()

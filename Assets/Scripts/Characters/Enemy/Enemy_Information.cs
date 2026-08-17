@@ -32,10 +32,10 @@ public class Enemy_Information : ScriptableObject
 
     public int Level{ get => levelStat; set => levelStat = value; }
     public int MaxHealth { get => maxHealthStat; set => maxHealthStat = value; }
-    public int Attack { get => attackStat; set => attackStat = value; }
+    public int Power { get => attackStat; set => attackStat = value; }
     public int Defense { get => defenseStat; set => defenseStat = value; }
-    public int Magic { get => magicStat; set => magicStat = value; }
-    public int MagDefense { get => magDefenseStat; set => magDefenseStat = value; }
+    public int Intelligence { get => magicStat; set => magicStat = value; }
+    public int Resistance { get => magDefenseStat; set => magDefenseStat = value; }
     public string EnemyName { get => enemyName; set => enemyName = value; }
     public Bestiary EnemyType { get => enemyType; set => enemyType = value; }
     public Sprite EnemySprite { get => enemySprite; set => enemySprite = value; }
