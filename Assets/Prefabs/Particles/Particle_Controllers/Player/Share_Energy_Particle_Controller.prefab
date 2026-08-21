@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &8648763258403159586
+--- !u!1 &4048556863368473733
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,40 +8,40 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 8725563056179592802}
-  - component: {fileID: 3418920177797721020}
+  - component: {fileID: 8659238227689087047}
+  - component: {fileID: 6070922530516715048}
   m_Layer: 0
-  m_Name: Lesser_Heal_Particle_Controller
+  m_Name: Share_Energy_Particle_Controller
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &8725563056179592802
+--- !u!4 &8659238227689087047
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8648763258403159586}
+  m_GameObject: {fileID: 4048556863368473733}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.22762, y: -0.28478, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3418920177797721020
+--- !u!114 &6070922530516715048
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8648763258403159586}
+  m_GameObject: {fileID: 4048556863368473733}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 218d70fa910caaa42a83d11437a8b5a0, type: 3}
+  m_Script: {fileID: 11500000, guid: 2cde65342d5577e49a064743e7c17d40, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
-  lesserHealParticle: {fileID: 4742793805052061861, guid: 5d9fb7c234f76214e87ecd50785af429, type: 3}
+  m_EditorClassIdentifier: Assembly-CSharp::Board_Effect_Particle_Controller
+  bulletParticle: {fileID: 4655845242510116469, guid: 81af5f76e775eb74ab371a7ddb2eedae, type: 3}

@@ -78,6 +78,11 @@ public class PartyManager : MonoBehaviour
         }
     }
 
+    public void ApplyStatus(int pos, StatusEffect status, int duration, bool protection = false)
+    {
+        players[pos].Status.AddStatusEffect(status, duration, protection);
+    }
+
     public List<Player_Information> Players()
     {
         return players;

@@ -9,19 +9,28 @@ public class Effect_Overlay_Controller : Particle_Controller_Dad
     private GameObject overlayObject;
     [SerializeField]
     private AnimationClip anim;
-    [SerializeField]
-    private List<float> flashTimes;
+    
+    private List<float> damageTimes;
+    private Dictionary<float, AnimDetails> animationTimes;
 
     public override IEnumerator Activate()
     {
         foreach (MoveResult result in targets)
         {
             int target = result.targetNum;
-            Vector2 pos = Combat_UI_Commands.GetPlayerPosition(target).position;
+            Target type = result.targetType;
+            Vector2 pos;
+            if (type == Target.ENEMY)
+            {
+                pos = Combat_UI_Commands.GetEnemyPosition(target);
+            } else
+            {
+                pos = Combat_UI_Commands.GetPlayerPosition(target).position;
+            }
             GameObject tempParticle = Instantiate(overlayObject, pos, Quaternion.identity);
-            var damageList = DamageList(flashTimes.Count, result.potency);
-            List<(float time, int damage)> zipList = flashTimes.Zip(damageList, (time, damage) => (time, damage)).ToList();
-            tempParticle.GetComponent<Particle_Animation>().ParticleInitialize(anim, zipList, result, 5.0f, this);
+            var damageList = DamageList(damageTimes.Count, result.potency);
+            Dictionary<float, int> zipDictionary = damageTimes.Zip(damageList, (time, damage) => new { time, damage }).ToDictionary(x => x.time, x => x.damage);
+            tempParticle.GetComponent<Particle_Animation>().ParticleInitialize(anim, zipDictionary, animationTimes, result, 5.0f, this);
         }
 
         yield return new WaitForSeconds(0.0f);
@@ -51,5 +60,12 @@ public class Effect_Overlay_Controller : Particle_Controller_Dad
         }
 
         return list;
+    }
+
+    public void Setup(Move_Dad papa, List<MoveResult> targets, List<float> damageTimes, Dictionary<float, AnimDetails> animationTimes)
+    {
+        this.damageTimes = damageTimes;
+        this.animationTimes = animationTimes;
+        base.Setup(papa, targets);
     }
 }

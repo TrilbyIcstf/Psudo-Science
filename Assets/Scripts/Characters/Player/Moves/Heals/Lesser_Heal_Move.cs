@@ -3,6 +3,9 @@ using UnityEngine;
 
 public class Lesser_Heal_Move : Player_Move
 {
+    [SerializeField]
+    private GameObject healParticle;
+
     // Move Effects
     public override bool ApplyMove(Player_Information pi, List<MoveResult> results, Move_Information mi)
     {
@@ -32,7 +35,7 @@ public class Lesser_Heal_Move : Player_Move
         GameObject tempParticleController = Instantiate(mainParticleController);
         Vector2 targetPos = Combat_UI_Commands.GetPlayerPosition(results[0].targetNum).position;
 
-        tempParticleController.GetComponent<Lesser_Heal_Particle_Controller>().Setup(targetPos, this, results);
+        tempParticleController.GetComponent<Floating_Effect_Particle_Controller>().Setup(targetPos, this, results, healParticle);
         GameManager.instance.fx.AddParticleManager(tempParticleController);
         moveStarted = true;
     }

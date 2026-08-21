@@ -7,6 +7,7 @@ public class Character_Status
     public bool IsAlive { get => isAlive; set => isAlive = value; }
 
     protected Dictionary<StatusEffect, int> statusEffects = new Dictionary<StatusEffect, int>();
+    protected HashSet<StatusEffect> newStatusCheck = new HashSet<StatusEffect>();
 
     public int GetAdjustedPower(int initial)
     {
@@ -59,11 +60,16 @@ public class Character_Status
     /// <summary>
     /// Adds the passed status effect to the character.
     /// </summary>
-    public bool AddStatusEffect(StatusEffect se, int duration)
+    public bool AddStatusEffect(StatusEffect se, int duration, bool protection = false)
     {
+        if (protection)
+        {
+            newStatusCheck.Add(se);
+        }
+
         if (statusEffects.ContainsKey(se))
         {
-            statusEffects[se] = duration;
+            statusEffects[se] = Mathf.Max(duration, statusEffects[se]);
             return true;
         }
         else
@@ -78,10 +84,16 @@ public class Character_Status
         List<StatusEffect> tempList = new List<StatusEffect>(statusEffects.Keys);
         foreach (StatusEffect se in tempList)
         {
-            statusEffects[se] -= 1;
-            if (statusEffects[se] <= 0)
+            if (newStatusCheck.Contains(se))
             {
-                RemoveStatusEffect(se);
+                newStatusCheck.Remove(se);
+            } else
+            {
+                statusEffects[se] -= 1;
+                if (statusEffects[se] <= 0)
+                {
+                    RemoveStatusEffect(se);
+                }
             }
         }
     }

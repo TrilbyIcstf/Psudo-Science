@@ -9,9 +9,12 @@ public class Particle_Animation : Particle_Dad
 
     private MoveResult moveResult;
     private Animator anim;
-    private List<(float time, int potency)> flashTimes;
+    private Dictionary<float, int> damageTimes;
+    private Dictionary<float, AnimDetails> animationTimes;
 
     private AnimatorOverrideController overrideController;
+
+    private Target type;
 
     private void Awake()
     {
@@ -20,13 +23,14 @@ public class Particle_Animation : Particle_Dad
         anim.runtimeAnimatorController = overrideController;
     }
 
-    public void ParticleInitialize(AnimationClip overrideAnim, List<(float time, int potency)> flashTimes, MoveResult moveResult, float lifeSpan, Particle_Controller_Dad papa)
+    public void ParticleInitialize(AnimationClip overrideAnim, Dictionary<float, int> flashTimes, Dictionary<float, AnimDetails> animationTimes, MoveResult moveResult, float lifeSpan, Particle_Controller_Dad papa)
     {
         this.moveResult = moveResult;
         anim = GetComponent<Animator>();
-        this.flashTimes = flashTimes;
-        RegisterNextDamage();
+        this.damageTimes = flashTimes;
+        this.animationTimes = animationTimes;
         overrideController["Placeholder_Anim"] = overrideAnim;
+        type = moveResult.targetType;
         base.ParticleInitialize(lifeSpan, papa);
         anim.SetTrigger("Play");
     }
@@ -44,22 +48,35 @@ public class Particle_Animation : Particle_Dad
     }
 
     protected override void ParticleUpdate() {
-        if (flashTimes.Any(n => n.time <= age))
+        List<float> passDamageTimes = damageTimes.Keys.Where(n => n <= age).ToList();
+        if (passDamageTimes.Count > 0)
         {
-            father.SendAnimation(new AnimDetails(CombatAnimation.ColorFlash, moveResult.targetType, moveResult.targetNum, null, damageColor));
-            GameManager.instance.combat.combatUI.PlayerUI[moveResult.targetNum].HealthScript.ApplyChange(gameObject);
+            int totalDamage = 0;
+            foreach (float time in passDamageTimes)
+            {
+                totalDamage += damageTimes[time];
+                damageTimes.Remove(time);
+            }
 
-            flashTimes.RemoveAll(n => n.time <= age);
-            RegisterNextDamage();
+            if (type == Target.PC)
+            {
+                GameManager.instance.combat.combatUI.PlayerUI[moveResult.targetNum].HealthScript.RegisterChange(gameObject, -totalDamage);
+                GameManager.instance.combat.combatUI.PlayerUI[moveResult.targetNum].HealthScript.ApplyChange(gameObject);
+            } else if (type == Target.ENEMY)
+            {
+                GameManager.instance.combat.GetEnemy(moveResult.targetNum).RegisterDisplayDamage(gameObject, totalDamage);
+                GameManager.instance.combat.GetEnemy(moveResult.targetNum).ApplyDisplayDamage(gameObject);
+            }
         }
-    }
 
-    private void RegisterNextDamage()
-    {
-        if (flashTimes.Count > 0)
+        List<float> passAnimationTimes = animationTimes.Keys.Where(n => n <= age).ToList();
+        foreach (float time in passAnimationTimes)
         {
-            int nextDamage = -flashTimes.OrderBy(t => t.time).FirstOrDefault().potency;
-            GameManager.instance.combat.combatUI.PlayerUI[moveResult.targetNum].HealthScript.RegisterChange(gameObject, nextDamage);
+            AnimDetails anim = animationTimes[time];
+            anim.targetType = moveResult.targetType;
+            anim.target = moveResult.targetNum;
+            father.SendAnimation(anim);
+            animationTimes.Remove(time);
         }
     }
 }

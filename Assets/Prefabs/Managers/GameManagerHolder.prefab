@@ -118,6 +118,10 @@ MonoBehaviour:
       value: {fileID: 8371054626992783663, guid: 6b1ccf7f0f7c3c249895871c9cbf4dbb, type: 3}
     - key: 2001
       value: {fileID: 3369328139897638950, guid: 959ff5bad71c8df428d24d81e7b4022d, type: 3}
+    - key: 1801
+      value: {fileID: 8418444495445837146, guid: f79451170cff7ba41b275d7d29232693, type: 3}
+    - key: 1102
+      value: {fileID: 6182540813633563750, guid: dc084c84d0eb75d40aae2f3ee7b7234d, type: 3}
   enemyMoveRepository:
     keyValuePairs:
     - key: 1001

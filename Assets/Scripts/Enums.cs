@@ -318,7 +318,8 @@ public enum Bestiary
 public enum CombatAnimation
 {
     SmallRecoil,
-    ColorFlash
+    ColorFlash,
+    SmallShake,
 }
 
 public static class EnumMapping
@@ -331,6 +332,8 @@ public static class EnumMapping
                 return "SmallRecoil";
             case CombatAnimation.ColorFlash:
                 return "ColorFlash";
+            case CombatAnimation.SmallShake:
+                return "SmallShake";
             default:
                 return "";
         }

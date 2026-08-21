@@ -36,6 +36,6 @@ public class Enemy_Stats : Character_Status
     public int Power { get => GetAdjustedPower(attackStat); set => attackStat = value; }
     public int Defense { get => defenseStat; set => defenseStat = value; }
     public int Intelligence { get => GetAdjustedInt(magicStat); set => magicStat = value; }
-    public int MagDefense { get => magDefenseStat; set => magDefenseStat = value; }
+    public int Resistance { get => magDefenseStat; set => magDefenseStat = value; }
     public Dictionary<StatusEffect, int> StatusEffects { get => statusEffects; }
 }

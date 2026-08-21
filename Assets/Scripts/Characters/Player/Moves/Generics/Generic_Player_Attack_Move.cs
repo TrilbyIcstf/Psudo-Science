@@ -14,8 +14,17 @@ public abstract class Generic_Player_Attack_Move : Player_Move
     public override MoveResult TargetCalc(Player_Information pi, int target, Move_Information mi)
     {
         Enemy_Stats targetStats = GameManager.instance.combat.GetEnemy(target).GetStats();
-        float result = mi.AdjustedPotency * (pi.Intelligence * 2);
-        result = result - (targetStats.MagDefense / 2);
+        float result = 0;
+
+        if (mi.Type == MoveType.PHYSICAL)
+        {
+            result = (pi.Power * 2) - (targetStats.Defense * 0.5f);
+        } else if (mi.Type == MoveType.MAGICAL)
+        {
+            result = (pi.Intelligence * 2) - (targetStats.Resistance * 0.5f);
+        }
+        result = result * mi.AdjustedPotency;
+
         result = result * Combat_Commands.GetBoost();
         result = Mathf.Max(1, result);
 

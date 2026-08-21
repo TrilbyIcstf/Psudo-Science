@@ -580,6 +580,12 @@ public class Board_Controller : MonoBehaviour
                 break;
         }
 
+        if (color.IsPlayer())
+        {
+            Player_Status player = GameManager.instance.party.GetPlayer(color).Status;
+            adjustedVal = adjustedVal * StatusPointMultiplier(player);
+        }
+
         if (color.ForceInt())
         {
             adjustedVal = Mathf.Max(adjustedVal, 1); // Has to give at least 1 point
@@ -587,6 +593,26 @@ public class Board_Controller : MonoBehaviour
         }
 
         return adjustedVal;
+    }
+
+    private float StatusPointMultiplier(Player_Status player)
+    {
+        float mult = 1.0f;
+
+        foreach (StatusEffect se in player.StatusEffects.Keys)
+        {
+            switch(se)
+            {
+                case StatusEffect.WARMUP:
+                    mult += 0.34f;
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        return mult;
+
     }
 
     private int EvaluateRevive(float chain, TColor color)

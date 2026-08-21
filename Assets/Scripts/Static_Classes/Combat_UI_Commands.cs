@@ -32,6 +32,11 @@ public static class Combat_UI_Commands
         return GameManager.instance.combat.combatUI.PlayerUI[_player].PlayerObject.transform;
     }
 
+    public static Vector2 GetEnemyPosition(int _enemy)
+    {
+        return GameManager.instance.combat.GetEnemy(_enemy).GetSpriteInfo().GetCenter();
+    }
+
     public static Transform GetEnergyBarPos(TColor _tint)
     {
         return GetEnergyBarPos(_tint.ToPC());
