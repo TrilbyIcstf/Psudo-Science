@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 169c2950a62f74d4a93a656a6df40742, type: 3}
   m_Name: Shatter
   m_EditorClassIdentifier: Assembly-CSharp::Move_Information
-  moveName: 
-  moveEnum: 0
-  type: 0
-  element: 0
-  potency: 0
-  manaCost: 0
-  description: 
+  moveName: Shatter
+  moveEnum: 1102
+  type: 1
+  element: 1
+  potency: 300
+  manaCost: 95
+  description: Deals heavy blunt damage with a large mana cost.

@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 169c2950a62f74d4a93a656a6df40742, type: 3}
   m_Name: Glancing_Blow
   m_EditorClassIdentifier: Assembly-CSharp::Move_Information
-  moveName: 
-  moveEnum: 0
-  type: 0
-  element: 0
-  potency: 0
-  manaCost: 0
-  description: 
+  moveName: Glancing Blow
+  moveEnum: 1101
+  type: 1
+  element: 1
+  potency: 75
+  manaCost: 30
+  description: Deals weak blunt damage.
