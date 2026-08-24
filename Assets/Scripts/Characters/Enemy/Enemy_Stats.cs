@@ -13,6 +13,9 @@ public class Enemy_Stats : Character_Status
     private int magicStat;
     private int magDefenseStat;
 
+    private List<Element> weakness;
+    private List<Element> strength;
+
     public Enemy_Stats(Enemy_Information baseStats)
     {
         this.levelStat = baseStats.Level;
@@ -22,6 +25,8 @@ public class Enemy_Stats : Character_Status
         this.defenseStat = baseStats.Defense;
         this.magicStat = baseStats.Intelligence;
         this.magDefenseStat = baseStats.Resistance;
+        this.weakness = baseStats.Weakness;
+        this.strength = baseStats.Strength;
     }
 
     public int DealDamage(int amount)
@@ -37,5 +42,7 @@ public class Enemy_Stats : Character_Status
     public int Defense { get => GetAdjustedDefense(defenseStat); set => defenseStat = value; }
     public int Intelligence { get => GetAdjustedInt(magicStat); set => magicStat = value; }
     public int Resistance { get => GetAdjustedResistance(magDefenseStat); set => magDefenseStat = value; }
+    public List<Element> Weakness { get => weakness; }
+    public List<Element> Strength { get => strength; }
     public Dictionary<StatusEffect, int> StatusEffects { get => statusEffects; }
 }

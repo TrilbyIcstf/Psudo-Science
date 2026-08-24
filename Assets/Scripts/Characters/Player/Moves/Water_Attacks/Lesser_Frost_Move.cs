@@ -9,7 +9,7 @@ public class Lesser_Frost_Move : Generic_Player_Attack_Move
     public override void StartMove(int user, List<MoveResult> results)
     {
         GameObject tempParticleController = Instantiate(mainParticleController);
-        tempParticleController.GetComponent<Bullet_Spray_Particle_Controller>().Setup(Combat_UI_Commands.GetPlayerPosition(user).position, (Vector2)Combat_Commands.GetTargetedBodyPart(targetPart), this, results, 4, results[0].potency);
+        tempParticleController.GetComponent<Bullet_Spray_Particle_Controller>().Setup(Combat_UI_Commands.GetPlayerPosition(user).position, (Vector2)Combat_Commands.GetTargetedBodyPart(targetPart), this, results, 4, results[0].Potency);
         GameManager.instance.fx.AddParticleManager(tempParticleController);
         moveStarted = true;
     }

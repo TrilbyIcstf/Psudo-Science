@@ -24,6 +24,11 @@ public class Enemy_Information : ScriptableObject
     [SerializeField] private int magicStat = 10;
     [SerializeField] private int magDefenseStat = 10;
 
+    // Elemental weakness/resistance
+    [Header("Elements")]
+    [SerializeField] private List<Element> weakness = new List<Element>();
+    [SerializeField] private List<Element> strength = new List<Element>();
+
     // The image of the enemy
     [Header("Image")]
     [SerializeField] private Sprite enemySprite;
@@ -31,11 +36,13 @@ public class Enemy_Information : ScriptableObject
     [SerializeField] private float healthBarHeight;
 
     public int Level{ get => levelStat; set => levelStat = value; }
-    public int MaxHealth { get => maxHealthStat; set => maxHealthStat = value; }
-    public int Power { get => attackStat; set => attackStat = value; }
-    public int Defense { get => defenseStat; set => defenseStat = value; }
-    public int Intelligence { get => magicStat; set => magicStat = value; }
-    public int Resistance { get => magDefenseStat; set => magDefenseStat = value; }
+    public int MaxHealth { get => maxHealthStat; }
+    public int Power { get => attackStat; }
+    public int Defense { get => defenseStat; }
+    public int Intelligence { get => magicStat; }
+    public int Resistance { get => magDefenseStat; }
+    public List<Element> Weakness { get => weakness; }
+    public List<Element> Strength { get => strength; }
     public string EnemyName { get => enemyName; set => enemyName = value; }
     public Bestiary EnemyType { get => enemyType; set => enemyType = value; }
     public Sprite EnemySprite { get => enemySprite; set => enemySprite = value; }

@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 169c2950a62f74d4a93a656a6df40742, type: 3}
   m_Name: Valient_Strength
   m_EditorClassIdentifier: Assembly-CSharp::Move_Information
-  moveName: 
-  moveEnum: 0
-  type: 0
+  moveName: Valient Strength
+  moveEnum: 1802
+  type: 4
   element: 0
-  potency: 0
-  manaCost: 0
-  description: 
+  potency: 7
+  manaCost: 25
+  description: Gives a small damage boost to all party members.

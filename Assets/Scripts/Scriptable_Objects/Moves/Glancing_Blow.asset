@@ -18,4 +18,4 @@ MonoBehaviour:
   element: 1
   potency: 75
   manaCost: 30
-  description: Deals weak blunt damage.
+  description: Deals weak blunt damage to the target.

@@ -231,6 +231,13 @@ public enum Target
     NULL
 }
 
+public enum Effectiveness
+{
+    WEAKNESS,
+    NEUTRAL,
+    STRENGTH
+}
+
 public enum TargetingType
 {
     LowestHealth,

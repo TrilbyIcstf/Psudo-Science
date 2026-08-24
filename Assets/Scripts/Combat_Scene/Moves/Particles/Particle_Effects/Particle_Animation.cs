@@ -30,7 +30,7 @@ public class Particle_Animation : Particle_Dad
         this.damageTimes = flashTimes;
         this.animationTimes = animationTimes;
         overrideController["Placeholder_Anim"] = overrideAnim;
-        type = moveResult.targetType;
+        type = moveResult.TargetType;
         base.ParticleInitialize(lifeSpan, papa);
         anim.SetTrigger("Play");
     }
@@ -60,12 +60,12 @@ public class Particle_Animation : Particle_Dad
 
             if (type == Target.PC)
             {
-                GameManager.instance.combat.combatUI.PlayerUI[moveResult.targetNum].HealthScript.RegisterChange(gameObject, -totalDamage);
-                GameManager.instance.combat.combatUI.PlayerUI[moveResult.targetNum].HealthScript.ApplyChange(gameObject);
+                GameManager.instance.combat.combatUI.PlayerUI[moveResult.TargetNum].HealthScript.RegisterChange(gameObject, -totalDamage);
+                GameManager.instance.combat.combatUI.PlayerUI[moveResult.TargetNum].HealthScript.ApplyChange(gameObject);
             } else if (type == Target.ENEMY)
             {
-                GameManager.instance.combat.GetEnemy(moveResult.targetNum).RegisterDisplayDamage(gameObject, totalDamage);
-                GameManager.instance.combat.GetEnemy(moveResult.targetNum).ApplyDisplayDamage(gameObject);
+                GameManager.instance.combat.GetEnemy(moveResult.TargetNum).RegisterDisplayDamage(gameObject, totalDamage);
+                GameManager.instance.combat.GetEnemy(moveResult.TargetNum).ApplyDisplayDamage(gameObject);
             }
         }
 
@@ -73,8 +73,8 @@ public class Particle_Animation : Particle_Dad
         foreach (float time in passAnimationTimes)
         {
             AnimDetails anim = animationTimes[time];
-            anim.targetType = moveResult.targetType;
-            anim.target = moveResult.targetNum;
+            anim.targetType = moveResult.TargetType;
+            anim.target = moveResult.TargetNum;
             father.SendAnimation(anim);
             animationTimes.Remove(time);
         }

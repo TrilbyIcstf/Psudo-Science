@@ -29,8 +29,8 @@ public abstract class Generic_Enemy_Attack_Move : Enemy_Move
     {
         foreach (MoveResult result in results)
         {
-            int target = result.targetNum;
-            float damage = result.potency;
+            int target = result.TargetNum;
+            float damage = result.Potency;
             GameManager.instance.combat.ProcessEnemyAttackDamage(target, (int)damage);
             Combat_UI_Commands.RefreshHealthBars();
         }

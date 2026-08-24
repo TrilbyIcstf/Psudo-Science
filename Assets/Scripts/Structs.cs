@@ -42,12 +42,20 @@ public struct MoveResult
     public Target targetType;
     public int targetNum;
 
-    public MoveResult(float potency, Target targetType, int targetNum)
+    public Effectiveness effectiveness;
+
+    public MoveResult(float potency, Target targetType, int targetNum, Effectiveness effectiveness = Effectiveness.NEUTRAL)
     {
         this.potency = potency;
         this.targetType = targetType;
         this.targetNum = targetNum;
+        this.effectiveness = effectiveness;
     }
+
+    public float Potency { get => potency; set => potency = value; }
+    public Target TargetType { get => targetType; set => targetType = value; }
+    public int TargetNum { get => targetNum; set => targetNum = value; }
+    public Effectiveness Effectiveness { get => effectiveness; set => effectiveness = value; }
 }
 
 public struct AnimDetails

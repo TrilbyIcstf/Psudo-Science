@@ -10,8 +10,8 @@ public class Valient_Strength_Move : Player_Move
     {
         foreach (MoveResult result in results)
         {
-            int duration = Mathf.CeilToInt(result.potency);
-            GameManager.instance.party.ApplyStatus(result.targetNum, StatusEffect.MINORPOWERUP, duration, true);
+            int duration = Mathf.CeilToInt(result.Potency);
+            GameManager.instance.party.ApplyStatus(result.TargetNum, StatusEffect.MINORPOWERUP, duration, true);
             Combat_UI_Commands.UpdateStatusIcons();
         }
         return true;
@@ -39,7 +39,7 @@ public class Valient_Strength_Move : Player_Move
         foreach (MoveResult result in results)
         {
             GameObject tempParticleController = Instantiate(mainParticleController);
-            Vector2 targetPos = Combat_UI_Commands.GetPlayerPosition(result.targetNum).position;
+            Vector2 targetPos = Combat_UI_Commands.GetPlayerPosition(result.TargetNum).position;
 
             tempParticleController.GetComponent<Floating_Effect_Particle_Controller>().Setup(targetPos, this, results, buffParticle);
             GameManager.instance.fx.AddParticleManager(tempParticleController);

@@ -22,7 +22,7 @@ public class Lesser_Tremorfield_Move : Generic_Player_Attack_Move
         foreach (MoveResult result in results)
         {
             GameObject tempParticleController = Instantiate(mainParticleController);
-            tempParticleController.GetComponent<Bullet_Spray_Particle_Controller>().Setup(Combat_UI_Commands.GetPlayerPosition(user).position, (Vector2)Combat_Commands.GetBodyPart(targetPart, result.targetNum), this, new List<MoveResult>() { result }, 3, result.potency);
+            tempParticleController.GetComponent<Bullet_Spray_Particle_Controller>().Setup(Combat_UI_Commands.GetPlayerPosition(user).position, (Vector2)Combat_Commands.GetBodyPart(targetPart, result.TargetNum), this, new List<MoveResult>() { result }, 3, result.Potency);
             GameManager.instance.fx.AddParticleManager(tempParticleController);
         }
         moveStarted = true;

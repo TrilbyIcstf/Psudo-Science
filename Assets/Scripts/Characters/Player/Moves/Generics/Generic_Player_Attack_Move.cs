@@ -23,6 +23,13 @@ public abstract class Generic_Player_Attack_Move : Player_Move
         }
         result = result * mi.AdjustedPotency;
 
+        if (targetStats.Weakness.Contains(mi.Element)) {
+            result = result * 1.5f;
+        } else if (targetStats.Strength.Contains(mi.Element))
+        {
+            result = result * 0.75f;
+        }
+
         result = result * Combat_Commands.GetBoost();
         result = Mathf.Max(1, result);
 
@@ -33,7 +40,7 @@ public abstract class Generic_Player_Attack_Move : Player_Move
     {
         foreach (MoveResult result in results)
         {
-            GameManager.instance.combat.ProcessPlayerAttackDamage(result.targetNum, (int)result.potency);
+            GameManager.instance.combat.ProcessPlayerAttackDamage(result.TargetNum, (int)result.Potency);
         }
         return true;
     }

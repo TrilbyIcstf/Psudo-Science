@@ -17,8 +17,8 @@ public class Effect_Overlay_Controller : Particle_Controller_Dad
     {
         foreach (MoveResult result in targets)
         {
-            int target = result.targetNum;
-            Target type = result.targetType;
+            int target = result.TargetNum;
+            Target type = result.TargetType;
             Vector2 pos;
             if (type == Target.ENEMY)
             {
@@ -28,7 +28,7 @@ public class Effect_Overlay_Controller : Particle_Controller_Dad
                 pos = Combat_UI_Commands.GetPlayerPosition(target).position;
             }
             GameObject tempParticle = Instantiate(overlayObject, pos, Quaternion.identity);
-            var damageList = DamageList(damageTimes.Count, result.potency);
+            var damageList = DamageList(damageTimes.Count, result.Potency);
             Dictionary<float, int> zipDictionary = damageTimes.Zip(damageList, (time, damage) => new { time, damage }).ToDictionary(x => x.time, x => x.damage);
             tempParticle.GetComponent<Particle_Animation>().ParticleInitialize(anim, zipDictionary, animationTimes, result, 5.0f, this);
         }

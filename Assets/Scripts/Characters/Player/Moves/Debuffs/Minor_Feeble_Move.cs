@@ -9,8 +9,8 @@ public class Minor_Feeble_Move : Player_Move
     public override bool ApplyMove(Player_Information pi, List<MoveResult> results, Move_Information mi)
     {
         MoveResult result = results[0];
-        int duration = Mathf.CeilToInt(result.potency * Combat_Commands.GetBoost());
-        GameManager.instance.combat.GetEnemy(result.targetNum).AddStatusEffect(StatusEffect.MINORPOWERDOWN, duration, true);
+        int duration = Mathf.CeilToInt(result.Potency * Combat_Commands.GetBoost());
+        GameManager.instance.combat.GetEnemy(result.TargetNum).AddStatusEffect(StatusEffect.MINORPOWERDOWN, duration, true);
         Combat_UI_Commands.UpdateStatusIcons();
         return true;
     }
@@ -30,7 +30,7 @@ public class Minor_Feeble_Move : Player_Move
     public override void StartMove(int user, List<MoveResult> results)
     {
         GameObject tempParticleController = Instantiate(mainParticleController);
-        Vector2 targetPos = Combat_UI_Commands.GetEnemyPosition(results[0].targetNum);
+        Vector2 targetPos = Combat_UI_Commands.GetEnemyPosition(results[0].TargetNum);
 
         tempParticleController.GetComponent<Floating_Effect_Particle_Controller>().Setup(targetPos, this, results, debuffParticle);
         GameManager.instance.fx.AddParticleManager(tempParticleController);

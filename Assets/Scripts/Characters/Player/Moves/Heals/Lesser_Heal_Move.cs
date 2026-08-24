@@ -10,7 +10,7 @@ public class Lesser_Heal_Move : Player_Move
     public override bool ApplyMove(Player_Information pi, List<MoveResult> results, Move_Information mi)
     {
         MoveResult result = results[0];
-        GameManager.instance.party.SingleHeal(result.targetNum, (int)result.potency);
+        GameManager.instance.party.SingleHeal(result.TargetNum, (int)result.Potency);
         Combat_UI_Commands.RefreshHealthBars();
         return true;
     }
@@ -33,7 +33,7 @@ public class Lesser_Heal_Move : Player_Move
     public override void StartMove(int user, List<MoveResult> results)
     {
         GameObject tempParticleController = Instantiate(mainParticleController);
-        Vector2 targetPos = Combat_UI_Commands.GetPlayerPosition(results[0].targetNum).position;
+        Vector2 targetPos = Combat_UI_Commands.GetPlayerPosition(results[0].TargetNum).position;
 
         tempParticleController.GetComponent<Floating_Effect_Particle_Controller>().Setup(targetPos, this, results, healParticle);
         GameManager.instance.fx.AddParticleManager(tempParticleController);

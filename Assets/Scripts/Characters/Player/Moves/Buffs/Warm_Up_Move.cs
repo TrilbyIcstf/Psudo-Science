@@ -9,8 +9,8 @@ public class Warm_Up_Move : Player_Move
     public override bool ApplyMove(Player_Information pi, List<MoveResult> results, Move_Information mi)
     {
         MoveResult result = results[0];
-        int duration = Mathf.CeilToInt(result.potency);
-        GameManager.instance.party.ApplyStatus(result.targetNum, StatusEffect.WARMUP, duration, true);
+        int duration = Mathf.CeilToInt(result.Potency);
+        GameManager.instance.party.ApplyStatus(result.TargetNum, StatusEffect.WARMUP, duration, true);
         Combat_UI_Commands.UpdateStatusIcons();
         return true;
     }
@@ -30,7 +30,7 @@ public class Warm_Up_Move : Player_Move
     public override void StartMove(int user, List<MoveResult> results)
     {
         GameObject tempParticleController = Instantiate(mainParticleController);
-        Vector2 targetPos = Combat_UI_Commands.GetPlayerPosition(results[0].targetNum).position;
+        Vector2 targetPos = Combat_UI_Commands.GetPlayerPosition(results[0].TargetNum).position;
 
         tempParticleController.GetComponent<Floating_Effect_Particle_Controller>().Setup(targetPos, this, results, buffParticle);
         GameManager.instance.fx.AddParticleManager(tempParticleController);
