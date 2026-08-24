@@ -27,8 +27,34 @@ public class Character_Status
                 case StatusEffect.MAJORPOWERUP:
                     mult += 0.75f;
                     break;
+                case StatusEffect.MINORPOWERDOWN:
+                    mult -= 0.15f;
+                    if (statusEffects.ContainsKey(StatusEffect.MINORPOWERUP))
+                    {
+                        mult -= 0.1f;
+                    }
+                    break;
+                case StatusEffect.MIDPOWERDOWN:
+                    mult -= 0.35f;
+                    if (statusEffects.ContainsKey(StatusEffect.MIDPOWERUP))
+                    {
+                        mult -= 0.15f;
+                    }
+                    break;
+                case StatusEffect.MAJORPOWERDOWN:
+                    mult -= 0.5f;
+                    if (statusEffects.ContainsKey(StatusEffect.MAJORPOWERUP))
+                    {
+                        mult -= 0.25f;
+                    }
+                    break;
+                case StatusEffect.WARMUP:
+                    flatBoost += 10;
+                    break;
             }
         }
+
+        mult = Mathf.Max(mult, 0);
 
         return Mathf.CeilToInt((initial * mult) + flatBoost);
     }
@@ -51,8 +77,65 @@ public class Character_Status
                 case StatusEffect.MAJORPOWERUP:
                     mult += 0.75f;
                     break;
+                case StatusEffect.MINORPOWERDOWN:
+                    mult -= 0.15f;
+                    if (statusEffects.ContainsKey(StatusEffect.MINORPOWERUP))
+                    {
+                        mult -= 0.1f;
+                    }
+                    break;
+                case StatusEffect.MIDPOWERDOWN:
+                    mult -= 0.35f;
+                    if (statusEffects.ContainsKey(StatusEffect.MIDPOWERUP))
+                    {
+                        mult -= 0.15f;
+                    }
+                    break;
+                case StatusEffect.MAJORPOWERDOWN:
+                    mult -= 0.5f;
+                    if (statusEffects.ContainsKey(StatusEffect.MAJORPOWERUP))
+                    {
+                        mult -= 0.25f;
+                    }
+                    break;
             }
         }
+
+        mult = Mathf.Max(mult, 0);
+
+        return Mathf.CeilToInt((initial * mult) + flatBoost);
+    }
+
+    public int GetAdjustedDefense(int initial)
+    {
+        float flatBoost = 0;
+        float mult = 1.0f;
+
+        foreach (var se in statusEffects)
+        {
+            /*switch (se.Key)
+            {
+            }*/
+        }
+
+        mult = Mathf.Max(mult, 0);
+
+        return Mathf.CeilToInt((initial * mult) + flatBoost);
+    }
+
+    public int GetAdjustedResistance(int initial)
+    {
+        float flatBoost = 0;
+        float mult = 1.0f;
+
+        foreach (var se in statusEffects)
+        {
+            /*switch (se.Key)
+            {
+            }*/
+        }
+
+        mult = Mathf.Max(mult, 0);
 
         return Mathf.CeilToInt((initial * mult) + flatBoost);
     }

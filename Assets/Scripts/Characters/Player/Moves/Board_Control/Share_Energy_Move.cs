@@ -33,12 +33,12 @@ public class Share_Energy_Move : Player_Move
 
     public override MoveResult TargetCalc(Player_Information pi, int target, Move_Information mi)
     {
-        return new MoveResult(0, Target.NULL, pi.position);
+        return new MoveResult(0, Target.NULL, pi.Position);
     }
 
     public override List<MoveResult> ResultsCalc(Player_Information pi, int target, Move_Information mi)
     {
-        TColor pColor = TColorExtensions.FromPos(pi.position);
+        TColor pColor = TColorExtensions.FromPos(pi.Position);
         List<Vector2Int> tilePos = GameManager.instance.combat.board.GetAllTilePosOfColor(pColor);
 
         List<TColor> colorList = new List<TColor> { TColor.BLUE, TColor.ORANGE, TColor.PINK, TColor.PURPLE };

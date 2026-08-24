@@ -90,13 +90,16 @@ public enum Element
 
 public enum StatusEffect
 {
-    POISONED = 1,
+    ROT = 1,
     BURNED = 2,
     CONFUSED = 3,
     SLOW = 4,
     MINORPOWERUP = 1001,
     MIDPOWERUP = 1002,
     MAJORPOWERUP = 1003,
+    MINORPOWERDOWN = 2001,
+    MIDPOWERDOWN = 2002,
+    MAJORPOWERDOWN = 2003,
     WARMUP = 9901,
 }
 
@@ -256,12 +259,13 @@ public enum MoveName
     LesserFrostField = 1402,
 
     // Air spells
-    LesserAreo = 1501,
-    ConcentratedAreo = 1502,
+    LesserStorm = 1501,
+    ConcentratedStorm = 1502,
 
     // Earth spells
     LesserTremor = 1601,
-    ConcentratedTremor = 1602,
+    LesserTremorfield = 1602,
+    ConcentratedTremor = 1603,
 
     // Healing spells
     LesserHeal = 1701,
@@ -273,6 +277,7 @@ public enum MoveName
 
     // Debuffs
     Slow = 1901,
+    MinorFeeble = 1902,
 
     // Board spells
     ShareEnergy = 2001,

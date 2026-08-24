@@ -34,8 +34,8 @@ public class Enemy_Stats : Character_Status
     public int MaxHealth { get => maxHealthStat; set => maxHealthStat = value; }
     public int CurrentHealth { get => currentHealthStat; set => currentHealthStat = Mathf.Min(value, maxHealthStat); }
     public int Power { get => GetAdjustedPower(attackStat); set => attackStat = value; }
-    public int Defense { get => defenseStat; set => defenseStat = value; }
+    public int Defense { get => GetAdjustedDefense(defenseStat); set => defenseStat = value; }
     public int Intelligence { get => GetAdjustedInt(magicStat); set => magicStat = value; }
-    public int Resistance { get => magDefenseStat; set => magDefenseStat = value; }
+    public int Resistance { get => GetAdjustedResistance(magDefenseStat); set => magDefenseStat = value; }
     public Dictionary<StatusEffect, int> StatusEffects { get => statusEffects; }
 }

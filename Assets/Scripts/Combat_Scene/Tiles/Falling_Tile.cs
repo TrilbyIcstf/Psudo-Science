@@ -18,7 +18,6 @@ public class Falling_Tile : MonoBehaviour
     private float visablePos = 0; // The position at which the falling tile becomes visable
 
     private float fallSpeed = 0;
-    private float fauxTimer = 1;
     private float speedMultiplier = 1;
 
     private float reboundSpeed = 0.005f;

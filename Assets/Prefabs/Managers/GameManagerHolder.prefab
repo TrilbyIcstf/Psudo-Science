@@ -122,6 +122,14 @@ MonoBehaviour:
       value: {fileID: 8418444495445837146, guid: f79451170cff7ba41b275d7d29232693, type: 3}
     - key: 1102
       value: {fileID: 6182540813633563750, guid: dc084c84d0eb75d40aae2f3ee7b7234d, type: 3}
+    - key: 1101
+      value: {fileID: 6035024254718261111, guid: bbb2e96cb78193040814b88190171c3c, type: 3}
+    - key: 1902
+      value: {fileID: 408483324633495413, guid: 75614315c07c64449bc9e1c54833ddc1, type: 3}
+    - key: 1502
+      value: {fileID: 8277091165040846448, guid: a29732dcbf4e5994f8a74eb0526c5ca1, type: 3}
+    - key: 1602
+      value: {fileID: 3556535284269780220, guid: d4bb5739fe178c349ac1c8ad47220bb5, type: 3}
   enemyMoveRepository:
     keyValuePairs:
     - key: 1001
@@ -158,3 +166,9 @@ MonoBehaviour:
       value: {fileID: 4825073417817262207, guid: c80adc3d168f31e43aa47b02fe0285ca, type: 3}
     - key: 9901
       value: {fileID: -6254829590572276940, guid: 2ecbde3e6d3fee141bcf43fb7d755937, type: 3}
+    - key: 2001
+      value: {fileID: -8550491818385120751, guid: 2d06af5de2fa9da47a04983806ace3f7, type: 3}
+    - key: 2002
+      value: {fileID: -3049464509396245856, guid: 037426ca55f929742a994cbeb6a06ec7, type: 3}
+    - key: 2003
+      value: {fileID: 5602940492315421531, guid: 93beea00a7f9ecc4693d460f9c739cfd, type: 3}

@@ -6,9 +6,7 @@ public abstract class Generic_Player_Attack_Move : Player_Move
     // Move Effects
     public override List<MoveResult> ResultsCalc(Player_Information pi, int target, Move_Information mi)
     {
-        List<MoveResult> results = new List<MoveResult>();
-        results.Add(TargetCalc(pi, target, mi));
-        return results;
+        return new List<MoveResult>() { TargetCalc(pi, target, mi) };
     }
 
     public override MoveResult TargetCalc(Player_Information pi, int target, Move_Information mi)
@@ -33,8 +31,10 @@ public abstract class Generic_Player_Attack_Move : Player_Move
 
     public override bool ApplyMove(Player_Information pi, List<MoveResult> results, Move_Information mi)
     {
-        MoveResult result = results[0];
-        GameManager.instance.combat.ProcessPlayerAttackDamage(result.targetNum, (int)result.potency);
+        foreach (MoveResult result in results)
+        {
+            GameManager.instance.combat.ProcessPlayerAttackDamage(result.targetNum, (int)result.potency);
+        }
         return true;
     }
 }

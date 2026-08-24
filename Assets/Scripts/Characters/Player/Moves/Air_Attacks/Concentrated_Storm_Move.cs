@@ -1,0 +1,23 @@
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Concentrated_Storm_Move : Generic_Player_Attack_Move
+{
+    private BodyPart targetPart = BodyPart.BODY;
+
+    // Particles/Animations
+    public override void StartMove(int user, List<MoveResult> results)
+    {
+        GameObject tempParticleController = Instantiate(mainParticleController);
+        tempParticleController.GetComponent<Bullet_Spray_Particle_Controller>().Setup(Combat_UI_Commands.GetPlayerPosition(user).position, (Vector2)Combat_Commands.GetTargetedBodyPart(targetPart), this, results, 6, results[0].potency);
+        GameManager.instance.fx.AddParticleManager(tempParticleController);
+        moveStarted = true;
+    }
+
+    public override void EndMove(int user) { }
+
+    public override bool IsMoveFinished()
+    {
+        return moveStarted && particleControllerList.Count <= 0;
+    }
+}

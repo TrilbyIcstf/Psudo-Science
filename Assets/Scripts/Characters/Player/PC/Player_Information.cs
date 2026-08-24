@@ -10,7 +10,7 @@ using UnityEngine;
 public class Player_Information : ScriptableObject
 {
     [Header("Game Position")]
-    [SerializeField] public int position = 0;
+    [SerializeField] private int position = 0;
 
     // Information on the represented character
     [Header("Character Info")]
@@ -130,13 +130,13 @@ public class Player_Information : ScriptableObject
     public int EquipDefense { get => defenseStat + eqWeapon.Defense + eqHelmet.Defense + eqArmor.Defense + eqPant.Defense + eqAcc1.Defense + eqAcc2.Defense; }
     public int EquipMagic { get => magicStat + eqWeapon.Magic + eqHelmet.Magic + eqArmor.Magic + eqPant.Magic + eqAcc1.Magic + eqAcc2.Magic; }
     public int EquipMagDefense { get => magDefenseStat + eqWeapon.MagDefense + eqHelmet.MagDefense + eqArmor.MagDefense + eqPant.MagDefense + eqAcc1.MagDefense + eqAcc2.MagDefense; }
-    public int MaxHealth { get => Mathf.CeilToInt((EquipMaxHealth + status.HealthBuff) * status.HealthMult); }
+    public int MaxHealth { get => EquipMaxHealth; }
     public int CurrentHealth { get => status.CurrentHealth; }
     public int CurrentDamage { get => MaxHealth - status.CurrentHealth; }
-    public int Power { get => status.GetAdjustedPower(attackStat); }
-    public int Defense { get => Mathf.CeilToInt((EquipDefense + status.DefenseBuff) * status.DefenseMult); }
-    public int Intelligence { get => status.GetAdjustedInt(magicStat); }
-    public int Resistance { get => Mathf.CeilToInt((EquipMagDefense + status.MagDefenseBuff) * status.MagDefenseMult); }
+    public int Power { get => status.GetAdjustedPower(EquipAttack); }
+    public int Defense { get => status.GetAdjustedDefense(EquipDefense); }
+    public int Intelligence { get => status.GetAdjustedInt(EquipMagic); }
+    public int Resistance { get => status.GetAdjustedResistance(EquipMagDefense); }
     public Equip_Information Weapon { get => eqWeapon; set => eqWeapon = value; }
     public Equip_Information Helmet { get => eqHelmet; set => eqHelmet = value; }
     public Equip_Information Armor { get => eqArmor; set => eqArmor = value; }

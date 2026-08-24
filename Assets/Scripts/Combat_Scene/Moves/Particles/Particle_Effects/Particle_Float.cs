@@ -2,6 +2,9 @@ using UnityEngine;
 
 public class Particle_Float : Particle_Dad
 {
+    [SerializeField]
+    private bool goUp = true;
+
     public void ParticleInitialize(Vector2 goal, float startSpeed, float startAccel, float lifeSpan, Particle_Controller_Dad papa)
     {
         moveAccel = startAccel;
@@ -22,7 +25,7 @@ public class Particle_Float : Particle_Dad
 
     protected override void ParticleUpdate()
     {
-        transform.position += (Vector3)(moveSpeed * moveDirection.normalized);
+        transform.position += (Vector3)((moveSpeed * (goUp ? 1 : -1)) * moveDirection.normalized);
         moveSpeed *= moveAccel;
     }
 }

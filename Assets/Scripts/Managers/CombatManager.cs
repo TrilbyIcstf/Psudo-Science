@@ -75,14 +75,16 @@ public class CombatManager : MonoBehaviour
         // TODO: In future, have this check how many players are in the battle.
 
         MoveName[] testV = { MoveName.LesserSpark, MoveName.LesserFrost, MoveName.LesserHeal };
-        MoveName[] testS = { MoveName.LesserFrost, MoveName.Shatter, MoveName.WarmUp };
-        MoveName[][] test5 = { testV, testS, testV, testV };
+        MoveName[] testS = { MoveName.GlancingBlow, MoveName.Shatter, MoveName.WarmUp };
+        MoveName[] testG = { MoveName.LesserSpark, MoveName.LesserFrost, MoveName.ShareEnergy };
+        MoveName[] testVal = { MoveName.ConcentratedStorm, MoveName.LesserTremorfield, MoveName.MinorFeeble };
+        MoveName[][] test5 = { testV, testS, testG, testVal };
         combatUI.SetupMoveButtons(test5);
 
         selectedMoves[PC.VANESSA] = MoveName.LesserSpark;
-        selectedMoves[PC.SAMANTHA] = MoveName.Shatter;
+        selectedMoves[PC.SAMANTHA] = MoveName.GlancingBlow;
         selectedMoves[PC.GABRIELLE] = MoveName.LesserSpark;
-        selectedMoves[PC.VALLERY] = MoveName.LesserSpark;
+        selectedMoves[PC.VALLERY] = MoveName.ConcentratedStorm;
     }
 
     public void CombatVictory()

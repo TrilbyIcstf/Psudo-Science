@@ -12,10 +12,10 @@ public class Board_Controller : MonoBehaviour
     private Camera mainCam;
 
     // The position of each of the four edges of the board
-    private static float leftMost = -2.45f;
-    private static float rightMost = 2.45f;
-    private static float topMost = 0.5f;
-    private static float bottomMost = -3.7f;
+    private const float leftMost = -2.45f;
+    private const float rightMost = 2.45f;
+    private const float topMost = 0.5f;
+    private const float bottomMost = -3.7f;
 
     // Size of the board
     private const int boardWidth = 8;

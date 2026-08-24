@@ -18,5 +18,4 @@ MonoBehaviour:
   element: 0
   potency: 0
   manaCost: 30
-  description: Randomly transforms the character's tiles on the board to the other
-    characters' colors.
+  description: Transforms this character's tiles on the board to different colors.

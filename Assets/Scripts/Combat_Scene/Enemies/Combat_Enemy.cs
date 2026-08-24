@@ -56,9 +56,9 @@ public class Combat_Enemy : MonoBehaviour
         visuals.HealthBar.ApplyChange(messenger);
     }
 
-    public bool AddStatusEffect(StatusEffect se, int duration)
+    public bool AddStatusEffect(StatusEffect se, int duration, bool protection = false)
     {
-        bool overriden = stats.AddStatusEffect(se, duration);
+        bool overriden = stats.AddStatusEffect(se, duration, protection);
         UpdateStatusList();
 
         return overriden;
@@ -112,6 +112,11 @@ public class Combat_Enemy : MonoBehaviour
     public Enemy_Stats GetStats()
     {
         return stats;
+    }
+
+    public int GetPosition()
+    {
+        return enemyNum;
     }
 
     public bool IsAlive()

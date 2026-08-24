@@ -132,7 +132,7 @@ public class PartyManager : MonoBehaviour
             }
         }
 
-        return highest?.position ?? -1;
+        return highest?.Position ?? -1;
     }
 
     private bool MoreDamaged(Player_Information next, Player_Information highest)
@@ -171,7 +171,7 @@ public class PartyManager : MonoBehaviour
             }
         }
 
-        return lowest?.position ?? -1;
+        return lowest?.Position ?? -1;
     }
 
     private bool LowerHealth(Player_Information next, Player_Information lowest)
@@ -210,7 +210,7 @@ public class PartyManager : MonoBehaviour
             }
         }
 
-        return highest?.position ?? -1;
+        return highest?.Position ?? -1;
     }
 
     private bool HigherHealth(Player_Information next, Player_Information highest)

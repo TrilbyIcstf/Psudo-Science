@@ -96,7 +96,7 @@ public class Status_Icon_Holder : MonoBehaviour
             GameObject tempIcon = Instantiate(statusIcon, transform);
             Vector3 pos = tempIcon.transform.position;
             pos.x += ICONSPACING * i;
-            pos.y += ICONSPACING * facing.NumericRepresentation();
+            pos.y += ICONSPACING;
             tempIcon.transform.position = pos;
 
             tempIcon.GetComponent<Status_Effect_Indicator>().Setup(se, duration);

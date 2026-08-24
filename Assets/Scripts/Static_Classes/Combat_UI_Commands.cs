@@ -101,7 +101,7 @@ public static class Combat_UI_Commands
     {
         foreach (Player_Information player in GameManager.instance.party.Players())
         {
-            GameManager.instance.combat.combatUI.PlayerUI[player.position].HealthScript.RefreshBarFromSource();
+            GameManager.instance.combat.combatUI.PlayerUI[player.Position].HealthScript.RefreshBarFromSource();
         }
     }
 
@@ -111,7 +111,7 @@ public static class Combat_UI_Commands
         {
             if (player.Status.IsAlive)
             {
-                GameManager.instance.combat.combatUI.PlayerUI[player.position].StatusIcons.SetStatusList(player.Status.StatusEffects);
+                GameManager.instance.combat.combatUI.PlayerUI[player.Position].StatusIcons.SetStatusList(player.Status.StatusEffects);
             }
         }
 

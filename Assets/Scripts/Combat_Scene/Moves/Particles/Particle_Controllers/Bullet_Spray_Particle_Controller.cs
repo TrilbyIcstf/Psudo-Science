@@ -12,11 +12,11 @@ public class Bullet_Spray_Particle_Controller : Particle_Controller_Dad
     private Color bulletColor;
 
     // Variables for spawning the particles
-    private const int numberToSpawn = 4;
     private const float spawnDelay = 0.1f;
     private const float minAngle = 25;
     private const float maxAngle = 60;
     private const float lifeSpan = 5;
+    private int numberToSpawn;
     private Vector2 spawnPosition;
     private Vector2 goalPosition;
     private float potency;
@@ -45,10 +45,11 @@ public class Bullet_Spray_Particle_Controller : Particle_Controller_Dad
         Destroy(gameObject);
     }
 
-    public void Setup(Vector2 sp, Vector2 gp, Player_Move papa, List<MoveResult> targets, float potency)
+    public void Setup(Vector2 sp, Vector2 gp, Player_Move papa, List<MoveResult> targets, int numberToSpawn, float potency)
     {
         spawnPosition = sp;
         goalPosition = gp;
+        this.numberToSpawn = numberToSpawn;
         this.potency = potency;
         bulletParticle.GetComponent<SpriteRenderer>().color = bulletColor;
         base.Setup(papa, targets);
