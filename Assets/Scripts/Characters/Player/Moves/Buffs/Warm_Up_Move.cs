@@ -9,7 +9,7 @@ public class Warm_Up_Move : Player_Move
     public override bool ApplyMove(Player_Information pi, List<MoveResult> results, Move_Information mi)
     {
         MoveResult result = results[0];
-        int duration = Mathf.CeilToInt(result.potency * Combat_Commands.GetBoost());
+        int duration = Mathf.CeilToInt(result.potency);
         GameManager.instance.party.ApplyStatus(result.targetNum, StatusEffect.WARMUP, duration, true);
         Combat_UI_Commands.UpdateStatusIcons();
         return true;
@@ -39,6 +39,7 @@ public class Warm_Up_Move : Player_Move
 
     public override MoveResult TargetCalc(Player_Information pi, int target, Move_Information mi)
     {
-        return new MoveResult(mi.Potency, Target.NULL, pi.Position);
+        int duration = Mathf.CeilToInt(mi.Potency * Combat_Commands.GetBoost());
+        return new MoveResult(duration, Target.NULL, pi.Position);
     }
 }

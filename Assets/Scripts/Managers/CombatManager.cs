@@ -76,14 +76,14 @@ public class CombatManager : MonoBehaviour
 
         MoveName[] testV = { MoveName.LesserSpark, MoveName.LesserFrost, MoveName.LesserHeal };
         MoveName[] testS = { MoveName.GlancingBlow, MoveName.Shatter, MoveName.WarmUp };
-        MoveName[] testG = { MoveName.LesserSpark, MoveName.LesserFrost, MoveName.ShareEnergy };
+        MoveName[] testG = { MoveName.QuickSlash, MoveName.ValientStrength, MoveName.ShareEnergy };
         MoveName[] testVal = { MoveName.ConcentratedStorm, MoveName.LesserTremorfield, MoveName.MinorFeeble };
         MoveName[][] test5 = { testV, testS, testG, testVal };
         combatUI.SetupMoveButtons(test5);
 
         selectedMoves[PC.VANESSA] = MoveName.LesserSpark;
         selectedMoves[PC.SAMANTHA] = MoveName.GlancingBlow;
-        selectedMoves[PC.GABRIELLE] = MoveName.LesserSpark;
+        selectedMoves[PC.GABRIELLE] = MoveName.QuickSlash;
         selectedMoves[PC.VALLERY] = MoveName.ConcentratedStorm;
     }
 
