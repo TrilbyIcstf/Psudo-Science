@@ -238,6 +238,21 @@ public enum Effectiveness
     STRENGTH
 }
 
+static class EffectivenessExtensions
+{
+    public static Effectiveness Evaluate(this Element e, List<Element> weakness, List<Element> strength)
+    {
+        if (weakness.Contains(e))
+        {
+            return Effectiveness.WEAKNESS;
+        } else if (strength.Contains(e))
+        {
+            return Effectiveness.STRENGTH;
+        }
+        return Effectiveness.NEUTRAL;
+    }
+}
+
 public enum TargetingType
 {
     LowestHealth,

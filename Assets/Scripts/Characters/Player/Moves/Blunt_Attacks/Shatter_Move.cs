@@ -6,13 +6,13 @@ public class Shatter_Move : Generic_Player_Attack_Move
     public override MoveResult TargetCalc(Player_Information pi, int target, Move_Information mi)
     {
         Enemy_Stats targetStats = GameManager.instance.combat.GetEnemy(target).GetStats();
-        float result = (pi.Power * 2) - (targetStats.Defense * 0.35f);
-        result = result * mi.AdjustedPotency;
+        List<Element> weakness = targetStats.Weakness;
+        List<Element> strength = targetStats.Strength;
+        Effectiveness effectiveness = mi.Element.Evaluate(weakness, strength);
 
-        result = result * Combat_Commands.GetBoost();
-        result = Mathf.Max(1, result);
+        float result = DamageCalc(mi.AdjustedPotency, pi.Power, 2.0f, targetStats.Defense, 0.35f, effectiveness);
 
-        return new MoveResult(result, Target.ENEMY, target);
+        return new MoveResult(result, Target.ENEMY, target, effectiveness);
     }
 
     public override void EndMove(int user) { }

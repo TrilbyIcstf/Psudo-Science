@@ -16,6 +16,6 @@ MonoBehaviour:
   moveEnum: 1701
   type: 3
   element: 8
-  potency: 40
+  potency: 75
   manaCost: 20
   description: Restores a minor amount of health to the lowest health ally.

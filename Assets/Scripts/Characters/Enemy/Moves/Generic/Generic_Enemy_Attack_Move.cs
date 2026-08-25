@@ -18,11 +18,13 @@ public abstract class Generic_Enemy_Attack_Move : Enemy_Move
     {
         float adjustedPotency = potency / 100;
         Player_Information pi = GameManager.instance.party.GetPlayer(target);
-        float result = (ei.Power * 2) - (pi.Defense * 0.5f);
-        result = result * adjustedPotency;
-        result = Mathf.Max(1, result);
+        List<Element> weakness = pi.Weakness;
+        List<Element> strength = pi.Strength;
+        Effectiveness effectiveness = Effectiveness.NEUTRAL;
 
-        return new MoveResult(result, Target.PC, target);
+        float result = BasicDamageCalc(adjustedPotency, ei.Power, pi.Defense, effectiveness);
+
+        return new MoveResult(result, Target.PC, target, effectiveness);
     }
 
     public override bool ApplyMove(Enemy_Stats ei, List<MoveResult> results)

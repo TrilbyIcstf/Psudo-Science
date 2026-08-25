@@ -87,6 +87,16 @@ public class Player_Information : ScriptableObject
         status = new Player_Status(status, heal ? EquipMaxHealth : status.CurrentHealth, cleanse);
     }
 
+    private List<Element> WeaknessList()
+    {
+        return new List<Element>();
+    }
+
+    private List<Element> StrengthList()
+    {
+        return new List<Element>();
+    }
+
     public bool ShouldDie()
     {
         return !status.IsDead && status.CurrentHealth <= 0;
@@ -137,6 +147,8 @@ public class Player_Information : ScriptableObject
     public int Defense { get => status.GetAdjustedDefense(EquipDefense); }
     public int Intelligence { get => status.GetAdjustedInt(EquipMagic); }
     public int Resistance { get => status.GetAdjustedResistance(EquipMagDefense); }
+    public List<Element> Weakness { get => WeaknessList(); }
+    public List<Element> Strength { get => StrengthList(); }
     public Equip_Information Weapon { get => eqWeapon; set => eqWeapon = value; }
     public Equip_Information Helmet { get => eqHelmet; set => eqHelmet = value; }
     public Equip_Information Armor { get => eqArmor; set => eqArmor = value; }

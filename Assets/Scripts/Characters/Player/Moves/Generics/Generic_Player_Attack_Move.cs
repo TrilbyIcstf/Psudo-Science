@@ -12,28 +12,21 @@ public abstract class Generic_Player_Attack_Move : Player_Move
     public override MoveResult TargetCalc(Player_Information pi, int target, Move_Information mi)
     {
         Enemy_Stats targetStats = GameManager.instance.combat.GetEnemy(target).GetStats();
+        List<Element> weakness = targetStats.Weakness;
+        List<Element> strength = targetStats.Strength;
+        Effectiveness effectiveness = mi.Element.Evaluate(weakness, strength);
+        
         float result = 0;
 
         if (mi.Type == MoveType.PHYSICAL)
         {
-            result = (pi.Power * 2) - (targetStats.Defense * 0.5f);
+            result = BasicDamageCalc(mi.AdjustedPotency, pi.Power, targetStats.Defense, effectiveness);
         } else if (mi.Type == MoveType.MAGICAL)
         {
-            result = (pi.Intelligence * 2) - (targetStats.Resistance * 0.5f);
-        }
-        result = result * mi.AdjustedPotency;
-
-        if (targetStats.Weakness.Contains(mi.Element)) {
-            result = result * 1.5f;
-        } else if (targetStats.Strength.Contains(mi.Element))
-        {
-            result = result * 0.75f;
+            result = BasicDamageCalc(mi.AdjustedPotency, pi.Intelligence, targetStats.Resistance, effectiveness);
         }
 
-        result = result * Combat_Commands.GetBoost();
-        result = Mathf.Max(1, result);
-
-        return new MoveResult(result, Target.ENEMY, target);
+        return new MoveResult(result, Target.ENEMY, target, effectiveness);
     }
 
     public override bool ApplyMove(Player_Information pi, List<MoveResult> results, Move_Information mi)
