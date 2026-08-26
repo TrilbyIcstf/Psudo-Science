@@ -9,8 +9,10 @@ public class Lesser_Heal_Move : Player_Move
     // Move Effects
     public override bool ApplyMove(Player_Information pi, List<MoveResult> results, Move_Information mi)
     {
-        MoveResult result = results[0];
-        GameManager.instance.party.SingleHeal(result.TargetNum, (int)result.Potency);
+        foreach (MoveResult result in results)
+        {
+            GameManager.instance.party.SingleHeal(result.TargetNum, (int)result.Potency);
+        }
         Combat_UI_Commands.RefreshHealthBars();
         return true;
     }

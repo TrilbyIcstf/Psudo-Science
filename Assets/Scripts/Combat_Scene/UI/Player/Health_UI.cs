@@ -17,14 +17,15 @@ public class Health_UI : Fill_Bar
         RefreshBarFromSource();
     }
 
-    protected override void DisplayChange(int amount)
+    protected override void DisplayChange(BarChangeDetails details)
     {
-        if (amount <= 0)
+        int amount = details.Amount;
+        if (!details.IsIncrease)
         {
             float posOffset = Random.Range(-0.75f, 0.75f);
 
             GameObject damageNum = Instantiate(damageTextObject, transform.parent);
-            damageNum.GetComponent<Floating_Number_Combat>().SetText(Mathf.Abs(amount).ToString());
+            damageNum.GetComponent<Floating_Number_Combat>().SetText(amount.ToString(), details.Effectiveness);
             Vector3 spawnPos = transform.position;
             spawnPos.x += posOffset;
             damageNum.transform.position = spawnPos;

@@ -6,12 +6,12 @@ public class Particle_Chaser_Damage : Particle_Chaser
     private int target;
     [SerializeField] private Color damageColor;
 
-    public void ParticleInitialize(Vector2 goal, int target, float startSpeed, float startAccel, Vector2 startDirection, float startTurnSpeed, float targetDist, int damage, float lifeSpan, Particle_Controller_Dad papa)
+    public void ParticleInitialize(Vector2 goal, int target, float startSpeed, float startAccel, Vector2 startDirection, float startTurnSpeed, float targetDist, BarChangeDetails barDetails, float lifeSpan, Particle_Controller_Dad papa)
     {
-        papa.RegisterTempDamage(gameObject, damage, target);
+        papa.RegisterTempDamage(gameObject, barDetails, target);
 
         this.target = target;
-        this.damage = damage;
+        damage = barDetails.Amount;
         base.ParticleInitialize(goal, startSpeed, startAccel, startDirection, startTurnSpeed, targetDist, lifeSpan, papa);
     }
 

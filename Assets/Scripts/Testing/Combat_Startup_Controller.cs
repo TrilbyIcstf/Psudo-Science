@@ -14,6 +14,7 @@ public class Combat_Startup_Controller : MonoBehaviour
 
     private void Awake()
     {
+        GameManager.instance.party.Setup();
         GameManager.instance.party.ResetStatus(); // FOR TESTING
 
         foreach (Player_UI_Controller playerUI in combatUI.PlayerUI)

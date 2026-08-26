@@ -24,9 +24,25 @@ public class Floating_Number_Combat : MonoBehaviour
         rectTransform = GetComponent<RectTransform>();
     }
 
-    public void SetText(string val)
+    public void SetText(string val, Effectiveness effectiveness)
     {
         text.text = val;
+
+        if (effectiveness == Effectiveness.WEAKNESS)
+        {
+            text.text += "!!";
+            Vector3 scale = transform.localScale;
+            scale.x *= 1.25f;
+            scale.y *= 1.25f;
+            transform.localScale = scale;
+        } else if (effectiveness == Effectiveness.STRENGTH)
+        {
+            text.text += "...";
+            Vector3 scale = transform.localScale;
+            scale.x *= 0.75f;
+            scale.y *= 0.75f;
+            transform.localScale = scale;
+        }
     }
 
     private void FixedUpdate()

@@ -37,12 +37,12 @@ public struct QueuedEnemyMove
 
 public struct MoveResult
 {
-    public float potency;
+    private float potency;
 
-    public Target targetType;
-    public int targetNum;
+    private Target targetType;
+    private int targetNum;
 
-    public Effectiveness effectiveness;
+    private Effectiveness effectiveness;
 
     public MoveResult(float potency, Target targetType, int targetNum, Effectiveness effectiveness = Effectiveness.NEUTRAL)
     {
@@ -74,4 +74,22 @@ public struct AnimDetails
         this.rotation = rotation;
         this.color = color;
     }
+}
+
+public struct BarChangeDetails
+{
+    private int amount;
+    private Effectiveness effectiveness;
+    private bool isIncrease;
+
+    public BarChangeDetails(int amount, Effectiveness effectiveness, bool isIncrease)
+    {
+        this.amount = amount;
+        this.effectiveness = effectiveness;
+        this.isIncrease = isIncrease;
+    }
+
+    public int Amount { get => amount; }
+    public Effectiveness Effectiveness { get => effectiveness; }
+    public bool IsIncrease { get => isIncrease; }
 }

@@ -24,6 +24,8 @@ public class Combat_UI : MonoBehaviour
     public void Setup()
     {
         GameManager.instance.combat.SetCombatUI(this);
+        crosshairScript.Setup();
+        hoverScript.Setup();
         foreach (Player_UI_Controller controller in playerUI)
         {
             moveButtonControllers.Add(controller.Player, controller.Buttons);

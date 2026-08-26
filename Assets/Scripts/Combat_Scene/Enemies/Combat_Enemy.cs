@@ -46,9 +46,9 @@ public class Combat_Enemy : MonoBehaviour
         visuals.HealthBar.RemoveFromBar(amount);
     }
 
-    public void RegisterDisplayDamage(GameObject messenger, int amount)
+    public void RegisterDisplayDamage(GameObject messenger, BarChangeDetails details)
     {
-        visuals.HealthBar.RegisterChange(messenger, -amount);
+        visuals.HealthBar.RegisterChange(messenger, details);
     }
 
     public void ApplyDisplayDamage(GameObject messenger)

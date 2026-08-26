@@ -67,9 +67,9 @@ public static class Combat_UI_Commands
         return GameManager.instance.combat.combatUI.PlayerUI[_player].ReviveBar.transform;
     }
 
-    public static void RegisterHealth(int _player, GameObject _messenger, int _amount)
+    public static void RegisterHealth(int _player, GameObject _messenger, BarChangeDetails _details)
     {
-        GameManager.instance.combat.combatUI.PlayerUI[_player].HealthScript.RegisterChange(_messenger, _amount);
+        GameManager.instance.combat.combatUI.PlayerUI[_player].HealthScript.RegisterChange(_messenger, _details);
     }
 
     public static void ApplyHealth(int _player, GameObject _messenger)
@@ -77,9 +77,9 @@ public static class Combat_UI_Commands
         GameManager.instance.combat.combatUI.PlayerUI[_player].HealthScript.ApplyChange(_messenger);
     }
 
-    public static void RegisterEnergy(int _player, GameObject _messenger, int _amount)
+    public static void RegisterEnergy(int _player, GameObject _messenger, BarChangeDetails _details)
     {
-        GameManager.instance.combat.combatUI.PlayerUI[_player].EnergyScript.RegisterChange(_messenger, _amount);
+        GameManager.instance.combat.combatUI.PlayerUI[_player].EnergyScript.RegisterChange(_messenger, _details);
     }
 
     public static void ApplyEnergy(int _player, GameObject _messenger)
@@ -87,9 +87,9 @@ public static class Combat_UI_Commands
         GameManager.instance.combat.combatUI.PlayerUI[_player].EnergyScript.ApplyChange(_messenger);
     }
 
-    public static void RegisterRevive(int _player, GameObject _messenger, int _amount)
+    public static void RegisterRevive(int _player, GameObject _messenger, BarChangeDetails _details)
     {
-        GameManager.instance.combat.combatUI.PlayerUI[_player].ReviveScript.RegisterChange(_messenger, _amount);
+        GameManager.instance.combat.combatUI.PlayerUI[_player].ReviveScript.RegisterChange(_messenger, _details);
     }
 
     public static void ApplyRevive(int _player, GameObject _messenger)

@@ -44,9 +44,9 @@ public abstract class Particle_Controller_Dad : MonoBehaviour
         GameManager.instance.combat.GetEnemy(target).TakeDisplayDamage(damage);
     }
 
-    public virtual void RegisterTempDamage(GameObject messenger, int damage, int target)
+    public virtual void RegisterTempDamage(GameObject messenger, BarChangeDetails details, int target)
     {
-        GameManager.instance.combat.GetEnemy(target).RegisterDisplayDamage(messenger, damage);
+        GameManager.instance.combat.GetEnemy(target).RegisterDisplayDamage(messenger, details);
     }
 
     public virtual void ApplyTempDamage(GameObject messenger, int target)

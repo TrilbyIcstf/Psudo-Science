@@ -26,7 +26,7 @@ public abstract class Fill_Bar : MonoBehaviour
     protected int max = 0;
     public int Max { get => max; }
 
-    Dictionary<GameObject, int> incomingChanges = new Dictionary<GameObject, int>();
+    Dictionary<GameObject, BarChangeDetails> incomingChanges = new Dictionary<GameObject, BarChangeDetails>();
 
     private void Awake()
     {
@@ -37,12 +37,13 @@ public abstract class Fill_Bar : MonoBehaviour
     {
         if (incomingChanges.ContainsKey(messenger))
         {
-            int amount = incomingChanges[messenger];
+            BarChangeDetails details = incomingChanges[messenger];
+            int amount = details.Amount;
             incomingChanges.Remove(messenger);
 
             AddToBar(amount);
 
-            DisplayChange(amount);
+            DisplayChange(details);
 
             if (incomingChanges.Count == 0)
             {
@@ -55,9 +56,9 @@ public abstract class Fill_Bar : MonoBehaviour
         }
     }
 
-    public void RegisterChange(GameObject messenger, int amount)
+    public void RegisterChange(GameObject messenger, BarChangeDetails details)
     {
-        incomingChanges.Add(messenger, amount);
+        incomingChanges.Add(messenger, details);
     }
 
     public virtual void AddToBar(int amount)
@@ -89,6 +90,6 @@ public abstract class Fill_Bar : MonoBehaviour
         return Mathf.Clamp(progress / max, 0, 1);
     }
 
-    protected virtual void DisplayChange(int amount) { }
+    protected virtual void DisplayChange(BarChangeDetails details) { }
     public abstract void RefreshBarFromSource();
 }

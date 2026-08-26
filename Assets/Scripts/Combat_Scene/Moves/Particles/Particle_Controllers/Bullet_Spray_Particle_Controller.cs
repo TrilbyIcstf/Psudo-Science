@@ -19,22 +19,26 @@ public class Bullet_Spray_Particle_Controller : Particle_Controller_Dad
     private int numberToSpawn;
     private Vector2 spawnPosition;
     private Vector2 goalPosition;
-    private float potency;
 
     public override IEnumerator Activate()
     {
-        float initialAngle = ((Mathf.Rad2Deg * Mathf.Atan2(goalPosition.y - spawnPosition.y, goalPosition.x - spawnPosition.x)) + 360) % 360;
-        Vector2[] directions = MakeSpawnAngleArray(initialAngle);
-
-        int remainder = (int)potency % numberToSpawn;
-        int damage = Mathf.FloorToInt(potency / numberToSpawn);
-
-        for (int i = 0; i < numberToSpawn; i++)
+        foreach (MoveResult target in targets)
         {
-            int tempDamage = damage + (i < remainder ? 1 : 0);
-            GameObject tempParticle = Instantiate(bulletParticle, spawnPosition, Quaternion.identity);
-            tempParticle.GetComponent<Particle_Chaser_Damage>().ParticleInitialize(goalPosition, targets[0].TargetNum, 0.2f, 1.001f, directions[i], 0.05f, 0.7f, tempDamage, lifeSpan, this);
-            yield return new WaitForSeconds(spawnDelay);
+            int potency = (int)target.Potency;
+            float initialAngle = ((Mathf.Rad2Deg * Mathf.Atan2(goalPosition.y - spawnPosition.y, goalPosition.x - spawnPosition.x)) + 360) % 360;
+            Vector2[] directions = MakeSpawnAngleArray(initialAngle);
+
+            int remainder = potency % numberToSpawn;
+            int damage = Mathf.FloorToInt(potency / numberToSpawn);
+
+            for (int i = 0; i < numberToSpawn; i++)
+            {
+                int tempDamage = damage + (i < remainder ? 1 : 0);
+                BarChangeDetails barDetails = new BarChangeDetails(tempDamage, target.Effectiveness, false);
+                GameObject tempParticle = Instantiate(bulletParticle, spawnPosition, Quaternion.identity);
+                tempParticle.GetComponent<Particle_Chaser_Damage>().ParticleInitialize(goalPosition, targets[0].TargetNum, 0.2f, 1.001f, directions[i], 0.05f, 0.7f, barDetails, lifeSpan, this);
+                yield return new WaitForSeconds(spawnDelay);
+            }
         }
     }
 
@@ -50,7 +54,6 @@ public class Bullet_Spray_Particle_Controller : Particle_Controller_Dad
         spawnPosition = sp;
         goalPosition = gp;
         this.numberToSpawn = numberToSpawn;
-        this.potency = potency;
         bulletParticle.GetComponent<SpriteRenderer>().color = bulletColor;
         base.Setup(papa, targets);
     }

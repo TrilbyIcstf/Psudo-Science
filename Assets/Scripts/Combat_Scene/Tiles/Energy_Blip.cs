@@ -117,15 +117,22 @@ public class Energy_Blip : MonoBehaviour
                 case TColor.PINK:
                 case TColor.PURPLE:
                 case TColor.BLACK:
-                    Combat_UI_Commands.RegisterEnergy(playerNum, gameObject, (int)pointValue);
+                    {
+                        BarChangeDetails barDetails = new BarChangeDetails((int)pointValue, Effectiveness.NEUTRAL, true);
+                        Combat_UI_Commands.RegisterEnergy(playerNum, gameObject, barDetails);
+                    }
                     break;
                 case TColor.GREEN:
-                    Combat_UI_Commands.RegisterHealth(playerNum, gameObject, (int)pointValue);
+                    {
+                        BarChangeDetails barDetails = new BarChangeDetails((int)pointValue, Effectiveness.NEUTRAL, true);
+                        Combat_UI_Commands.RegisterHealth(playerNum, gameObject, barDetails);
+                    }
                     break;
             }
         } else if (blipColor.CanRevive())
         {
-            Combat_UI_Commands.RegisterRevive(playerNum, gameObject, (int)pointValue);
+            BarChangeDetails barDetails = new BarChangeDetails((int)pointValue, Effectiveness.NEUTRAL, true);
+            Combat_UI_Commands.RegisterRevive(playerNum, gameObject, barDetails);
         }
     }
 

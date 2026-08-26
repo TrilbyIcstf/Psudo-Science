@@ -7,6 +7,9 @@ public class Camera_Ratio : MonoBehaviour
     private const float TargetWidth = 16.0f;
     private const float TargetHeight = 9.0f;
 
+    private int trackedWidth;
+    private int trackedHeight;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -14,8 +17,19 @@ public class Camera_Ratio : MonoBehaviour
         FitToScreen();
     }
 
+    private void Update()
+    {
+        if (Screen.width != trackedWidth || Screen.height != trackedHeight)
+        {
+            FitToScreen();
+        }
+    }
+
     void FitToScreen()
     {
+        trackedHeight = Screen.height;
+        trackedWidth = Screen.width;
+
         float aspect = (float)Screen.width / (float)Screen.height;
         float targetAspect = TargetWidth / TargetHeight;
 

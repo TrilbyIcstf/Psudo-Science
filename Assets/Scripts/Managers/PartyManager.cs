@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class PartyManager : MonoBehaviour
 {
+    private bool setupFinished = false;
+    
     [SerializeField] private Player_Information player1;
     [SerializeField] private Player_Information player2;
     [SerializeField] private Player_Information player3;
@@ -14,10 +16,19 @@ public class PartyManager : MonoBehaviour
 
     private void Awake()
     {
-        player1 = Instantiate(player1);
-        player2 = Instantiate(player2);
-        player3 = Instantiate(player3);
-        player4 = Instantiate(player4);
+        Setup();
+    }
+
+    public void Setup()
+    {
+        if (!setupFinished)
+        {
+            player1 = Instantiate(player1);
+            player2 = Instantiate(player2);
+            player3 = Instantiate(player3);
+            player4 = Instantiate(player4);
+            setupFinished = true;
+        }
     }
 
     /// <summary>

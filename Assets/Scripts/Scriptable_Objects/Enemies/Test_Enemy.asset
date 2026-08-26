@@ -20,7 +20,7 @@ MonoBehaviour:
   defenseStat: 10
   magicStat: 10
   magDefenseStat: 10
-  weakness: 0300000004000000
+  weakness: 0100000004000000
   strength: 06000000
   enemySprite: {fileID: 21300000, guid: 5572c4dd663d395469ee2315f7330140, type: 3}
   spriteSize: {x: 125, y: 201}

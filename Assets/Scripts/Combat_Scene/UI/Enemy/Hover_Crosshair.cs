@@ -11,7 +11,7 @@ public class Hover_Crosshair : MonoBehaviour
     private Image crosshairImage;
     private static float loopTime = 1.5f;
 
-    public void Start()
+    public void Setup()
     {
         crosshairImage = gameObject.GetComponent<Image>();
     }

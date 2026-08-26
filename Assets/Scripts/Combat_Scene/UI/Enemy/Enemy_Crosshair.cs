@@ -12,7 +12,7 @@ public class Enemy_Crosshair : MonoBehaviour
     private float crosshairAlpha = 1.0f;
     private Image crosshairImage;
 
-    public void Awake()
+    public void Setup()
     {
         crosshairImage = gameObject.GetComponent<Image>();
     }
