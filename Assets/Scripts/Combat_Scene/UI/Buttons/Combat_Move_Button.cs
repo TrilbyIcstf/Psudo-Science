@@ -1,7 +1,8 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class Combat_Move_Button : MonoBehaviour
+public class Combat_Move_Button : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     private PC player;
     private MoveName move;
@@ -15,6 +16,16 @@ public class Combat_Move_Button : MonoBehaviour
     public void OnClick()
     {
         GameManager.instance.combat.SelectMove(player, move, pos);
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        GameManager.instance.combat.combatUI.DisplayMoveDetails(move);
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        GameManager.instance.combat.combatUI.HideMoveDetails();
     }
 
     public void SetDetails(PC player, MoveName move, int pos)

@@ -10,6 +10,10 @@ public class Combat_UI : MonoBehaviour
     public Enemy_Crosshair crosshairScript;
     public Hover_Crosshair hoverScript;
 
+    [Header("Details Box")]
+    [SerializeField]
+    private Move_Details_Box detailsBox;
+
     [Header("Text")]
     [SerializeField]
     private Text boostText;
@@ -31,6 +35,17 @@ public class Combat_UI : MonoBehaviour
             moveButtonControllers.Add(controller.Player, controller.Buttons);
             controller.StatusIcons.SetStatusList(GameManager.instance.party.GetPlayer(controller.Player).Status.StatusEffects);
         }
+    }
+
+    public void DisplayMoveDetails(MoveName move)
+    {
+        detailsBox.gameObject.SetActive(true);
+        detailsBox.SetDetails(move);
+    }
+
+    public void HideMoveDetails()
+    {
+        detailsBox.gameObject.SetActive(false);
     }
 
     public void TargetCrosshair(Vector2 target)

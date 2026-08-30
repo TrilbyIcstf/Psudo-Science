@@ -18,4 +18,4 @@ MonoBehaviour:
   element: 4
   potency: 85
   manaCost: 30
-  description: Deals minor fire damage to target enemy.
+  description: Deals minor water damage to target enemy.

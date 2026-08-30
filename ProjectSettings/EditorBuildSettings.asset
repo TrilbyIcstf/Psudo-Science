@@ -6,6 +6,10 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
+    path: Assets/Scenes/TestBoard.unity
     guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Scenes/DungeonBoardBasic.unity
+    guid: 15acd72124545154f8f85321884319eb
   m_configObjects: {}
+  m_UseUCBPForAssetBundles: 0
