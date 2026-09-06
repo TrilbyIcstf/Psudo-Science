@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Dungeon_Board_Controller : MonoBehaviour
@@ -37,7 +38,7 @@ public class Dungeon_Board_Controller : MonoBehaviour
         TileMap(playerPos).TileScript.Interactable = true;
 
         enemyPieces.Add(generator.GenerateEnemy(new Vector2Int(5, 2), testEncounter, ChessPiece.KNIGHT));
-        enemyPieces.Add(generator.GenerateEnemy(new Vector2Int(6, 2), testEncounter, ChessPiece.ROOK));
+        enemyPieces.Add(generator.GenerateEnemy(new Vector2Int(6, 2), testEncounter, ChessPiece.BISHOP));
         PositionEnemyPieces();
     }
 
@@ -74,8 +75,21 @@ public class Dungeon_Board_Controller : MonoBehaviour
         playerPos = pos;
         PositionPlayerPiece();
 
+        MoveEnemies();
+
         boardState = DungeonBoardState.Neutral;
         TileMap(pos).TileScript.Interactable = true;
+    }
+
+    private void MoveEnemies()
+    {
+        for (int i = 0; i < enemyPieces.Count; i++)
+        {
+            DungeonEnemy enemy = enemyPieces[i];
+            enemy.Pos = DecideEnemyMovement(enemy);
+            enemyPieces[i] = enemy;
+        }
+        PositionEnemyPieces();
     }
 
     public HashSet<Vector2Int> QueenMovementOptions(Vector2Int pos)
@@ -92,9 +106,12 @@ public class Dungeon_Board_Controller : MonoBehaviour
                 Vector2Int tempPos = pos;
                 Vector2Int direction = new Vector2Int(x, y);
                 tempPos += direction;
+
                 while (IsWalkableTile(tempPos))
                 {
                     options.Add(tempPos);
+                    if (EnemyOnTile(tempPos)) { break; }
+
                     tempPos += direction;
                 }
             }
@@ -114,7 +131,7 @@ public class Dungeon_Board_Controller : MonoBehaviour
                 {
                     Vector2Int move = new Vector2Int(i * j, (3 - i) * k);
                     Vector2Int tempPos = pos + move;
-                    if (IsWalkableTile(tempPos))
+                    if (IsWalkableTile(tempPos, false))
                     {
                         options.Add(tempPos);
                     }
@@ -145,7 +162,7 @@ public class Dungeon_Board_Controller : MonoBehaviour
             Vector2Int tempPos = pos;
             Vector2Int direction = new Vector2Int(0, y);
             tempPos += direction;
-            while (IsWalkableTile(tempPos))
+            while (IsWalkableTile(tempPos, false))
             {
                 options.Add(tempPos);
                 tempPos += direction;
@@ -169,7 +186,7 @@ public class Dungeon_Board_Controller : MonoBehaviour
                 Vector2Int tempPos = pos;
                 Vector2Int direction = new Vector2Int(x, y);
                 tempPos += direction;
-                while (IsWalkableTile(tempPos))
+                while (IsWalkableTile(tempPos, false))
                 {
                     options.Add(tempPos);
                     tempPos += direction;
@@ -194,7 +211,7 @@ public class Dungeon_Board_Controller : MonoBehaviour
                 Vector2Int tempPos = pos;
                 Vector2Int direction = new Vector2Int(x, y);
                 tempPos += direction;
-                if (IsWalkableTile(tempPos))
+                if (IsWalkableTile(tempPos, false))
                 {
                     options.Add(tempPos);
                 }
@@ -213,11 +230,16 @@ public class Dungeon_Board_Controller : MonoBehaviour
     private (Vector2Int nextPos, Dictionary<Vector2Int, int> pathList, bool foundPlayer) DecideEnemyMovementRec(DungeonEnemy enemy, Vector2Int fromPos, int dist = 0, Dictionary<Vector2Int, int> pathList = null)
     {
         dist++;
-        HashSet<Vector2Int> movementOptions = EnemyMovementOptions(enemy, fromPos);
         if (pathList == null)
         {
             pathList = new Dictionary<Vector2Int, int>();
+        } else if (pathList.ContainsKey(playerPos) && pathList[playerPos] <= dist)
+        {
+            return (fromPos, pathList, false);
         }
+
+        HashSet<Vector2Int> movementOptions = EnemyMovementOptions(enemy, fromPos);
+        movementOptions = movementOptions.OrderBy(pos => GetManhattanDistanceFromPlayer(pos)).ToHashSet();
 
         Vector2Int nextPos = fromPos;
         bool foundPlayer = false;
@@ -244,6 +266,11 @@ public class Dungeon_Board_Controller : MonoBehaviour
         return (nextPos, pathList, foundPlayer);
     }
 
+    private int GetManhattanDistanceFromPlayer(Vector2Int pos)
+    {
+        return Mathf.Abs(pos.x - playerPos.x) + Mathf.Abs(pos.y - playerPos.y);
+    }
+
     private HashSet<Vector2Int> EnemyMovementOptions(DungeonEnemy enemy, Vector2Int pos)
     {
         switch (enemy.Piece)
@@ -260,13 +287,30 @@ public class Dungeon_Board_Controller : MonoBehaviour
                 return new HashSet<Vector2Int>();
         }
     }
-    public bool IsWalkableTile(Vector2Int pos)
+    public bool IsWalkableTile(Vector2Int pos, bool throughEnemies = true)
     {
         if (pos.x >= tileMap.GetLength(0) || pos.x < 0 || pos.y >= tileMap.GetLength(1) || pos.y < 0)
         {
             return false;
         }
+        if (EnemyOnTile(pos))
+        {
+            return throughEnemies;
+        }
+
         return tileMap[pos.x, pos.y].Type == DungeonTileType.FLOOR;
+    }
+
+    public bool EnemyOnTile(Vector2Int pos)
+    {
+        foreach (DungeonEnemy enemy in enemyPieces)
+        {
+            if (enemy.Pos == pos)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     private void PositionPlayerPiece()
