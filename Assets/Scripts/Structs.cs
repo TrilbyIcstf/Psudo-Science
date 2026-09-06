@@ -93,3 +93,42 @@ public struct BarChangeDetails
     public Effectiveness Effectiveness { get => effectiveness; }
     public bool IsIncrease { get => isIncrease; }
 }
+
+public struct DungeonTile
+{
+    private GameObject tile;
+    private DungeonTileType type;
+    private Board_Tile_Interact tileScript;
+
+    public DungeonTile(GameObject tile, DungeonTileType type)
+    {
+        this.tile = tile;
+        this.type = type;
+        tileScript = this.tile.GetComponent<Board_Tile_Interact>();
+    }
+
+    public GameObject Tile { get => tile; }
+    public DungeonTileType Type { get => type; }
+    public Board_Tile_Interact TileScript { get => tileScript; }
+}
+
+public struct DungeonEnemy
+{
+    private Vector2Int pos;
+    private Encounter encounter;
+    private ChessPiece piece;
+    private GameObject enemyObject;
+
+    public DungeonEnemy(Vector2Int pos, Encounter encounter, ChessPiece piece, GameObject enemyObject)
+    {
+        this.pos = pos;
+        this.encounter = encounter;
+        this.piece = piece;
+        this.enemyObject = enemyObject;
+    }
+
+    public Vector2Int Pos { get => pos; set => pos = value; }
+    public Encounter Encounter { get => encounter; }
+    public ChessPiece Piece { get => piece; }
+    public GameObject EnemyObject { get => enemyObject; }
+}

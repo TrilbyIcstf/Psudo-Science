@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2685144069103173904}
   - component: {fileID: -4281742319440733727}
   - component: {fileID: 5640420561896677349}
+  - component: {fileID: 9004606063032119016}
   - component: {fileID: 3701883663012883544}
   - component: {fileID: 7570031627221841954}
   - component: {fileID: 1257611719747398932}
@@ -49,6 +50,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   combat: {fileID: 5640420561896677349}
+  dungeon: {fileID: 9004606063032119016}
   party: {fileID: 3701883663012883544}
   fx: {fileID: 7570031627221841954}
   ll: {fileID: 1257611719747398932}
@@ -67,6 +69,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   board: {fileID: 0}
   combatUI: {fileID: 0}
+--- !u!114 &9004606063032119016
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4688678761440397242}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d918a811838ed6c40953148b278b090d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DungeonManager
 --- !u!114 &3701883663012883544
 MonoBehaviour:
   m_ObjectHideFlags: 0

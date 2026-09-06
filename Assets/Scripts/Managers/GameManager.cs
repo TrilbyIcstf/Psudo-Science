@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
 
     [Header("Managers")]
     public CombatManager combat; // Handles the combat board, enemies, attack queue, etc.
+    public DungeonManager dungeon; // Handles exploration on the dungeon boards
     public PartyManager party; // Handles party members, equipment, inventory, etc.
     public FXManager fx; // Handles particles, sounds, music, etc.
     public LoreLibrarian ll; // I AM THE LORE LIBRARIAN, I HOLD REFERENCES TO ALL NEEDED PIECES OF EQUIPMENT, ATTACKS, ENEMIES OR ANYTHING ELSE YOU NEED

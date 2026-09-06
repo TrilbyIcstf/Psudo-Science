@@ -60,3 +60,6 @@ public class TileSpriteDictionary : GenericDictionary<TColor, Sprite> { }
 
 [Serializable]
 public class StatusIconDictionary : GenericDictionary<StatusEffect, Sprite> { }
+
+[Serializable]
+public class ChessPrefabDictionary : GenericDictionary<ChessPiece, GameObject> { }

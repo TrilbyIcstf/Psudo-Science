@@ -8,6 +8,14 @@ public enum GameState
     COMBAT
 }
 
+public enum DungeonTileType
+{
+    BLANK,
+    FLOOR,
+    WALL,
+    DOOR
+}
+
 public enum TColor
 {
     GHOST = 99,
@@ -379,4 +387,21 @@ public static class DirectionExtension
     {
         return dir == Direction.LEFT ? -1 : 1;
     }
+}
+
+public enum ChessPiece
+{
+    QUEEN,
+    KING,
+    PAWN,
+    KNIGHT,
+    ROOK,
+    BISHOP
+}
+
+public enum DungeonBoardState
+{
+    Neutral,
+    PlayerSelectingMovement,
+    EnemyMovement
 }
