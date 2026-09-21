@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 9004606063032119016}
   - component: {fileID: 3701883663012883544}
   - component: {fileID: 7570031627221841954}
+  - component: {fileID: 195834518575744175}
   - component: {fileID: 1257611719747398932}
   m_Layer: 0
   m_Name: GameManagerHolder
@@ -53,6 +54,7 @@ MonoBehaviour:
   dungeon: {fileID: 9004606063032119016}
   party: {fileID: 3701883663012883544}
   fx: {fileID: 7570031627221841954}
+  transition: {fileID: 195834518575744175}
   ll: {fileID: 1257611719747398932}
   currentState: 0
 --- !u!114 &5640420561896677349
@@ -110,6 +112,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activeParticleManagers: []
+--- !u!114 &195834518575744175
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4688678761440397242}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0feb410a0bc131a458094366766f9d79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TransitionManager
 --- !u!114 &1257611719747398932
 MonoBehaviour:
   m_ObjectHideFlags: 0

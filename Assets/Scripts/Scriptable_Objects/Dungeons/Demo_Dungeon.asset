@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62592277819dc0e4fa394569f894e89a, type: 3}
+  m_Name: Demo_Dungeon
+  m_EditorClassIdentifier: Assembly-CSharp::Dungeon_Layout
+  dungeonName: Demo Dungeon
+  layout:
+    keyValuePairs:
+    - key: {x: 0, y: 0}
+      value: {fileID: 11400000, guid: c8e6b8df414e03c4a961d140d6a400b3, type: 2}
+    - key: {x: 1, y: 0}
+      value: {fileID: 11400000, guid: 68ee34b5f7db4684ebc06aab86ee79ac, type: 2}
+    - key: {x: 0, y: 1}
+      value: {fileID: 11400000, guid: 4ff8b02b8a0a7b349a073b81cc083bf3, type: 2}
+    - key: {x: 1, y: 1}
+      value: {fileID: 11400000, guid: 2660b6da496f082489eb77a31c3be90b, type: 2}
+    - key: {x: 1, y: 2}
+      value: {fileID: 11400000, guid: 04f41098c76e7304abb28b05068a7ef5, type: 2}
+    - key: {x: 2, y: 0}
+      value: {fileID: 11400000, guid: 782c9e19cfe5f124bbbe2b6d3794679e, type: 2}
+  startingBoard: {x: 0, y: 0}
+  startingPos: {x: 4, y: 1}

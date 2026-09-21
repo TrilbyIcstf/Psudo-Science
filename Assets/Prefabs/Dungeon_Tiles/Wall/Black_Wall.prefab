@@ -120,7 +120,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1466739217467417013}
-  - component: {fileID: -5058597166578523860}
+  - component: {fileID: 4164774870276251948}
   - component: {fileID: 5240695439178144473}
   - component: {fileID: 8882819115997089292}
   - component: {fileID: 4115038881929810412}
@@ -147,7 +147,7 @@ Transform:
   - {fileID: 1070366687293259572}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-5058597166578523860
+--- !u!114 &4164774870276251948
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -161,6 +161,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Board_Tile_Interact
   baseColor: {r: 0, g: 0, b: 0, a: 1}
   highlightColor: {r: 0.5, g: 0.47127312, b: 0.1014151, a: 1}
+  hoverColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
 --- !u!33 &5240695439178144473
 MeshFilter:
   m_ObjectHideFlags: 0

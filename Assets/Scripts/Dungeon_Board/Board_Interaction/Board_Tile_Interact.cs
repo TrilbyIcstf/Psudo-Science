@@ -32,10 +32,11 @@ public class Board_Tile_Interact : MonoBehaviour
 
     private void OnMouseEnter()
     {
+        hovered = true;
         if (interactable)
         {
             TileRenderer.material.color = hoverColor;
-            hovered = true;
+            
         }
     }
 

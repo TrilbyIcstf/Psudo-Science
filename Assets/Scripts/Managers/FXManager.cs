@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class FXManager : MonoBehaviour
 {
+    private Overlay_Controller overlay;
+    public Overlay_Controller Overlay { get => overlay; set => overlay = value; }
+
     // List of all active particle managers in the scene
     public List<GameObject> activeParticleManagers = new List<GameObject>();
 

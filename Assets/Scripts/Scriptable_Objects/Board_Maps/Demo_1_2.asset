@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1309bafe2c363b04da54837c723b5fad, type: 3}
+  m_Name: Demo_1_2
+  m_EditorClassIdentifier: Assembly-CSharp::Dungeon_Board_Layout
+  mapImage: {fileID: 2800000, guid: 37a60780536b5b84bbf3c7f03d96bf28, type: 3}
+  baseEnemies:
+  - pos: {x: 3, y: 4}
+    encounter: {fileID: 11400000, guid: 7a6ce94ebfe6cb3469ff69bed9b073c7, type: 2}
+    piece: 1
+  doorConnections:
+    keyValuePairs:
+    - key: {x: 3, y: 0}
+      value:
+        mapPos: {x: 1, y: 1}
+        exitPos: {x: 5, y: 9}
+        dungeonExit: 0

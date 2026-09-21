@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     public DungeonManager dungeon; // Handles exploration on the dungeon boards
     public PartyManager party; // Handles party members, equipment, inventory, etc.
     public FXManager fx; // Handles particles, sounds, music, etc.
+    public TransitionManager transition; // Handles transitions between scenes
     public LoreLibrarian ll; // I AM THE LORE LIBRARIAN, I HOLD REFERENCES TO ALL NEEDED PIECES OF EQUIPMENT, ATTACKS, ENEMIES OR ANYTHING ELSE YOU NEED
 
     [Header("SceneManagement")]
@@ -23,8 +24,21 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
+        if (_instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
         DontDestroyOnLoad(gameObject);
         GameManager.instance = this;
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
     }
 
     public delegate void CallbackFunction();

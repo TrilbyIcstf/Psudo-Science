@@ -23,7 +23,7 @@ public class Combat_Startup_Controller : MonoBehaviour
         }
         combatUI.Setup();
         boardController.Setup();
-        GameManager.instance.combat.CombatSetup(testEnemies);
+        //GameManager.instance.combat.CombatSetup(testEnemies);
     }
 
     private void OnDrawGizmosSelected()

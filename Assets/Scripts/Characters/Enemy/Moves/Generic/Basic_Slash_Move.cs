@@ -3,6 +3,16 @@ using UnityEngine;
 
 public class Basic_Slash_Move : Generic_Enemy_Attack_Move
 {
+    public override MoveType GetMoveType()
+    {
+        return MoveType.PHYSICAL;
+    }
+
+    public override Element GetElement()
+    {
+        return Element.SLASH;
+    }
+
     // Particles/Animations
     public override void StartMove(int user, List<MoveResult> results)
     {

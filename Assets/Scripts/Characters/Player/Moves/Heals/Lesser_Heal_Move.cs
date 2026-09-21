@@ -26,7 +26,7 @@ public class Lesser_Heal_Move : Player_Move
 
     public override MoveResult TargetCalc(Player_Information pi, int target, Move_Information mi)
     {
-        float result = mi.AdjustedPotency * ((pi.Intelligence + pi.Resistance) / 2);
+        float result = mi.AdjustedPotency * (pi.Intelligence + pi.Resistance);
         result = result * Combat_Commands.GetBoost();
         return new MoveResult(result, Target.PC, target);
     }

@@ -53,7 +53,7 @@ public class Board_Controller : MonoBehaviour
 
     // Locks to prevent to player from interacting with the board
     private bool mouseLock = false;
-    public bool MouseLock { get => mouseLock; }
+    public bool MouseLock { get => mouseLock; set => mouseLock = value; }
     private int fallingTileLock = 0;
 
     // Number of matches made in a row
@@ -861,11 +861,6 @@ public class Board_Controller : MonoBehaviour
     public float GetRowSpeedBonus(int _rowNum)
     {
         return rowSpeedBonus[_rowNum];
-    }
-
-    public void SetMouseLock(bool val)
-    {
-        mouseLock = val;
     }
 
     public int MatchCombo { get => matchCombo; set => matchCombo = value; }

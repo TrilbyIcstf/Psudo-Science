@@ -158,7 +158,8 @@ public enum MoveType
     PHYSICAL,
     MAGICAL,
     HEALING,
-    STATUS,
+    BUFF,
+    DEBUFF,
     BOARD
 }
 

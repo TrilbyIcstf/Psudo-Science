@@ -32,6 +32,16 @@ public class GenericDictionary<K, V>
     {
         return keyValuePairs.FirstOrDefault(kv => EqualityComparer<K>.Default.Equals(kv.key, key)).value;
     }
+
+    public bool ContainsKey(K key)
+    {
+        return keyValuePairs.Any(kv => kv.key.Equals(key));
+    }
+
+    public List<K> Keys()
+    {
+        return keyValuePairs.Select(kv => kv.key).ToList();
+    }
 }
 
 [Serializable]
@@ -63,3 +73,12 @@ public class StatusIconDictionary : GenericDictionary<StatusEffect, Sprite> { }
 
 [Serializable]
 public class ChessPrefabDictionary : GenericDictionary<ChessPiece, GameObject> { }
+
+[Serializable]
+public class DoorConnectionDictionary : GenericDictionary<Vector2Int, DoorConnection> { }
+
+[Serializable]
+public class DungeonLayoutDictionary : GenericDictionary<Vector2Int, Dungeon_Board_Layout> { }
+
+[Serializable]
+public class MoveTypeIconDictionary : GenericDictionary<MoveType, Sprite> { }

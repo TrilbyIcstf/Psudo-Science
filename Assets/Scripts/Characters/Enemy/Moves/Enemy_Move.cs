@@ -10,6 +10,8 @@ public abstract class Enemy_Move : Move_Dad
     public abstract List<MoveResult> ResultsCalc(Enemy_Stats ei, List<int> targets, float potency);
     public abstract MoveResult TargetCalc(Enemy_Stats ei, int target, float potency);
     public abstract bool ApplyMove(Enemy_Stats ei, List<MoveResult> results);
+    public abstract MoveType GetMoveType();
+    public abstract Element GetElement();
 
     protected int BasicDamageCalc(float potency, int offense, int defense, Effectiveness effectiveness)
     {

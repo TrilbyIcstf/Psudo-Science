@@ -112,10 +112,14 @@ public struct DungeonTile
     public Board_Tile_Interact TileScript { get => tileScript; }
 }
 
+[System.Serializable]
 public struct DungeonEnemy
 {
+    [SerializeField]
     private Vector2Int pos;
+    [SerializeField]
     private Encounter encounter;
+    [SerializeField]
     private ChessPiece piece;
     private GameObject enemyObject;
 
@@ -131,4 +135,59 @@ public struct DungeonEnemy
     public Encounter Encounter { get => encounter; }
     public ChessPiece Piece { get => piece; }
     public GameObject EnemyObject { get => enemyObject; }
+}
+
+public struct DungeonBoardMovement
+{
+    private Vector2Int destination;
+    private bool jump;
+    private float speed;
+
+    public DungeonBoardMovement(Vector2Int destination, bool jump, float speed)
+    {
+        this.destination = destination;
+        this.jump = jump;
+        this.speed = speed;
+    }
+
+    public Vector2Int Destination { get => destination; set => destination = value; }
+    public bool Jump { get => jump; set => jump = value; }
+    public float Speed { get => speed; set => speed = value; }
+}
+
+[System.Serializable]
+public struct DoorConnection
+{
+    [SerializeField]
+    private Vector2Int mapPos;
+    [SerializeField]
+    private Vector2Int exitPos;
+    [SerializeField]
+    private bool dungeonExit;
+
+    public DoorConnection(Vector2Int mapPos, Vector2Int exitPos, bool dungeonExit = false)
+    {
+        this.mapPos = mapPos;
+        this.exitPos = exitPos;
+        this.dungeonExit = dungeonExit;
+    }
+
+    public Vector2Int MapPos { get => mapPos; }
+    public Vector2Int ExitPos { get => exitPos; }
+    public bool DungeonExit { get => dungeonExit; }
+}
+
+public struct SavedBoardState
+{
+    private List<DungeonEnemy> enemies;
+    private Vector2Int playerPos;
+
+    public SavedBoardState(List<DungeonEnemy> enemies, Vector2Int playerPos)
+    {
+        this.enemies = enemies;
+        this.playerPos = playerPos;
+    }
+
+    public List<DungeonEnemy> Enemies { get => enemies; set => enemies = value; }
+    public Vector2Int PlayerPos { get => playerPos; set => playerPos = value; }
 }

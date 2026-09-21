@@ -5,6 +5,15 @@ using UnityEngine;
 
 public class CombatManager : MonoBehaviour
 {
+    //TESTING
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            CombatVictory();
+        }
+    }
+
     private const float MOVEQUEUEDEFAULTDELAY = 1.0f;
 
     public Board_Controller board;
@@ -49,6 +58,7 @@ public class CombatManager : MonoBehaviour
 
     public void CombatSetup(Encounter _enc)
     {
+        board.MouseLock = true;
         energy = new Player_Energy();
         Transform enemyHolderPos = GameObject.FindGameObjectWithTag("EnemyHolder").transform;
 
@@ -89,7 +99,8 @@ public class CombatManager : MonoBehaviour
 
     public void CombatVictory()
     {
-
+        CombatCleanup();
+        GameManager.instance.transition.TransitionToNewRoom();
     }
 
     public void CombatCleanup()
@@ -97,6 +108,17 @@ public class CombatManager : MonoBehaviour
         energy = null;
         combatUI = null;
         board = null;
+        activeEnemies.Clear();
+        targetedEnemy = 0;
+        hoveredEnemy = 00;
+        selectedMoves.Clear();
+        moveQueue.Clear();
+        enemyMoveQueue.Clear();
+        moveQueueActive = false;
+        boardChanged = false;
+        deathAnimationLock = false;
+        moveCombo = 0;
+        highestMoveCombo = 0;
     }
 
     public void ProcessPlayerAttackDamage(int target, int potency)
@@ -149,11 +171,12 @@ public class CombatManager : MonoBehaviour
             {
                 TargetEnemy(nextEnemy, true);
             }
-            else
-            {
-                CombatVictory();
-            }
         }
+    }
+
+    private int LivingEnemyCount()
+    {
+        return activeEnemies.Where(e => e.enemyScript.IsAlive()).Count();
     }
 
     public void SelectMove(PC pc, MoveName move, int pos)
@@ -188,7 +211,7 @@ public class CombatManager : MonoBehaviour
     public void StartQueue()
     {
         moveQueueActive = true;
-        board.SetMouseLock(true);
+        board.MouseLock = true;
 
         queueRunner = StartCoroutine(RunQueue());
     }
@@ -196,7 +219,7 @@ public class CombatManager : MonoBehaviour
     public IEnumerator StopQueue()
     {
         moveQueueActive = false;
-        board.SetMouseLock(false);
+        board.MouseLock = false;
         queueRunner = null;
 
         if (CheckForRevives())
@@ -226,7 +249,13 @@ public class CombatManager : MonoBehaviour
             {
                 yield return StartCoroutine(NextQueue());
                 yield return new WaitUntil(() => !this.deathAnimationLock);
-                if (boardChanged)
+
+                if (LivingEnemyCount() <= 0)
+                {
+                    yield return new WaitForSeconds(queueDelay);
+                    CombatVictory();
+                    yield break;
+                } else if (boardChanged)
                 {
                     yield return new WaitForSeconds(queueDelay);
                     queueRunner = null;
@@ -267,7 +296,7 @@ public class CombatManager : MonoBehaviour
     private void StartEnemyQueue()
     {
         moveQueueActive = true;
-        board.SetMouseLock(true);
+        board.MouseLock = true;
 
         StartCoroutine(RunEnemyQueue());
     }
@@ -275,12 +304,11 @@ public class CombatManager : MonoBehaviour
     private void StopEnemyQueue()
     {
         moveQueueActive = false;
-        board.SetMouseLock(false);
+        board.MouseLock = false;
     }
 
     private IEnumerator RunEnemyQueue()
     {
-        // TEST CODE
         if (enemyMoveQueue.Count > 0)
         {
             yield return new WaitForSeconds(1.0f);

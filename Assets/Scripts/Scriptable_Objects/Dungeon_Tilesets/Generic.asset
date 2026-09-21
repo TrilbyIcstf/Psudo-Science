@@ -18,21 +18,26 @@ MonoBehaviour:
   - {fileID: 2787619967430298613, guid: 852f897baf1ae1248afc4639034a6d4f, type: 3}
   whiteWallTiles:
   - {fileID: 3280989724754517766, guid: b6c5d7a52dbb1074c949f6b1ff9c30bf, type: 3}
+  - {fileID: 7556627897057410170, guid: 85a41b914b14e1848b85843dc4f0e975, type: 3}
   blackWallTiles:
   - {fileID: 2628768367070319677, guid: 3e19153a72c4d79428a468033e793a8b, type: 3}
+  - {fileID: 936764116428764518, guid: 95e566532315d7c40aefcd5819c1453c, type: 3}
   whiteDoorTiles: []
   blackDoorTiles: []
-  chessPieces:
+  emptyFloorTile: {fileID: 6826849867174056081, guid: 0911be665ca9d6542866a6947854efb5, type: 3}
+  blackChessPieces:
     keyValuePairs:
     - key: 0
-      value: {fileID: 1749374157690589891, guid: c962464fbd3e47e49980791f14612be0, type: 3}
+      value: {fileID: 6499197578323015342, guid: 2b483b4f5bc08064d9b617a6c9f4fee3, type: 3}
     - key: 1
       value: {fileID: 1249996722537591641, guid: 5948213c1fad03d4f851b5d316d3cfe9, type: 3}
-    - key: 2
-      value: {fileID: 698121836411348812, guid: 0d779c95adba1194db0f938a4a6a3339, type: 3}
     - key: 3
       value: {fileID: 58710317665407305, guid: a82e2142d3f9fb446b84b73cbce6b1cd, type: 3}
     - key: 4
       value: {fileID: 3166511139309157846, guid: 06df79f9580dd6044806754a0b964581, type: 3}
     - key: 5
       value: {fileID: 2977284409349619188, guid: d6b4fe78d8cf0324db86ec7c489c0cd6, type: 3}
+  whiteChessPieces:
+    keyValuePairs:
+    - key: 0
+      value: {fileID: 1749374157690589891, guid: c962464fbd3e47e49980791f14612be0, type: 3}
