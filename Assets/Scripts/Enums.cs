@@ -326,6 +326,7 @@ public enum EnemyMoveName
     // Pierce attacks
 
     // Fire spells
+    SparkBurst = 1301,
 
     // Frost spells
 

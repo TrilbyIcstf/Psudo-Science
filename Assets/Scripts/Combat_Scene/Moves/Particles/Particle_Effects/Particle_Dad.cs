@@ -116,6 +116,20 @@ public abstract class Particle_Dad : MonoBehaviour
         return age > lifeSpan;
     }
 
+    protected void ApplyVisualDamage(int target, Target type, BarChangeDetails barDetails)
+    {
+        if (type == Target.PC)
+        {
+            GameManager.instance.combat.combatUI.PlayerUI[target].HealthScript.RegisterChange(gameObject, barDetails);
+            GameManager.instance.combat.combatUI.PlayerUI[target].HealthScript.ApplyChange(gameObject);
+        }
+        else if (type == Target.ENEMY)
+        {
+            GameManager.instance.combat.GetEnemy(target).RegisterDisplayDamage(gameObject, barDetails);
+            GameManager.instance.combat.GetEnemy(target).ApplyDisplayDamage(gameObject);
+        }
+    }
+
     // Abstract method to be called every frame. Should handle movement logic.
     protected abstract void ParticleUpdate();
     // Abstract method to determine if the particle has hit its End Of Life and should expire.

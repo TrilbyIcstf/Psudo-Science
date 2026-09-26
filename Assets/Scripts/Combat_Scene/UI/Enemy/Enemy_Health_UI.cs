@@ -93,7 +93,7 @@ public class Enemy_Health_UI : Fill_Bar
         GetComponent<RectTransform>().anchoredPosition = new Vector3(0, baseHeight + height, 0);
     }
 
-    protected override void DisplayChange(BarChangeDetails details)
+    protected override void DisplayChangeNumber(BarChangeDetails details)
     {
         int amount = details.Amount;
         if (!details.IsIncrease)

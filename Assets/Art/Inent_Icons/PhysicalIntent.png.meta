@@ -1,19 +1,10 @@
 fileFormatVersion: 2
-guid: d31e4456d17336840969748ddde2f167
+guid: c94591822154d8143928b8b5001cfe8b
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -4758829821790220371
-    second: PsuedolingVenessa_0
-  - first:
-      213: -6872363043729264704
-    second: PsuedolingVenessa_1
-  - first:
-      213: -8523175023269060013
-    second: PsuedolingVenessa_2
-  - first:
-      213: -6374212800533371585
-    second: PsuedolingVenessa_3
+      213: -8100141803935670484
+    second: PhysicalIntent_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -84,7 +75,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -109,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: PsuedolingVenessa_0
+      name: PhysicalIntent_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 7
-        height: 7
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -124,74 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: daf88ad8d7d35fdb0800000000000000
-      internalID: -4758829821790220371
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: PsuedolingVenessa_1
-      rect:
-        serializedVersion: 2
-        x: 7
-        y: 0
-        width: 7
-        height: 7
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 0cfaefa193670a0a0800000000000000
-      internalID: -6872363043729264704
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: PsuedolingVenessa_2
-      rect:
-        serializedVersion: 2
-        x: 14
-        y: 0
-        width: 7
-        height: 7
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 352e09b597997b980800000000000000
-      internalID: -8523175023269060013
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: PsuedolingVenessa_3
-      rect:
-        serializedVersion: 2
-        x: 21
-        y: 0
-        width: 7
-        height: 7
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: f35e57dda3f3a87a0800000000000000
-      internalID: -6374212800533371585
+      spriteID: c2f5f1a12f3869f80800000000000000
+      internalID: -8100141803935670484
       vertices: []
       indices: 
       edges: []
@@ -210,10 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      PsuedolingVenessa_0: -4758829821790220371
-      PsuedolingVenessa_1: -6872363043729264704
-      PsuedolingVenessa_2: -8523175023269060013
-      PsuedolingVenessa_3: -6374212800533371585
+      PhysicalIntent_0: -8100141803935670484
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

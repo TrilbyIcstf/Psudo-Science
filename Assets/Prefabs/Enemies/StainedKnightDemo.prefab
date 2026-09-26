@@ -108,6 +108,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 57.5
       objectReference: {fileID: 0}
+    - target: {fileID: 2351989392176726906, guid: 775d41d5bbaf8b0409f884abb9328d7f, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 130.6
+      objectReference: {fileID: 0}
     - target: {fileID: 2427537215997513041, guid: 775d41d5bbaf8b0409f884abb9328d7f, type: 3}
       propertyPath: m_Name
       value: StainedKnightDemo

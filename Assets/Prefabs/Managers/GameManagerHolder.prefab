@@ -83,6 +83,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d918a811838ed6c40953148b278b090d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DungeonManager
+  dungeonLayout: {fileID: 0}
 --- !u!114 &3701883663012883544
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -166,6 +167,8 @@ MonoBehaviour:
     keyValuePairs:
     - key: 1001
       value: {fileID: 1622749835243280326, guid: f6bab8ca86b39f1449e337b4183c1ad4, type: 3}
+    - key: 1301
+      value: {fileID: 5995215804487891113, guid: 783fdcc9167c65d4b8eeea74b9142730, type: 3}
   enemyRepository:
     keyValuePairs:
     - key: 1003
@@ -204,3 +207,9 @@ MonoBehaviour:
       value: {fileID: -3049464509396245856, guid: 037426ca55f929742a994cbeb6a06ec7, type: 3}
     - key: 2003
       value: {fileID: 5602940492315421531, guid: 93beea00a7f9ecc4693d460f9c739cfd, type: 3}
+  intentIcons:
+    keyValuePairs:
+    - key: 1
+      value: {fileID: -8100141803935670484, guid: c94591822154d8143928b8b5001cfe8b, type: 3}
+    - key: 2
+      value: {fileID: 2430324999215231438, guid: fb5c1d3e999d3da40a304a60ee3afd81, type: 3}

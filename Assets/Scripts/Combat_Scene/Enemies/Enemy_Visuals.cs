@@ -62,11 +62,6 @@ public class Enemy_Visuals : MonoBehaviour
         SetTurnNumberHeight(enemyBase.HealthBarHeight);
     }
 
-    public void SetBehavior(Behavior_Dad behavior)
-    {
-        turnNumber.SetTurnNumber(behavior.BaseSpeed);
-    }
-
     public void PlayAnimation(CombatAnimation ea)
     {
         animController.PlayAnimation(ea);
@@ -135,6 +130,11 @@ public class Enemy_Visuals : MonoBehaviour
     public void SetTurnNumber(int val)
     {
         turnNumber.SetTurnNumber(val);
+    }
+
+    public void SetIntent(MoveType val)
+    {
+        turnNumber.SetIntent(val);
     }
 
     public void SetHealthBarHeight(float height)

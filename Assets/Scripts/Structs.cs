@@ -35,6 +35,33 @@ public struct QueuedEnemyMove
     }
 }
 
+public struct EnemyMoveIntent
+{
+    private EnemyMoveName move;
+
+    private MoveType type;
+
+    private TargetingType targetingType;
+    private int targets;
+
+    private float potency;
+
+    public EnemyMoveIntent(EnemyMoveName move, MoveType type, TargetingType targetingType, int targets, float potency)
+    {
+        this.move = move;
+        this.type = type;
+        this.targetingType = targetingType;
+        this.targets = targets;
+        this.potency = potency;
+    }
+
+    public EnemyMoveName Move { get => move; set => move = value; }
+    public MoveType Type { get => type; set => type = value; }
+    public TargetingType TargetingType { get => targetingType; set => targetingType = value; }
+    public int Targets { get => targets; set => targets = value; }
+    public float Potency { get => potency; set => potency = value; }
+}
+
 public struct MoveResult
 {
     private float potency;
@@ -92,6 +119,7 @@ public struct BarChangeDetails
     public int Amount { get => amount; }
     public Effectiveness Effectiveness { get => effectiveness; }
     public bool IsIncrease { get => isIncrease; }
+    public int SignedAmount { get => Mathf.Abs(amount) * (isIncrease ? 1 : -1); }
 }
 
 public struct DungeonTile

@@ -1,24 +1,28 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class Enemy_Turn_UI : MonoBehaviour
 {
-    private const float baseHeight = 90;
+    [SerializeField]
+    private Image intentImage;
+
+    private const float baseHeight = 110;
 
     private int turnNumber = 0;
 
+    [SerializeField]
     private TextMeshProUGUI turnText;
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Awake()
-    {
-        turnText = GetComponent<TextMeshProUGUI>();
-    }
 
     public void SetTurnNumber(int val)
     {
         turnNumber = val;
         turnText.text = turnNumber.ToString();
+    }
+
+    public void SetIntent(MoveType type)
+    {
+        intentImage.sprite = GameManager.instance.ll.intentIcons.GetValue(type);
     }
 
     public void SetHeight(float height)

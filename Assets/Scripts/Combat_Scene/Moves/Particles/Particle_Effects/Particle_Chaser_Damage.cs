@@ -23,7 +23,7 @@ public class Particle_Chaser_Damage : Particle_Chaser
             angle += 360;
         }
         father.SendAnimation(new AnimDetails(CombatAnimation.ColorFlash, Target.ENEMY, target, null, damageColor));
-        //father.SendTempDamage(damage, target);
+        
         father.ApplyTempDamage(gameObject, target);
         if (onDestroyParticleSystem != null)
         {

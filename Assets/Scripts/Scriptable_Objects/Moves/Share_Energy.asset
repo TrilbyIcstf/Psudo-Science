@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Move_Information
   moveName: Share Energy
   moveEnum: 2001
-  type: 5
+  type: 6
   element: 0
   potency: 0
   manaCost: 30

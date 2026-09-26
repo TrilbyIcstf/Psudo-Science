@@ -59,15 +59,7 @@ public class Particle_Animation : Particle_Dad
             }
 
             BarChangeDetails barDetails = new BarChangeDetails(totalDamage, moveResult.Effectiveness, false);
-            if (type == Target.PC)
-            {
-                GameManager.instance.combat.combatUI.PlayerUI[moveResult.TargetNum].HealthScript.RegisterChange(gameObject, barDetails);
-                GameManager.instance.combat.combatUI.PlayerUI[moveResult.TargetNum].HealthScript.ApplyChange(gameObject);
-            } else if (type == Target.ENEMY)
-            {
-                GameManager.instance.combat.GetEnemy(moveResult.TargetNum).RegisterDisplayDamage(gameObject, barDetails);
-                GameManager.instance.combat.GetEnemy(moveResult.TargetNum).ApplyDisplayDamage(gameObject);
-            }
+            ApplyVisualDamage(moveResult.TargetNum, type, barDetails);
         }
 
         List<float> passAnimationTimes = animationTimes.Keys.Where(n => n <= age).ToList();

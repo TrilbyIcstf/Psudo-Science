@@ -103,6 +103,11 @@ public static class Combat_UI_Commands
         {
             GameManager.instance.combat.combatUI.PlayerUI[player.Position].HealthScript.RefreshBarFromSource();
         }
+
+        foreach (Combat_Enemy enemy in GameManager.instance.combat.GetEnemies())
+        {
+            enemy.RefreshHealthFromSource();
+        }
     }
 
     public static void UpdateStatusIcons()

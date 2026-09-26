@@ -288,6 +288,7 @@ public class CombatManager : MonoBehaviour
         yield return new WaitUntil(() => move.IsMoveFinished());
         move.EndMove((int)queuedMove.user);
         move.ApplyMove(user, results, move.MoveInfo);
+        Combat_UI_Commands.RefreshHealthBars();
 
         queueDelay = move.DelayOverride ?? MOVEQUEUEDEFAULTDELAY;
         Destroy(controller);
@@ -333,6 +334,7 @@ public class CombatManager : MonoBehaviour
                 yield return new WaitUntil(() => !this.deathAnimationLock);
 
                 activeEnemies[user].enemyVisuals.SetTurnNumber(activeEnemies[user].speed);
+                activeEnemies[user].enemyVisuals.SetIntent(activeEnemies[user].enemyBehavior.IntentType);
 
                 if (enemyMoveQueue.Count > 0)
                 {
@@ -637,7 +639,10 @@ public class CombatManager : MonoBehaviour
         {
             enemyScript.Setup(position, varient);
 
-            speed = enemyBehavior.BaseSpeed;
+            speed = enemyBehavior.GenerateBaseIntent();
+            enemyVisuals.SetTurnNumber(speed);
+            enemyVisuals.SetIntent(enemyBehavior.IntentType);
+
         }
     }
 }

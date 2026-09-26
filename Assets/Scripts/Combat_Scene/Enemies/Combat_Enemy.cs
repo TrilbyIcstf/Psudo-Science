@@ -30,7 +30,6 @@ public class Combat_Enemy : MonoBehaviour
         behavior.SetVarient(varient);
         visuals = GetComponent<Enemy_Visuals>();
         visuals.Startup(enemyBase, position);
-        visuals.SetBehavior(behavior);
         visuals.StatusIcons.SetStatusList(stats.StatusEffects);
     }
 
@@ -67,6 +66,11 @@ public class Combat_Enemy : MonoBehaviour
     public void UpdateStatusList()
     {
         visuals.StatusIcons.SetStatusList(stats.StatusEffects);
+    }
+
+    public void RefreshHealthFromSource()
+    {
+        visuals.HealthBar.RefreshBarFromSource();
     }
 
     public bool ShouldDie()

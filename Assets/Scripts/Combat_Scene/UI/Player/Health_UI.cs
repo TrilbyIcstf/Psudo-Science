@@ -17,7 +17,7 @@ public class Health_UI : Fill_Bar
         RefreshBarFromSource();
     }
 
-    protected override void DisplayChange(BarChangeDetails details)
+    protected override void DisplayChangeNumber(BarChangeDetails details)
     {
         int amount = details.Amount;
         if (!details.IsIncrease)

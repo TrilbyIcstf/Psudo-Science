@@ -24,4 +24,4 @@ MonoBehaviour:
   strength: 06000000
   enemySprite: {fileID: 21300000, guid: 5572c4dd663d395469ee2315f7330140, type: 3}
   spriteSize: {x: 125, y: 201}
-  healthBarHeight: 40
+  healthBarHeight: 30

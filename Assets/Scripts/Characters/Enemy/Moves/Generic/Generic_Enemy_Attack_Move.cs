@@ -20,9 +20,17 @@ public abstract class Generic_Enemy_Attack_Move : Enemy_Move
         Player_Information pi = GameManager.instance.party.GetPlayer(target);
         List<Element> weakness = pi.Weakness;
         List<Element> strength = pi.Strength;
-        Effectiveness effectiveness = Effectiveness.NEUTRAL;
+        Effectiveness effectiveness = GetElement().Evaluate(weakness, strength);
 
-        float result = BasicDamageCalc(adjustedPotency, ei.Power, pi.Defense, effectiveness);
+        float result = 0;
+        if (GetMoveType() == MoveType.PHYSICAL)
+        {
+            result = BasicDamageCalc(adjustedPotency, ei.Power, pi.Defense, effectiveness);
+        }
+        else if (GetMoveType() == MoveType.MAGICAL)
+        {
+            result = BasicDamageCalc(adjustedPotency, ei.Intelligence, pi.Resistance, effectiveness);
+        }
 
         return new MoveResult(result, Target.PC, target, effectiveness);
     }

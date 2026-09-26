@@ -8,8 +8,9 @@ public abstract class Behavior_Dad : MonoBehaviour
     protected int varient = 0;
 
     protected int step = 0;
+    protected EnemyMoveIntent intent;
 
-    public int BaseSpeed { get => GetBaseSpeed(); }
+    public MoveType IntentType { get => intent.Type; }
 
     /// <summary>
     /// Creates a move for the enemy to use upon its cooldown reaching 0
@@ -24,6 +25,7 @@ public abstract class Behavior_Dad : MonoBehaviour
     public abstract (GameObject, TargetingType, int, int, float) MakeMove();
 
     protected abstract int GetBaseSpeed();
+    public abstract int GenerateBaseIntent();
 
     public virtual List<int> CustomTargeting()
     {

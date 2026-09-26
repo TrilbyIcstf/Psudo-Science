@@ -38,17 +38,11 @@ public abstract class Fill_Bar : MonoBehaviour
         if (incomingChanges.ContainsKey(messenger))
         {
             BarChangeDetails details = incomingChanges[messenger];
-            int amount = details.Amount;
             incomingChanges.Remove(messenger);
 
-            AddToBar(amount);
+            AddToBar(details.SignedAmount);
 
-            DisplayChange(details);
-
-            if (incomingChanges.Count == 0)
-            {
-                RefreshBarFromSource();
-            }
+            DisplayChangeNumber(details);
         }
         else
         {
@@ -90,6 +84,6 @@ public abstract class Fill_Bar : MonoBehaviour
         return Mathf.Clamp(progress / max, 0, 1);
     }
 
-    protected virtual void DisplayChange(BarChangeDetails details) { }
+    protected virtual void DisplayChangeNumber(BarChangeDetails details) { }
     public abstract void RefreshBarFromSource();
 }

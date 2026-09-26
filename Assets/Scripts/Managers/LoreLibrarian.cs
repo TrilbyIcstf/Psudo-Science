@@ -14,6 +14,7 @@ public class LoreLibrarian : MonoBehaviour
     [Header("Sprites")]
     public TileSpriteDictionary tileSprites;
     public StatusIconDictionary statusIcons;
+    public MoveTypeIconDictionary intentIcons;
 }
 
 public class GenericDictionary<K, V>

@@ -70,7 +70,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -11.981}
+  m_AnchoredPosition: {x: 0, y: 12}
   m_SizeDelta: {x: 23, y: 18.7381}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &171438351987752002
@@ -122,6 +122,7 @@ GameObject:
   - component: {fileID: 2351989392176726906}
   - component: {fileID: 1785265299358812243}
   - component: {fileID: 112276241171956861}
+  - component: {fileID: 4864707668646267721}
   m_Layer: 0
   m_Name: IntentIndicator
   m_TagString: Untagged
@@ -138,7 +139,7 @@ RectTransform:
   m_GameObject: {fileID: 1315288159185207264}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4603351011220905187}
@@ -188,6 +189,20 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &4864707668646267721
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1315288159185207264}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f36979a381715e64eae222224105dd8a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Enemy_Turn_UI
+  intentImage: {fileID: 4159047632208034966}
+  turnText: {fileID: 8649786039007215370}
 --- !u!1 &1327939593062253735
 GameObject:
   m_ObjectHideFlags: 0
@@ -386,7 +401,7 @@ MonoBehaviour:
   spriteObject: {fileID: 8239299552922415537}
   animController: {fileID: 7923924682464282098}
   healthBar: {fileID: 9184083101385836505}
-  turnNumber: {fileID: 5190842310298155042}
+  turnNumber: {fileID: 4864707668646267721}
   statusIcons: {fileID: 1786730168506583742}
   center: {fileID: 7800765217216172514}
   head: {fileID: 1917830263758842182}
@@ -895,7 +910,6 @@ GameObject:
   - component: {fileID: 1036370027951401579}
   - component: {fileID: 9104020595011661091}
   - component: {fileID: 8649786039007215370}
-  - component: {fileID: 5190842310298155042}
   m_Layer: 0
   m_Name: TurnNumber
   m_TagString: Untagged
@@ -1021,18 +1035,6 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &5190842310298155042
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7937427533963125405}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f36979a381715e64eae222224105dd8a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Enemy_Turn_UI
 --- !u!1 &8239299552922415537
 GameObject:
   m_ObjectHideFlags: 0
@@ -1156,7 +1158,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0.00021553}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 18, y: 18}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7121075877069611543
@@ -1232,7 +1234,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 9.81}
+  m_AnchoredPosition: {x: 0, y: -9.85}
   m_SizeDelta: {x: 23, y: 23}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4257958650878591178
